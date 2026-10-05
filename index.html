@@ -147,243 +147,208 @@
     </section>
 
 
-    <!-- ================= SELECTED WORK ================= -->
+    <!-- ================= INTERACTIVE PROJECT VIEWER ================= -->
 
-    <section class="projects" id="work">
+<section class="projects project-explorer" id="work">
 
-      <div class="container">
+  <div class="container">
 
-        <div class="section-label">
-          Selected Work
-        </div>
+    <div class="section-label">Selected Work</div>
 
-        <h2 class="section-title">
-          REAL BUILDS.<br>
-          REAL SYSTEMS.
-        </h2>
+    <h2 class="section-title">
+      REAL BUILDS.<br>
+      REAL SYSTEMS.
+    </h2>
 
-        <p class="section-copy">
-          Different brands. Different audiences. Different visual
-          directions. Each project combines the customer-facing
-          experience with the technical system behind it.
-        </p>
+    <p class="section-copy">
+      Explore complete funnel builds. Choose a project, select a page,
+      then scroll through the actual full-page design inside the viewer.
+    </p>
 
 
-        <!-- ================= FIRST CIRCLE ================= -->
+    <div class="portfolio-viewer">
 
-        <article class="project first-circle">
+      <!-- FULL PAGE SCREENSHOT -->
+      <div class="viewer-scroll" id="viewerScroll">
 
-          <div class="project-header">
-
-            <div>
-              <div class="project-number">
-                PROJECT 01
-              </div>
-
-              <h3 class="project-title">
-                First Circle
-              </h3>
-            </div>
-
-            <div>
-
-              <p class="project-description">
-                A complete program sales experience built for
-                Donna Zerger's First Circle — moving visitors from
-                the sales page through checkout and into a polished
-                post-purchase experience.
-              </p>
-
-              <div class="project-tags">
-                <span>GOHIGHLEVEL</span>
-                <span>SALES FUNNEL</span>
-                <span>CHECKOUT</span>
-                <span>CUSTOM CSS</span>
-                <span>RESPONSIVE</span>
-              </div>
-
-            </div>
-
-          </div>
-
-
-          <div class="project-showcase">
-
-            <div class="project-stage">
-
-              <div class="project-screen sales">
-                <img
-                  src="assets/first-circle-sales.png"
-                  alt="First Circle sales page"
-                >
-              </div>
-
-              <div class="project-screen checkout">
-                <img
-                  src="assets/first-circle-checkout.png"
-                  alt="First Circle checkout"
-                >
-              </div>
-
-              <div class="project-screen thankyou">
-                <img
-                  src="assets/first-circle-thank-you.png"
-                  alt="First Circle thank you page"
-                >
-              </div>
-
-            </div>
-
-          </div>
-
-        </article>
-
-
-        <!-- ================= CBA LIVE ================= -->
-
-        <article class="project cba-live">
-
-          <div class="project-header">
-
-            <div>
-
-              <div class="project-number">
-                PROJECT 02
-              </div>
-
-              <h3 class="project-title">
-                CBA Live
-              </h3>
-
-            </div>
-
-            <div>
-
-              <p class="project-description">
-                Event sales funnel built around the CBA Live
-                experience, including the sales page, ticket
-                checkout, order flow and post-purchase journey.
-              </p>
-
-              <div class="project-tags">
-                <span>GOHIGHLEVEL</span>
-                <span>EVENT FUNNEL</span>
-                <span>CHECKOUT</span>
-                <span>ORDER BUMP</span>
-                <span>WORKFLOWS</span>
-              </div>
-
-            </div>
-
-          </div>
-
-
-          <div class="project-showcase">
-
-            <div class="project-stage">
-
-              <div class="project-screen sales">
-                <img
-                  src="assets/cba-live-sales.png"
-                  alt="CBA Live sales page"
-                >
-              </div>
-
-              <div class="project-screen checkout">
-                <img
-                  src="assets/cba-live-checkout.png"
-                  alt="CBA Live checkout page"
-                >
-              </div>
-
-              <div class="project-screen thankyou">
-                <img
-                  src="assets/cba-live-thank-you.png"
-                  alt="CBA Live thank you page"
-                >
-              </div>
-
-            </div>
-
-          </div>
-
-        </article>
-
-
-        <!-- ================= CBA BOOK ================= -->
-
-        <article class="project cba-book">
-
-          <div class="project-header">
-
-            <div>
-
-              <div class="project-number">
-                PROJECT 03
-              </div>
-
-              <h3 class="project-title">
-                CBA Book Funnel
-              </h3>
-
-            </div>
-
-            <div>
-
-              <p class="project-description">
-                A book funnel experience designed to move visitors
-                from the initial offer through checkout and into the
-                next stage of the customer journey.
-              </p>
-
-              <div class="project-tags">
-                <span>GOHIGHLEVEL</span>
-                <span>OPT-IN</span>
-                <span>CHECKOUT</span>
-                <span>FUNNEL BUILD</span>
-                <span>AUTOMATION</span>
-              </div>
-
-            </div>
-
-          </div>
-
-
-          <div class="project-showcase">
-
-            <div class="project-stage">
-
-              <div class="project-screen sales">
-                <img
-                  src="assets/cba-book-optin.png"
-                  alt="CBA Book funnel opt-in page"
-                >
-              </div>
-
-              <div class="project-screen checkout">
-                <img
-                  src="assets/cba-book-checkout.png"
-                  alt="CBA Book funnel checkout"
-                >
-              </div>
-
-              <div class="project-screen thankyou">
-                <img
-                  src="assets/cba-book-thank-you.png"
-                  alt="CBA Book funnel thank you page"
-                >
-              </div>
-
-            </div>
-
-          </div>
-
-        </article>
+        <img
+          id="viewerImage"
+          src="assets/first-circle-sales.png"
+          alt="First Circle sales page"
+        >
 
       </div>
 
-    </section>
 
+      <!-- DARK OVERLAY -->
+      <div class="viewer-shade"></div>
+
+
+      <!-- STATIC PROJECT INFORMATION -->
+      <div class="viewer-info">
+
+        <div class="viewer-project-number" id="viewerNumber">
+          PROJECT 01
+        </div>
+
+        <h3 id="viewerTitle">
+          First Circle
+        </h3>
+
+        <p id="viewerDescription">
+          A complete program sales experience built for Donna Zerger's
+          First Circle, from the sales page through checkout and into
+          the post-purchase experience.
+        </p>
+
+
+        <div class="viewer-tags" id="viewerTags">
+
+          <span>GOHIGHLEVEL</span>
+          <span>SALES FUNNEL</span>
+          <span>CHECKOUT</span>
+          <span>CUSTOM CSS</span>
+
+        </div>
+
+
+        <!-- PAGE SWITCHER -->
+
+        <div class="page-switcher">
+
+          <button
+            class="page-button active"
+            data-page="sales"
+            type="button"
+          >
+            SALES PAGE
+          </button>
+
+          <button
+            class="page-button"
+            data-page="checkout"
+            type="button"
+          >
+            CHECKOUT
+          </button>
+
+          <button
+            class="page-button"
+            data-page="thankyou"
+            type="button"
+          >
+            THANK YOU
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- PROJECT CARDS -->
+
+      <div class="project-rail-wrap">
+
+        <div class="project-rail" id="projectRail">
+
+
+          <!-- FIRST CIRCLE -->
+
+          <button
+            class="explorer-card active"
+            data-project="first-circle"
+            type="button"
+          >
+
+            <img
+              src="assets/first-circle-sales.png"
+              alt="First Circle"
+            >
+
+            <div class="explorer-card-overlay">
+
+              <small>PROJECT 01</small>
+
+              <strong>
+                First Circle
+              </strong>
+
+            </div>
+
+          </button>
+
+
+          <!-- CBA LIVE -->
+
+          <button
+            class="explorer-card"
+            data-project="cba-live"
+            type="button"
+          >
+
+            <img
+              src="assets/cba-live-sales.png"
+              alt="CBA Live"
+            >
+
+            <div class="explorer-card-overlay">
+
+              <small>PROJECT 02</small>
+
+              <strong>
+                CBA Live
+              </strong>
+
+            </div>
+
+          </button>
+
+
+          <!-- CBA BOOK FUNNEL -->
+
+          <button
+            class="explorer-card"
+            data-project="cba-book"
+            type="button"
+          >
+
+            <img
+              src="assets/cba-book-optin.png"
+              alt="CBA Book Funnel"
+            >
+
+            <div class="explorer-card-overlay">
+
+              <small>PROJECT 03</small>
+
+              <strong>
+                CBA Book Funnel
+              </strong>
+
+            </div>
+
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- SCROLL INDICATOR -->
+
+      <div class="viewer-scroll-indicator">
+
+        <span></span>
+
+        SCROLL PAGE
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
 
     <!-- ================= UNDER THE HOOD ================= -->
 
