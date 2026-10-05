@@ -1341,3 +1341,594 @@ footer {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* =========================================================
+   INTERACTIVE PROJECT VIEWER
+   ========================================================= */
+
+.project-explorer {
+  padding: 110px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.project-explorer .section-copy {
+  max-width: 680px;
+  margin-bottom: 42px;
+}
+
+
+/* MAIN IMAGINARY SCREEN */
+
+.portfolio-viewer {
+  position: relative;
+  width: 100%;
+  height: 82vh;
+  min-height: 650px;
+  max-height: 900px;
+
+  overflow: hidden;
+
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 22px;
+
+  background: #05090d;
+
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.45),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.025);
+
+  isolation: isolate;
+}
+
+
+/* =========================================================
+   SCROLLING FULL PAGE SCREENSHOT
+   ========================================================= */
+
+.viewer-scroll {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  overscroll-behavior-y: contain;
+  scroll-behavior: smooth;
+
+  z-index: 1;
+
+  scrollbar-width: thin;
+  scrollbar-color: rgba(39, 229, 218, 0.65) rgba(0, 0, 0, 0.25);
+}
+
+.viewer-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.viewer-scroll::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.viewer-scroll::-webkit-scrollbar-thumb {
+  background: rgba(39, 229, 218, 0.65);
+  border-radius: 20px;
+}
+
+.viewer-scroll img {
+  display: block;
+
+  width: 100%;
+  height: auto;
+
+  margin: 0;
+  padding: 0;
+}
+
+
+/* =========================================================
+   GRADIENT OVERLAY
+   ========================================================= */
+
+.viewer-shade {
+  position: absolute;
+  inset: 0;
+
+  z-index: 2;
+
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(3, 8, 12, 0.96) 0%,
+      rgba(3, 8, 12, 0.88) 24%,
+      rgba(3, 8, 12, 0.48) 45%,
+      rgba(3, 8, 12, 0.08) 70%,
+      rgba(3, 8, 12, 0.12) 100%
+    ),
+    linear-gradient(
+      0deg,
+      rgba(3, 8, 12, 0.92) 0%,
+      transparent 40%
+    );
+}
+
+
+/* =========================================================
+   STATIC PROJECT INFORMATION
+   ========================================================= */
+
+.viewer-info {
+  position: absolute;
+
+  left: 52px;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  z-index: 5;
+
+  width: min(390px, 34%);
+
+  pointer-events: none;
+}
+
+.viewer-project-number {
+  color: #2ee6da;
+
+  font-size: 12px;
+  font-weight: 800;
+
+  letter-spacing: 0.16em;
+
+  margin-bottom: 13px;
+}
+
+.viewer-info h3 {
+  margin: 0 0 18px;
+
+  color: #ffffff;
+
+  font-size: clamp(38px, 4vw, 65px);
+  line-height: 0.95;
+
+  letter-spacing: -0.04em;
+}
+
+.viewer-info p {
+  margin: 0;
+
+  max-width: 370px;
+
+  color: rgba(255, 255, 255, 0.72);
+
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+
+/* TAGS */
+
+.viewer-tags {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 7px;
+
+  margin-top: 22px;
+}
+
+.viewer-tags span {
+  padding: 7px 10px;
+
+  border: 1px solid rgba(46, 230, 218, 0.35);
+  border-radius: 4px;
+
+  background: rgba(3, 12, 16, 0.68);
+
+  color: #9dfaf4;
+
+  font-size: 9px;
+  font-weight: 800;
+
+  letter-spacing: 0.09em;
+}
+
+
+/* =========================================================
+   SALES / CHECKOUT / THANK YOU
+   ========================================================= */
+
+.page-switcher {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 7px;
+
+  margin-top: 25px;
+
+  pointer-events: auto;
+}
+
+.page-button {
+  appearance: none;
+
+  padding: 10px 13px;
+
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+
+  background: rgba(5, 10, 14, 0.75);
+
+  color: rgba(255, 255, 255, 0.65);
+
+  font-family: inherit;
+
+  font-size: 9px;
+  font-weight: 800;
+
+  letter-spacing: 0.08em;
+
+  cursor: pointer;
+
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.page-button:hover {
+  transform: translateY(-2px);
+
+  border-color: #2ee6da;
+
+  color: #ffffff;
+}
+
+.page-button.active {
+  background: #2ee6da;
+
+  border-color: #2ee6da;
+
+  color: #031013;
+}
+
+
+/* =========================================================
+   PROJECT CARD RAIL
+   ========================================================= */
+
+.project-rail-wrap {
+  position: absolute;
+
+  right: 30px;
+  bottom: 35px;
+
+  z-index: 6;
+
+  width: min(690px, 57%);
+
+  overflow: hidden;
+}
+
+.project-rail {
+  display: flex;
+
+  gap: 14px;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  padding: 8px 3px 12px;
+
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+
+  scrollbar-width: none;
+}
+
+.project-rail::-webkit-scrollbar {
+  display: none;
+}
+
+
+/* PROJECT CARD */
+
+.explorer-card {
+  position: relative;
+
+  flex: 0 0 205px;
+
+  height: 145px;
+
+  padding: 0;
+
+  overflow: hidden;
+
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 10px;
+
+  background: #081014;
+
+  cursor: pointer;
+
+  scroll-snap-align: start;
+
+  opacity: 0.72;
+
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.explorer-card:hover {
+  opacity: 1;
+
+  transform: translateY(-5px);
+
+  border-color: rgba(46, 230, 218, 0.7);
+}
+
+.explorer-card.active {
+  opacity: 1;
+
+  transform: translateY(-5px);
+
+  border-color: #2ee6da;
+
+  box-shadow:
+    0 0 0 1px rgba(46, 230, 218, 0.18),
+    0 14px 35px rgba(0, 0, 0, 0.4);
+}
+
+.explorer-card img {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: top;
+
+  transition: transform 0.5s ease;
+}
+
+.explorer-card:hover img {
+  transform: scale(1.05);
+}
+
+.explorer-card-overlay {
+  position: absolute;
+
+  inset: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+
+  padding: 15px;
+
+  text-align: left;
+
+  background:
+    linear-gradient(
+      0deg,
+      rgba(2, 7, 10, 0.96) 0%,
+      rgba(2, 7, 10, 0.42) 58%,
+      transparent 100%
+    );
+}
+
+.explorer-card-overlay small {
+  margin-bottom: 4px;
+
+  color: #2ee6da;
+
+  font-size: 8px;
+  font-weight: 800;
+
+  letter-spacing: 0.12em;
+}
+
+.explorer-card-overlay strong {
+  color: #ffffff;
+
+  font-size: 16px;
+  line-height: 1.1;
+}
+
+
+/* =========================================================
+   SCROLL INDICATOR
+   ========================================================= */
+
+.viewer-scroll-indicator {
+  position: absolute;
+
+  right: 31px;
+  top: 27px;
+
+  z-index: 6;
+
+  display: flex;
+  align-items: center;
+
+  gap: 9px;
+
+  color: rgba(255, 255, 255, 0.65);
+
+  font-size: 9px;
+  font-weight: 800;
+
+  letter-spacing: 0.13em;
+
+  pointer-events: none;
+}
+
+.viewer-scroll-indicator span {
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+
+  background: #2ee6da;
+
+  box-shadow: 0 0 12px rgba(46, 230, 218, 0.9);
+
+  animation: viewerPulse 1.6s infinite;
+}
+
+@keyframes viewerPulse {
+
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scale(0.8);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.25);
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+  .project-explorer {
+    padding: 80px 0;
+  }
+
+  .portfolio-viewer {
+    height: 78vh;
+    min-height: 620px;
+
+    border-radius: 14px;
+  }
+
+  .viewer-shade {
+    background:
+      linear-gradient(
+        0deg,
+        rgba(3, 8, 12, 0.97) 0%,
+        rgba(3, 8, 12, 0.82) 43%,
+        rgba(3, 8, 12, 0.1) 75%
+      );
+  }
+
+  .viewer-info {
+    left: 22px;
+    right: 22px;
+
+    top: auto;
+    bottom: 205px;
+
+    width: auto;
+
+    transform: none;
+  }
+
+  .viewer-info h3 {
+    font-size: 38px;
+  }
+
+  .viewer-info p {
+    font-size: 13px;
+    line-height: 1.55;
+
+    max-width: 520px;
+  }
+
+  .viewer-tags {
+    margin-top: 13px;
+  }
+
+  .page-switcher {
+    margin-top: 14px;
+  }
+
+  .project-rail-wrap {
+    left: 18px;
+    right: 18px;
+    bottom: 18px;
+
+    width: auto;
+  }
+
+  .explorer-card {
+    flex-basis: 160px;
+
+    height: 112px;
+  }
+
+  .viewer-scroll-indicator {
+    top: 18px;
+    right: 18px;
+  }
+
+}
+
+
+@media (max-width: 520px) {
+
+  .portfolio-viewer {
+    height: 76vh;
+    min-height: 590px;
+  }
+
+  .viewer-info {
+    bottom: 175px;
+  }
+
+  .viewer-info h3 {
+    font-size: 32px;
+
+    margin-bottom: 10px;
+  }
+
+  .viewer-info p {
+    font-size: 12px;
+  }
+
+  .viewer-tags span {
+    font-size: 7px;
+
+    padding: 5px 7px;
+  }
+
+  .page-button {
+    font-size: 7px;
+
+    padding: 8px 9px;
+  }
+
+  .explorer-card {
+    flex-basis: 135px;
+
+    height: 95px;
+  }
+
+  .explorer-card-overlay {
+    padding: 10px;
+  }
+
+  .explorer-card-overlay strong {
+    font-size: 13px;
+  }
+
+}
