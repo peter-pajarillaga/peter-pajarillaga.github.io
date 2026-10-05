@@ -1332,3 +1332,12 @@ footer {
   }
 
 }
+/* =========================================
+   TEMPORARY REVEAL FIX
+   Keep content visible until script.js
+   ========================================= */
+
+.reveal {
+  opacity: 1;
+  transform: translateY(0);
+}
