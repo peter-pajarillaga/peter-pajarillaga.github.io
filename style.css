@@ -2345,3 +2345,114 @@ footer {
   transform: translateY(-2px);
 }
 
+
+/* FINAL BULKY BUTTON STYLING */
+
+/* Shared button styling */
+.site-nav .nav-cta,
+.site-nav .nav-links a,
+.hero-actions .button-primary,
+.hero-actions .button-secondary {
+  padding: 16px 30px;
+  min-height: 56px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 900;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  filter: none !important;
+
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease;
+}
+
+/* Navigation default */
+.site-nav .nav-links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent !important;
+  color: #aab3bd !important;
+}
+
+/* Home active by default */
+.site-nav .nav-links a.active {
+  background: #42e8e0 !important;
+  color: #000000 !important;
+}
+
+/* Navigation hover */
+.site-nav .nav-links a:hover {
+  background: #42e8e0 !important;
+  color: #000000 !important;
+  transform: translateY(-2px);
+}
+
+/* Main cyan buttons */
+.site-nav .nav-cta,
+.hero-actions .button-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #42e8e0 !important;
+  color: #000000 !important;
+  border: 2px solid transparent;
+}
+
+/* Main cyan buttons hover */
+.site-nav .nav-cta:hover,
+.hero-actions .button-primary:hover {
+  background: #20bfb9 !important;
+  color: #000000 !important;
+  transform: translateY(-2px);
+}
+
+/* Secondary button default */
+.hero-actions .button-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+
+/* Secondary button hover */
+.hero-actions .button-secondary:hover {
+  background: #42e8e0 !important;
+  color: #000000 !important;
+  border-color: #42e8e0;
+  transform: translateY(-2px);
+}
+
+/* Remove shadows from hover and click states */
+.site-nav .nav-cta:hover,
+.site-nav .nav-cta:active,
+.site-nav .nav-links a:hover,
+.site-nav .nav-links a:active,
+.hero-actions .button-primary:hover,
+.hero-actions .button-primary:active,
+.hero-actions .button-secondary:hover,
+.hero-actions .button-secondary:active {
+  box-shadow: none !important;
+  text-shadow: none !important;
+  filter: none !important;
+}
+
+/* Mobile adjustments */
+@media (max-width: 700px) {
+  .site-nav .nav-cta {
+    padding: 12px 18px;
+    min-height: 46px;
+    font-size: 11px;
+  }
+
+  .hero-actions .button-primary,
+  .hero-actions .button-secondary {
+    padding: 14px 20px;
+    min-height: 50px;
+    font-size: 12px;
+  }
+}
