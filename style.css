@@ -1893,3 +1893,120 @@ section[id] { scroll-margin-top: 100px; }
 @media (prefers-reduced-motion: reduce) {
   .hero-system .browser-window, .hero-system .browser-top span { animation: none; }
 }
+
+/* RESTORE ORIGINAL FLOATING CARD LAYOUT */
+
+.hero-system {
+  position: relative;
+  height: 540px;
+  min-height: 540px;
+  overflow: visible;
+  isolation: isolate;
+}
+
+.hero-system .browser-window {
+  position: absolute;
+  overflow: hidden;
+}
+
+/* FIRST CIRCLE: TOP LEFT */
+.hero-system .hero-screen-third {
+  z-index: 3;
+  width: 57%;
+  height: 255px !important;
+  left: 4%;
+  top: 0%;
+  right: auto;
+  bottom: auto;
+  transform: rotate(-5deg);
+  opacity: 1;
+}
+
+/* CBA LIVE: FRONT LOWER */
+.hero-system .hero-screen-main {
+  z-index: 2;
+  width: 59%;
+  height: 310px !important;
+  left: 18%;
+  top: 40%;
+  right: auto;
+  bottom: auto;
+  transform: rotate(-3deg);
+  opacity: 1;
+}
+
+/* CBA BOOK: RIGHT */
+.hero-system .hero-screen-secondary {
+  z-index: 1;
+  width: 48%;
+  height: 265px !important;
+  left: 51%;
+  top: 24%;
+  right: auto;
+  bottom: auto;
+  transform: rotate(5deg);
+  opacity: 1;
+}
+
+@media (max-width: 700px) {
+  .hero-system {
+    height: 390px;
+    min-height: 390px;
+  }
+
+  .hero-system .hero-screen-third {
+    width: 58%;
+    height: 190px !important;
+    left: 1%;
+    top: 5%;
+  }
+
+  .hero-system .hero-screen-main {
+    width: 64%;
+    height: 230px !important;
+    left: 15%;
+    top: 34%;
+  }
+
+  .hero-system .hero-screen-secondary {
+    width: 50%;
+    height: 190px !important;
+    left: 49%;
+    top: 21%;
+  }
+}
+
+/* MATCH BOTH HERO BUTTONS */
+
+.hero-actions .button-primary,
+.hero-actions .button-secondary {
+  background: linear-gradient(
+    180deg,
+    #C5FFFA 0%,
+    #7AF7EE 15%,
+    #40E0D0 50%,
+    #16AAA7 100%
+  ) !important;
+
+  color: #000000 !important;
+
+  border: 1px solid rgba(255,255,255,0.65) !important;
+  border-bottom: 3px solid #087E7B !important;
+
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+.hero-actions .button-primary:hover,
+.hero-actions .button-secondary:hover {
+  background: linear-gradient(
+    180deg,
+    #E0FFFC 0%,
+    #A0FFF7 15%,
+    #55EEE5 50%,
+    #20B9B3 100%
+  ) !important;
+
+  border-bottom-color: #087E7B !important;
+  transform: translateY(-2px);
+}
