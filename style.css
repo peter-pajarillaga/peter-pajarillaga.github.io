@@ -1998,7 +1998,7 @@ footer {
 
 /* Browser cards */
 .hero-system .browser-window {
-  position: relative;
+  position: absolute;
   transform-style: preserve-3d;
 
   border: 1px solid rgba(49, 235, 220, 0.25);
