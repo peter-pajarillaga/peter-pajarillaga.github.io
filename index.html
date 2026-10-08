@@ -11,6 +11,7 @@
 
   <title>Peter Pajarillaga | Funnel Builder & Automation Specialist</title>
 
+  <meta name="theme-color" content="#071015">
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -129,7 +130,8 @@
 
 </div>
 
-
+      </div>
+    </section>
 
     <!-- ================= CAPABILITIES ================= -->
 
@@ -314,7 +316,7 @@
           >
 
             <img
-              src="assets/cba-book-optin.png"
+              src="assets/cba-book-sales.png"
               alt="CBA Book Funnel"
             >
 
@@ -585,7 +587,7 @@
 
           <a
             class="button-primary"
-            href="mailto:YOUR-EMAIL-HERE"
+            href="mailto:pppajarillaga@gmail.com"
           >
             LET'S TALK →
           </a>
@@ -690,6 +692,116 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   movePill(selected);
+});
+</script>
+
+<script>
+/* SELECTED WORK VIEWER */
+document.addEventListener("DOMContentLoaded", () => {
+  const viewerImage = document.getElementById("viewerImage");
+  const viewerScroll = document.getElementById("viewerScroll");
+  const viewerNumber = document.getElementById("viewerNumber");
+  const viewerTitle = document.getElementById("viewerTitle");
+  const viewerDescription = document.getElementById("viewerDescription");
+  const viewerTags = document.getElementById("viewerTags");
+  const projectButtons = [...document.querySelectorAll(".explorer-card")];
+  const pageButtons = [...document.querySelectorAll(".page-button")];
+
+  if (!viewerImage || !viewerScroll || !projectButtons.length) return;
+
+  const projects = {
+    "first-circle": {
+      number: "PROJECT 01",
+      title: "First Circle",
+      description: "A program sales experience built for Donna Zerger's First Circle, including the sales page, checkout and post-purchase journey.",
+      tags: ["GOHIGHLEVEL", "SALES FUNNEL", "CHECKOUT", "CUSTOM CSS"],
+      pages: {
+        sales: "assets/first-circle-sales.png",
+        checkout: "assets/first-circle-checkout.png",
+        thankyou: "assets/first-circle-thank-you.png"
+      }
+    },
+    "cba-live": {
+      number: "PROJECT 02",
+      title: "CBA Live",
+      description: "A live-event funnel featuring event information, ticket options, checkout and post-purchase pages.",
+      tags: ["CLICKFUNNELS", "EVENT FUNNEL", "CHECKOUT", "CUSTOM CSS"],
+      pages: {
+        sales: "assets/cba-live-sales.png",
+        checkout: "assets/cba-live-checkout.png",
+        thankyou: "assets/cba-live-thank-you.png"
+      }
+    },
+    "cba-book": {
+      number: "PROJECT 03",
+      title: "CBA Book Funnel",
+      description: "A book funnel designed to introduce the offer and guide visitors through the next step.",
+      tags: ["FUNNEL DESIGN", "RESPONSIVE", "SALES PAGE"],
+      pages: {
+        sales: "assets/cba-book-sales.png",
+        checkout: "assets/cba-book-checkout.png",
+        thankyou: "assets/cba-book-thank-you.png"
+      }
+    }
+  };
+
+  let currentProject = "first-circle";
+  let currentPage = "sales";
+
+  function renderViewer() {
+    const project = projects[currentProject];
+    if (!project) return;
+
+    viewerNumber.textContent = project.number;
+    viewerTitle.textContent = project.title;
+    viewerDescription.textContent = project.description;
+    viewerTags.replaceChildren();
+    project.tags.forEach(tag => {
+      const span = document.createElement("span");
+      span.textContent = tag;
+      viewerTags.appendChild(span);
+    });
+
+    const requestedPage = project.pages[currentPage];
+    const salesPage = project.pages.sales;
+    viewerImage.onerror = () => {
+      viewerImage.onerror = null;
+      if (viewerImage.getAttribute("src") !== salesPage) {
+        viewerImage.src = salesPage;
+      }
+    };
+    viewerImage.src = requestedPage;
+    viewerImage.alt = `${project.title} ${currentPage} page preview`;
+    viewerScroll.scrollTop = 0;
+
+    projectButtons.forEach(button => {
+      const active = button.dataset.project === currentProject;
+      button.classList.toggle("active", active);
+      button.setAttribute("aria-pressed", String(active));
+    });
+    pageButtons.forEach(button => {
+      const active = button.dataset.page === currentPage;
+      button.classList.toggle("active", active);
+      button.setAttribute("aria-pressed", String(active));
+    });
+  }
+
+  projectButtons.forEach(button => {
+    button.addEventListener("click", () => {
+      currentProject = button.dataset.project;
+      currentPage = "sales";
+      renderViewer();
+    });
+  });
+
+  pageButtons.forEach(button => {
+    button.addEventListener("click", () => {
+      currentPage = button.dataset.page;
+      renderViewer();
+    });
+  });
+
+  renderViewer();
 });
 </script>
 
