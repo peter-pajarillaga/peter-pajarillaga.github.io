@@ -2324,4 +2324,30 @@ footer {
   }
 }
 
+/* BULKY NAV BUTTON WITHOUT SHADOWS */
+
+.site-nav .nav-cta,
+.site-nav .nav-cta:hover,
+.site-nav .nav-cta:active {
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+.site-nav .nav-cta {
+  background: #42e8e0;
+  padding: 16px 30px;
+  min-height: 56px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.site-nav .nav-cta:hover {
+  transform: translateY(-2px);
+}
+
+.site-nav .nav-cta:active {
+  transform: translateY(0);
+}
+
 
