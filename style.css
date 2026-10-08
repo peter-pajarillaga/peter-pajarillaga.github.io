@@ -2193,7 +2193,7 @@ footer {
   position: relative;
   height: 540px;
   min-height: 540px;
-  overflow: hidden;
+  overflow: visible;
   isolation: isolate;
 }
 
