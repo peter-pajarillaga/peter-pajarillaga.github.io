@@ -2578,3 +2578,53 @@ footer {
   }
 }
 
+/* NAV PILL HEIGHT AND HOVER FIX */
+
+/* Smaller navigation buttons */
+.site-nav .nav-links a {
+  min-height: 30px !important;
+  height: 30px !important;
+  padding: 5px 18px !important;
+  line-height: 1 !important;
+  border: 0 !important;
+  border-radius: 999px;
+  background: transparent !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Keep the pill glossy at all times */
+.site-nav .nav-links::before,
+.site-nav .nav-links:hover::before {
+  background: linear-gradient(
+    180deg,
+    #c5fffa 0%,
+    #7af7ee 15%,
+    #42e8e0 50%,
+    #16aaa7 100%
+  ) !important;
+
+  border: 1px solid rgba(255,255,255,0.65);
+  border-bottom: 3px solid #087e7b;
+  box-shadow: none !important;
+}
+
+/* No separate Home hover background */
+.site-nav .nav-links a:hover,
+.site-nav .nav-links a.active,
+.site-nav .nav-links a.active:hover {
+  background: transparent !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Text follows the sliding pill */
+.site-nav .nav-links a.pill-selected,
+.site-nav .nav-links a.pill-selected:hover {
+  color: #000000 !important;
+}
+
+.site-nav .nav-links a:not(.pill-selected) {
+  color: #aab3bd !important;
+}
+
