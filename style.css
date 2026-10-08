@@ -2628,3 +2628,35 @@ footer {
   color: #aab3bd !important;
 }
 
+/* HERO CYAN BLUE OUTLINE GLOW */
+
+.hero h1 .outline,
+.hero .outline-text {
+  color: transparent;
+  -webkit-text-stroke: 1.5px #35b9d4;
+  text-shadow:
+    0 0 12px rgba(30, 190, 225, 0.20),
+    0 0 30px rgba(30, 190, 225, 0.10);
+}
+
+/* BRIGHTER DESCRIPTION */
+
+.hero-description {
+  color: #aabdc9;
+}
+
+/* CYAN BLUE NAVIGATION OUTLINE GLOW */
+
+.site-nav {
+  border: 1px solid rgba(66, 232, 224, 0.55) !important;
+
+  box-shadow:
+    0 0 12px rgba(0, 200, 255, 0.15),
+    0 0 28px rgba(0, 200, 255, 0.08),
+    inset 0 0 12px rgba(0, 200, 255, 0.04) !important;
+
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
