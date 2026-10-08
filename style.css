@@ -2132,3 +2132,18 @@ section[id] { scroll-margin-top: 100px; }
     object-position: top center;
   }
 }
+
+/* CBA LIVE: FRONT CARD */
+.hero-system .hero-screen-main {
+  z-index: 3 !important;
+}
+
+/* FIRST CIRCLE: BEHIND CBA LIVE */
+.hero-system .hero-screen-third {
+  z-index: 2 !important;
+}
+
+/* CBA BOOK: BACK RIGHT */
+.hero-system .hero-screen-secondary {
+  z-index: 1 !important;
+}
