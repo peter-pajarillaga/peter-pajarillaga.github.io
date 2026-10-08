@@ -2010,3 +2010,64 @@ section[id] { scroll-margin-top: 100px; }
   border-bottom-color: #087E7B !important;
   transform: translateY(-2px);
 }
+
+/* FINAL HERO CARD SIZE AND POSITION FIX */
+
+@media (min-width: 981px) {
+
+  .hero-system {
+    position: relative;
+    height: 540px;
+    min-height: 540px;
+    overflow: visible;
+  }
+
+  .hero-system .browser-window {
+    position: absolute;
+    overflow: hidden;
+  }
+
+  /* FIRST CIRCLE: TOP LEFT */
+  .hero-system .hero-screen-third {
+    width: 57%;
+    height: 255px !important;
+    left: 4%;
+    top: 0%;
+    right: auto;
+    bottom: auto;
+    z-index: 3;
+    transform: rotate(-5deg);
+  }
+
+  /* CBA LIVE: FRONT LOWER */
+  .hero-system .hero-screen-main {
+    width: 59%;
+    height: 310px !important;
+    left: 18%;
+    top: 40%;
+    right: auto;
+    bottom: auto;
+    z-index: 2;
+    transform: rotate(-3deg);
+  }
+
+  /* CBA BOOK: RIGHT */
+  .hero-system .hero-screen-secondary {
+    width: 48%;
+    height: 265px !important;
+    left: 51%;
+    top: 24%;
+    right: auto;
+    bottom: auto;
+    z-index: 1;
+    transform: rotate(5deg);
+  }
+
+  /* Keep screenshots cropped inside cards */
+  .hero-system .browser-window img {
+    width: 100%;
+    height: calc(100% - 38px);
+    object-fit: cover;
+    object-position: top center;
+  }
+}
