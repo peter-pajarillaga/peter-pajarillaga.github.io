@@ -2182,3 +2182,68 @@ footer {
     animation: none;
   }
 }
+
+
+
+/* HERO THREE CARD POSITION FIX */
+
+.hero-system {
+  position: relative;
+  isolation: isolate;
+}
+
+/* Main card: front */
+.hero-system .hero-screen-main {
+  position: absolute;
+  z-index: 3;
+  width: 70%;
+  left: 17%;
+  top: 23%;
+  right: auto;
+  bottom: auto;
+  transform: rotate(-3deg);
+}
+
+/* Second card: upper right */
+.hero-system .hero-screen-secondary {
+  position: absolute;
+  z-index: 2;
+  width: 56%;
+  left: 44%;
+  top: 5%;
+  right: auto;
+  bottom: auto;
+  transform: rotate(6deg);
+}
+
+/* Third card: upper left */
+.hero-system .hero-screen-third {
+  position: absolute;
+  z-index: 1;
+  width: 55%;
+  left: 0;
+  top: 3%;
+  right: auto;
+  bottom: auto;
+  transform: rotate(-8deg);
+}
+
+@media (max-width: 700px) {
+  .hero-system .hero-screen-main {
+    width: 78%;
+    left: 12%;
+    top: 22%;
+  }
+
+  .hero-system .hero-screen-secondary {
+    width: 62%;
+    left: 38%;
+    top: 7%;
+  }
+
+  .hero-system .hero-screen-third {
+    width: 60%;
+    left: 0;
+    top: 5%;
+  }
+}
