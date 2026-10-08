@@ -2660,3 +2660,15 @@ footer {
     box-shadow 0.3s ease;
 }
 
+
+/* Shift website content slightly left on desktop */
+@media (min-width: 1024px) {
+  .container {
+    transform: translateX(-35px);
+  }
+
+  .site-nav {
+    transform: translateX(-35px);
+  }
+}
+
