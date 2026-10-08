@@ -2197,7 +2197,7 @@ footer {
   isolation: isolate;
 }
 
-/* CBA LIVE: TOP LEFT */
+/* CBA LIVE: FRONT CENTER */
 .hero-system .hero-screen-third {
   position: absolute;
   z-index: 2;
@@ -2211,7 +2211,7 @@ footer {
   opacity: 1;
 }
 
-/* FIRST CIRCLE: FRONT CENTER */
+/* FIRST CIRCLE: TOP LEFT */
 .hero-system .hero-screen-main {
   position: absolute;
   z-index: 3;
