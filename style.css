@@ -2024,19 +2024,6 @@ footer {
   }
 }
 
-.hero-system .browser-window {
-  animation: heroFloat3D 6s ease-in-out infinite;
-}
-
-/* Different timing for depth */
-.hero-system .browser-window:nth-child(2) {
-  animation-delay: -2s;
-}
-
-.hero-system .browser-window:nth-child(3) {
-  animation-delay: -4s;
-}
-
 /* Brighter glow on hover */
 .hero-system .browser-window:hover {
   border-color: rgba(49, 235, 220, 0.75);
@@ -2145,6 +2132,53 @@ footer {
 
 @media (prefers-reduced-motion: reduce) {
   .hero-system .browser-top span {
+    animation: none;
+  }
+}
+
+
+
+/* HERO FLOATING EFFECT FIX */
+
+@keyframes safeHeroFloat {
+  0%, 100% {
+    translate: 0 0;
+  }
+
+  50% {
+    translate: 0 -8px;
+  }
+}
+
+.hero-screen-main {
+  animation: safeHeroFloat 6s ease-in-out infinite;
+}
+
+.hero-screen-secondary {
+  animation: safeHeroFloat 7s ease-in-out infinite;
+  animation-delay: -2s;
+}
+
+.hero-screen-third {
+  animation: safeHeroFloat 8s ease-in-out infinite;
+  animation-delay: -4s;
+}
+
+/* GREEN BROWSER LIGHTS */
+
+.hero-system .browser-top span {
+  background: #32ffb0 !important;
+
+  box-shadow:
+    0 0 6px #32ffb0,
+    0 0 14px rgba(50, 255, 176, 0.8),
+    0 0 24px rgba(50, 255, 176, 0.4);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-screen-main,
+  .hero-screen-secondary,
+  .hero-screen-third {
     animation: none;
   }
 }
