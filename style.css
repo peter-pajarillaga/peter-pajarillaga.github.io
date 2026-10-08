@@ -2350,4 +2350,36 @@ footer {
   transform: translateY(0);
 }
 
+/* BULKY CYAN NAVIGATION HOVER */
+
+.site-nav .nav-links a {
+  padding: 13px 20px;
+  border-radius: 999px;
+  transition:
+    background 0.3s ease,
+    color 0.3s ease,
+    transform 0.3s ease;
+}
+
+/* Active page */
+.site-nav .nav-links a.active {
+  background: #42e8e0;
+  color: #000000;
+  font-weight: 800;
+}
+
+/* Hover effect */
+.site-nav .nav-links a:hover {
+  background: #42e8e0;
+  color: #000000;
+  font-weight: 800;
+  transform: scale(1.06);
+}
+
+/* No shadows */
+.site-nav .nav-links a,
+.site-nav .nav-links a:hover {
+  box-shadow: none !important;
+}
+
 
