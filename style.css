@@ -2440,3 +2440,141 @@ footer {
 .site-nav .nav-links a.pill-selected {
   color: #000000 !important;
 }
+
+
+/* CLEAN 3D BUTTON DESIGN */
+
+/* Navigation container */
+.site-nav .nav-links {
+  padding: 4px;
+  border-radius: 999px;
+  background: transparent;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+/* Sliding pill */
+.site-nav .nav-links::before {
+  background: linear-gradient(
+    180deg,
+    #9afff6 0%,
+    #42e8e0 45%,
+    #20bcb7 100%
+  ) !important;
+
+  border: 1px solid rgba(255,255,255,0.35);
+  border-bottom: 3px solid #128e8a;
+  border-radius: 999px;
+
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+/* Navigation links */
+.site-nav .nav-links a {
+  min-height: 39px;
+  padding: 9px 19px;
+  border-radius: 999px;
+  font-weight: 800;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  filter: none !important;
+}
+
+/* Remove all link hover shadows */
+.site-nav .nav-links a:hover,
+.site-nav .nav-links a.active,
+.site-nav .nav-links a.pill-selected {
+  box-shadow: none !important;
+  text-shadow: none !important;
+  filter: none !important;
+}
+
+/* Main action buttons */
+.site-nav .nav-cta,
+.hero-actions .button-primary,
+.hero-actions .button-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 42px;
+  padding: 10px 24px;
+
+  border-radius: 999px;
+  font-weight: 900;
+
+  box-shadow: none !important;
+  text-shadow: none !important;
+  filter: none !important;
+
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease;
+}
+
+/* Primary buttons */
+.site-nav .nav-cta,
+.hero-actions .button-primary {
+  background: linear-gradient(
+    180deg,
+    #9afff6 0%,
+    #42e8e0 45%,
+    #20bcb7 100%
+  );
+
+  color: #000000;
+  border: 1px solid rgba(255,255,255,0.35);
+  border-bottom: 3px solid #128e8a;
+}
+
+/* Secondary button */
+.hero-actions .button-secondary {
+  background: #10191e;
+  color: #ffffff;
+  border: 1px solid #354349;
+  border-bottom: 3px solid #354349;
+}
+
+/* Hover effect */
+.site-nav .nav-cta:hover,
+.hero-actions .button-primary:hover,
+.hero-actions .button-secondary:hover {
+  background: linear-gradient(
+    180deg,
+    #bafff9 0%,
+    #58f3e9 50%,
+    #2ccbc4 100%
+  );
+
+  color: #000000;
+  transform: translateY(-2px);
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+/* No shadows when pressed */
+.site-nav .nav-cta:active,
+.hero-actions .button-primary:active,
+.hero-actions .button-secondary:active {
+  transform: translateY(0);
+  box-shadow: none !important;
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+  .site-nav .nav-cta {
+    min-height: 38px;
+    padding: 9px 16px;
+    font-size: 11px;
+  }
+
+  .hero-actions .button-primary,
+  .hero-actions .button-secondary {
+    min-height: 40px;
+    padding: 10px 18px;
+    font-size: 12px;
+  }
+}
+
