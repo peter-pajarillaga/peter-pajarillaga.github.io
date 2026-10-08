@@ -2346,113 +2346,49 @@ footer {
 }
 
 
-/* FINAL BULKY BUTTON STYLING */
+/* SLIDING CYAN NAVIGATION PILL */
 
-/* Shared button styling */
-.site-nav .nav-cta,
-.site-nav .nav-links a,
-.hero-actions .button-primary,
-.hero-actions .button-secondary {
-  padding: 16px 30px;
-  min-height: 56px;
-  border-radius: 999px;
-  font-size: 14px;
-  font-weight: 900;
-  box-shadow: none !important;
-  text-shadow: none !important;
-  filter: none !important;
-
-  transition:
-    background 0.25s ease,
-    color 0.25s ease,
-    transform 0.25s ease;
+.site-nav .nav-links {
+  position: relative;
+  isolation: isolate;
 }
 
-/* Navigation default */
-.site-nav .nav-links a {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+.site-nav .nav-links::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: var(--pill-width, 80px);
+  height: var(--pill-height, 52px);
+  transform: translateX(var(--pill-x, 0px));
+  background: #42e8e0;
+  border-radius: 999px;
+  box-shadow: none;
+  pointer-events: none;
+  opacity: 0;
+  transition:
+    transform 0.35s cubic-bezier(.22,1,.36,1),
+    width 0.35s cubic-bezier(.22,1,.36,1),
+    opacity 0.2s ease;
+}
+
+.site-nav .nav-links.pill-ready::before {
+  opacity: 1;
+}
+
+.site-nav .nav-links a,
+.site-nav .nav-links a.active,
+.site-nav .nav-links a:hover {
+  position: relative;
+  z-index: 1;
   background: transparent !important;
+  box-shadow: none !important;
+  transform: none !important;
   color: #aab3bd !important;
 }
 
-/* Home active by default */
-.site-nav .nav-links a.active {
-  background: #42e8e0 !important;
+.site-nav .nav-links a.pill-selected {
   color: #000000 !important;
 }
 
-/* Navigation hover */
-.site-nav .nav-links a:hover {
-  background: #42e8e0 !important;
-  color: #000000 !important;
-  transform: translateY(-2px);
-}
-
-/* Main cyan buttons */
-.site-nav .nav-cta,
-.hero-actions .button-primary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: #42e8e0 !important;
-  color: #000000 !important;
-  border: 2px solid transparent;
-}
-
-/* Main cyan buttons hover */
-.site-nav .nav-cta:hover,
-.hero-actions .button-primary:hover {
-  background: #20bfb9 !important;
-  color: #000000 !important;
-  transform: translateY(-2px);
-}
-
-/* Secondary button default */
-.hero-actions .button-secondary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: transparent !important;
-  color: #ffffff !important;
-  border: 1px solid rgba(255,255,255,0.15);
-}
-
-/* Secondary button hover */
-.hero-actions .button-secondary:hover {
-  background: #42e8e0 !important;
-  color: #000000 !important;
-  border-color: #42e8e0;
-  transform: translateY(-2px);
-}
-
-/* Remove shadows from hover and click states */
-.site-nav .nav-cta:hover,
-.site-nav .nav-cta:active,
-.site-nav .nav-links a:hover,
-.site-nav .nav-links a:active,
-.hero-actions .button-primary:hover,
-.hero-actions .button-primary:active,
-.hero-actions .button-secondary:hover,
-.hero-actions .button-secondary:active {
-  box-shadow: none !important;
-  text-shadow: none !important;
-  filter: none !important;
-}
-
-/* Mobile adjustments */
-@media (max-width: 700px) {
-  .site-nav .nav-cta {
-    padding: 12px 18px;
-    min-height: 46px;
-    font-size: 11px;
-  }
-
-  .hero-actions .button-primary,
-  .hero-actions .button-secondary {
-    padding: 14px 20px;
-    min-height: 50px;
-    font-size: 12px;
-  }
-}
