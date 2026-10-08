@@ -2189,36 +2189,29 @@ footer {
 
 /* HERO THREE CARD POSITION FIX */
 
-.hero-system {
-  position: relative;
-  height: 540px;
-  min-height: 540px;
-  overflow: visible;
-  isolation: isolate;
-}
 
-/* FIRST CIRCLE: TOP LEFT */
+/* CBA LIVE: TOP FRONT */
 .hero-system .hero-screen-third {
   position: absolute;
-  z-index: 2;
+  z-index: 3;
   width: 57%;
   height: 255px !important;
   left: 4%;
-  top: 8%;
+  top: 0%;
   right: auto;
   bottom: auto;
   transform: rotate(-5deg);
   opacity: 1;
 }
 
-/* CBA LIVE: FRONT CENTER */
+/* FIRST CIRCLE: LOWER CENTER */
 .hero-system .hero-screen-main {
   position: absolute;
-  z-index: 3;
+  z-index: 2;
   width: 59%;
   height: 310px !important;
   left: 18%;
-  top: 36%;
+  top: 40%;
   right: auto;
   bottom: auto;
   transform: rotate(-3deg);
@@ -2237,34 +2230,6 @@ footer {
   bottom: auto;
   transform: rotate(5deg);
   opacity: 1;
-}
-
-@media (max-width: 700px) {
-  .hero-system {
-    height: 390px;
-    min-height: 390px;
-  }
-
-  .hero-system .hero-screen-third {
-    width: 58%;
-    height: 190px !important;
-    left: 1%;
-    top: 5%;
-  }
-
-  .hero-system .hero-screen-main {
-    width: 64%;
-    height: 230px !important;
-    left: 15%;
-    top: 34%;
-  }
-
-  .hero-system .hero-screen-secondary {
-    width: 50%;
-    height: 190px !important;
-    left: 49%;
-    top: 21%;
-  }
 }
 
 
