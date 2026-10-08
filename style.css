@@ -1983,3 +1983,105 @@ footer {
     height: 220px !important;
   }
 }
+
+
+
+/* ==========================================
+   HERO 3D FLOATING BROWSER CARDS
+   ========================================== */
+
+/* Floating card container */
+.hero-system {
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
+
+/* Browser cards */
+.hero-system .browser-window {
+  position: relative;
+  transform-style: preserve-3d;
+
+  border: 1px solid rgba(49, 235, 220, 0.25);
+
+  box-shadow:
+    0 25px 55px rgba(0, 0, 0, 0.65),
+    0 0 25px rgba(49, 235, 220, 0.12),
+    0 0 65px rgba(49, 235, 220, 0.06);
+
+  transition:
+    box-shadow 0.4s ease,
+    border-color 0.4s ease;
+}
+
+/* Gentle floating animation */
+@keyframes heroFloat3D {
+  0%, 100% {
+    translate: 0 0;
+  }
+
+  50% {
+    translate: 0 -12px;
+  }
+}
+
+.hero-system .browser-window {
+  animation: heroFloat3D 6s ease-in-out infinite;
+}
+
+/* Different timing for depth */
+.hero-system .browser-window:nth-child(2) {
+  animation-delay: -2s;
+}
+
+.hero-system .browser-window:nth-child(3) {
+  animation-delay: -4s;
+}
+
+/* Brighter glow on hover */
+.hero-system .browser-window:hover {
+  border-color: rgba(49, 235, 220, 0.75);
+
+  box-shadow:
+    0 35px 70px rgba(0, 0, 0, 0.75),
+    0 0 35px rgba(49, 235, 220, 0.28),
+    0 0 90px rgba(49, 235, 220, 0.12);
+}
+
+/* ==========================================
+   GLOWING GREEN BROWSER DOTS
+   ========================================== */
+
+/* Targets dots inside browser header */
+.hero-system .browser-dots span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+
+  background: #32ffb0;
+
+  box-shadow:
+    0 0 6px #32ffb0,
+    0 0 12px rgba(50, 255, 176, 0.8),
+    0 0 22px rgba(50, 255, 176, 0.45);
+
+  animation: greenLED 2.5s ease-in-out infinite;
+}
+
+/* Subtle LED pulse */
+@keyframes greenLED {
+  0%, 100% {
+    opacity: 0.7;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .hero-system .browser-window,
+  .hero-system .browser-dots span {
+    animation: none;
+  }
+}
