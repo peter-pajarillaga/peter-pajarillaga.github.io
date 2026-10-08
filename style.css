@@ -2085,3 +2085,66 @@ footer {
     animation: none;
   }
 }
+
+
+
+/* ==========================================
+   HERO BROWSER GREEN LED LIGHTS
+   ========================================== */
+
+.hero-system .browser-top span {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+
+  background: #32ffb0 !important;
+
+  box-shadow:
+    0 0 5px #32ffb0,
+    0 0 12px rgba(50, 255, 176, 0.9),
+    0 0 24px rgba(50, 255, 176, 0.5);
+
+  animation: browserLED 2s ease-in-out infinite;
+}
+
+/* Slightly different timing for each LED */
+
+.hero-system .browser-top span:nth-child(2) {
+  animation-delay: 0.3s;
+}
+
+.hero-system .browser-top span:nth-child(3) {
+  animation-delay: 0.6s;
+}
+
+/* LED pulsing effect */
+
+@keyframes browserLED {
+  0%, 100% {
+    opacity: 0.65;
+    filter: brightness(0.8);
+  }
+
+  50% {
+    opacity: 1;
+    filter: brightness(1.4);
+  }
+}
+
+/* Stronger floating card glow */
+
+.hero-system .browser-window {
+  box-shadow:
+    0 30px 65px rgba(0, 0, 0, 0.7),
+    0 0 25px rgba(49, 235, 220, 0.25),
+    0 0 65px rgba(49, 235, 220, 0.12);
+}
+
+/* Accessibility */
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-system .browser-top span {
+    animation: none;
+  }
+}
