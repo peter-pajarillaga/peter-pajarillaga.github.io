@@ -618,5 +618,80 @@
   </footer>
 
 
+        
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const nav = document.querySelector(
+    ".site-nav .nav-links"
+  );
+
+  if (!nav) return;
+
+  const links = [...nav.querySelectorAll("a")];
+  const home = links.find(
+    link => link.getAttribute("href") === "#home"
+  );
+
+  let selected = home || links[0];
+
+  function movePill(link) {
+    if (!link) return;
+
+    const navRect = nav.getBoundingClientRect();
+    const linkRect = link.getBoundingClientRect();
+
+    nav.style.setProperty(
+      "--pill-x",
+      `${linkRect.left - navRect.left}px`
+    );
+
+    nav.style.setProperty(
+      "--pill-width",
+      `${linkRect.width}px`
+    );
+
+    nav.style.setProperty(
+      "--pill-height",
+      `${linkRect.height}px`
+    );
+
+    links.forEach(item => {
+      item.classList.toggle(
+        "pill-selected",
+        item === link
+      );
+    });
+
+    nav.classList.add("pill-ready");
+  }
+
+  links.forEach(link => {
+    link.addEventListener("mouseenter", () => {
+      movePill(link);
+    });
+
+    link.addEventListener("focus", () => {
+      movePill(link);
+    });
+  });
+
+  nav.addEventListener("mouseleave", () => {
+    movePill(selected);
+  });
+
+  nav.addEventListener("focusout", event => {
+    if (!nav.contains(event.relatedTarget)) {
+      movePill(selected);
+    }
+  });
+
+  window.addEventListener("resize", () => {
+    movePill(selected);
+  });
+
+  movePill(selected);
+});
+</script>
+
 </body>
 </html>
