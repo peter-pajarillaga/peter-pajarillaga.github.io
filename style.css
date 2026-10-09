@@ -488,79 +488,94 @@ section {
   align-items: center;
 }
 
+/* Floating 3D technology stack, readable at every angle */
 .system-layers {
   position: relative;
-
-  min-height: 570px;
-
-  perspective: 1100px;
+  min-height: 560px;
+  perspective: 1200px;
+  isolation: isolate;
 }
 
 .system-layer {
   position: absolute;
-
-  width: 78%;
-  height: 105px;
-
-  left: 11%;
-
+  left: 8%;
+  width: 84%;
+  height: 86px;
+  padding: 0 26px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-
-  padding: 0 28px;
-
-  border: 1px solid var(--line);
-  border-radius: 20px;
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(255,255,255,.065),
-      rgba(255,255,255,.018)
-    );
-
-  backdrop-filter: blur(16px);
-
-  box-shadow:
-    0 25px 55px rgba(0,0,0,.3),
-    inset 0 1px rgba(255,255,255,.06);
-
-  transform:
-    rotateX(55deg)
-    rotateZ(-4deg);
-
-  transition:
-    transform .45s ease,
-    border-color .45s ease;
+  gap: 16px;
+  border: 1px solid rgba(64,224,208,.24);
+  border-radius: 18px;
+  background: linear-gradient(135deg,#17242a 0%,#10191f 58%,#0b1217 100%);
+  box-shadow: 0 20px 35px rgba(0,0,0,.28), inset 0 1px rgba(255,255,255,.07);
+  transform: rotateX(12deg) rotateZ(-3deg);
+  transform-origin: center;
+  transition: transform .45s ease, box-shadow .45s ease;
+  isolation: isolate;
+  overflow: hidden;
 }
 
+/* A thin, moving border highlight, never a rotating panel */
+.system-layer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  pointer-events: none;
+  background: conic-gradient(from var(--orbit-angle),
+    transparent 0deg, transparent 304deg,
+    rgba(0,191,255,.12) 319deg,
+    rgba(64,224,208,.60) 332deg,
+    #d8fffb 342deg,
+    rgba(64,224,208,.60) 352deg,
+    transparent 360deg);
+  -webkit-mask: linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  animation: orbitBorderLight 11s linear infinite;
+}
 .system-layer:hover {
-  border-color:
-    rgba(64,224,208,.35);
-
-  transform:
-    rotateX(48deg)
-    rotateZ(-2deg)
-    translateY(-8px);
+  transform: rotateX(6deg) rotateZ(-1deg) translateY(-7px);
+  box-shadow: 0 28px 48px rgba(0,0,0,.38), 0 0 24px rgba(64,224,208,.12);
 }
-
-.system-layer:nth-child(1) { top: 20px; }
-.system-layer:nth-child(2) { top: 110px; }
-.system-layer:nth-child(3) { top: 200px; }
-.system-layer:nth-child(4) { top: 290px; }
-.system-layer:nth-child(5) { top: 380px; }
-
+.system-layer:nth-child(1) { top: 18px; z-index: 5; }
+.system-layer:nth-child(2) { top: 118px; z-index: 4; }
+.system-layer:nth-child(3) { top: 218px; z-index: 3; }
+.system-layer:nth-child(4) { top: 318px; z-index: 2; }
+.system-layer:nth-child(5) { top: 418px; z-index: 1; }
 .system-layer strong {
+  color: #f4f8fa;
   font-size: 15px;
-  letter-spacing: .08em;
+  font-weight: 900;
+  letter-spacing: .09em;
   text-transform: uppercase;
 }
-
 .system-layer span {
-  color: var(--cyan);
+  color: #40e0d0;
   font-size: 11px;
   font-weight: 800;
+  letter-spacing: .02em;
+  text-align: right;
+}
+@media (max-width: 700px) {
+  .system-layers { min-height: 470px; perspective: none; }
+  .system-layer { left: 3%; width: 94%; height: 76px; padding: 0 15px; transform: none; }
+  .system-layer:hover { transform: translateY(-3px); }
+  .system-layer:nth-child(1) { top: 8px; }
+  .system-layer:nth-child(2)
+ { top: 100px; }
+  .system-layer:nth-child(3) { top: 192px; }
+  .system-layer:nth-child(4) { top: 284px; }
+  .system-layer:nth-child(5) { top: 376px; }
+  .system-layer strong { font-size: 12px; }
+  .system-layer span { font-size: 9px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .system-layer::before { animation: none; }
 }
 
 /* =========================================================
@@ -640,7 +655,6 @@ section {
 
 .profile-image,
 .fishing-image
-
  {
   position: absolute;
 
@@ -1209,7 +1223,8 @@ footer {
   color: #40e0d0;
 
   font-size: 12px;
-  font-weight: 800;
+  font-weight:
+ 800;
 
   letter-spacing: 0.16em;
 
@@ -1322,7 +1337,6 @@ footer {
 
 .page-button.active {
   background: #40e0d0;
-
 
 
   border-color: #40e0d0;
@@ -1786,7 +1800,8 @@ section[id] { scroll-margin-top: 100px; }
   display: block;
   width: 100%;
   height: calc(100% - 38px);
-  object-fit: cover;
+  object-fit:
+ cover;
   object-position: top center;
 }
 .hero-system .browser-top span {
@@ -1827,7 +1842,6 @@ section[id] { scroll-margin-top: 100px; }
 }
 @media (max-width: 700px) {
   .site-nav
-
  { left: 50%; }
   .hero { padding-top: 135px; }
   .hero h1 { font-size: clamp(42px, 12vw, 76px); }
