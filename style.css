@@ -2105,3 +2105,58 @@ section[id] { scroll-margin-top: 100px; }
 @media (prefers-reduced-motion: reduce) {
   .capability-details, .capability-details-content { transition: none; }
 }
+
+
+/* =========================================================
+   UNDER THE HOOD | CLICK-TO-FOCUS 3D STACK
+   Preserve original positioning, tilt, float and orbit lighting.
+   ========================================================= */
+.system-layers .system-layer {
+  appearance: none;
+  font-family: inherit;
+  text-align: left;
+  color: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.system-layers .system-layer.is-selected {
+  border-color: rgba(64,224,208,.88);
+  background: linear-gradient(135deg,#1b3439,#112329 65%,#0b171b);
+  box-shadow: 0 30px 60px rgba(0,0,0,.42), 0 0 28px rgba(64,224,208,.24), inset 0 1px rgba(255,255,255,.12);
+  transform: rotateX(6deg) rotateZ(-1deg) translateY(-7px);
+}
+.system-layers .system-layer:focus-visible { outline: 2px solid #40e0d0; outline-offset: 5px; }
+.hood-info {
+  display: grid;
+  grid-template-rows: 0fr;
+  visibility: hidden;
+  opacity: 0;
+  margin-top: 0;
+  border: 0 solid transparent;
+  border-radius: 20px;
+  background: linear-gradient(135deg,rgba(21,46,52,.94),rgba(10,21,27,.97));
+  box-shadow: 0 18px 45px rgba(0,0,0,.24);
+  transition: grid-template-rows .4s ease, opacity .3s ease, margin-top .4s ease, visibility .4s;
+}
+.hood-info.is-open {
+  grid-template-rows: 1fr;
+  visibility: visible;
+  opacity: 1;
+  margin-top: 25px;
+  border: 1px solid rgba(64,224,208,.45);
+}
+.hood-info-inner { min-height: 0; overflow: hidden; padding: 0 24px; transition: padding .4s ease; }
+.hood-info.is-open .hood-info-inner { padding: 21px 24px 24px; }
+.hood-info-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.hood-info-top > span { color: #40e0d0; font-size: 10px; font-weight: 900; letter-spacing: .15em; }
+.hood-info-close { width: 30px; height: 30px; border: 1px solid rgba(64,224,208,.4); border-radius: 50%; background: #0d1c22; color: #d8fffb; font-size: 22px; cursor: pointer; }
+.hood-info h3 { margin: 13px 0 8px; font-size: clamp(22px,2.5vw,30px); line-height: 1.1; color: #f4f7fa; }
+.hood-info p { margin: 0; font-size: 15px; line-height: 1.65; color: #b9c9ce; }
+@media (max-width: 700px) {
+  .system-layers .system-layer.is-selected { transform: translateY(-3px); }
+  .hood-info.is-open { margin-top: 20px; }
+  .hood-info p { font-size: 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hood-info, .hood-info-inner { transition: none; }
+}
