@@ -1,14 +1,30 @@
-/* Grid lights appear over dark section backgrounds without blocking clicks. */
+/* AQUARIUS GRID LIGHTS */
+
 #aq-grid-lights {
-  position: fixed !important;
+  position: fixed;
   inset: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 900;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
   pointer-events: none;
-  opacity: .55;
-  display: block;
+  opacity: 0.75;
 }
-@media (prefers-reduced-motion: reduce) {
-  #aq-grid-lights { opacity: .3; }
+
+/* Keep website content above the animated lights */
+body > *:not(#aq-grid-lights):not(script) {
+  position: relative;
+  z-index: 1;
+}
+
+/* Frosted glass treatment */
+:is(
+  .browser-window,
+  .capability-card,
+  .tool-card,
+  .project-card,
+  .stack-card,
+  .glass-card
+) {
+  -webkit-backdrop-filter: blur(24px) saturate(120%);
+  backdrop-filter: blur(24px) saturate(120%);
 }
