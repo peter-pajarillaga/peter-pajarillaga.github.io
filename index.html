@@ -135,18 +135,26 @@
 
     <!-- ================= CAPABILITIES ================= -->
 
-    <section class="capability-strip">
-
-      <div class="container capability-inner">
-
-        <div class="capability">Funnel Strategy</div>
-        <div class="capability">Responsive Build</div>
-        <div class="capability">Custom CSS / JS</div>
-        <div class="capability">CRM Workflows</div>
-        <div class="capability">Automation</div>
-
+    <section class="capability-strip" aria-label="Core capabilities">
+      <div class="container">
+        <div class="capability-inner" id="capabilityTabs" aria-label="Explore capabilities">
+          <button class="capability" type="button" data-capability="strategy" aria-expanded="false" aria-controls="capabilityDetails">Funnel Strategy</button>
+          <button class="capability" type="button" data-capability="responsive" aria-expanded="false" aria-controls="capabilityDetails">Responsive Build</button>
+          <button class="capability" type="button" data-capability="custom" aria-expanded="false" aria-controls="capabilityDetails">Custom CSS / JS</button>
+          <button class="capability" type="button" data-capability="crm" aria-expanded="false" aria-controls="capabilityDetails">CRM Workflows</button>
+          <button class="capability" type="button" data-capability="automation" aria-expanded="false" aria-controls="capabilityDetails">Automation</button>
+        </div>
+        <div class="capability-details" id="capabilityDetails" aria-hidden="true" aria-live="polite">
+          <div class="capability-details-content">
+            <div class="capability-details-heading">
+              <span class="capability-eyebrow">CAPABILITY DETAILS</span>
+              <button class="capability-close" type="button" aria-label="Close capability details">&times;</button>
+            </div>
+            <h3 id="capabilityHeading"></h3>
+            <p id="capabilityDescription"></p>
+          </div>
+        </div>
       </div>
-
     </section>
 
 
@@ -804,6 +812,63 @@ document.addEventListener("DOMContentLoaded", () => {
   renderViewer();
 });
 </script>
+
+
+  <!-- INTERACTIVE CAPABILITY STRIP -->
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const buttons = [...document.querySelectorAll("#capabilityTabs .capability")];
+    const panel = document.getElementById("capabilityDetails");
+    const heading = document.getElementById("capabilityHeading");
+    const description = document.getElementById("capabilityDescription");
+    const closeButton = panel?.querySelector(".capability-close");
+    if (!buttons.length || !panel || !heading || !description) return;
+
+    const details = {
+      strategy: {
+        title: "Funnels Built With Purpose",
+        description: "I structure the customer journey from the first visit through the next action, connecting landing pages, offers, checkout experiences and follow-up."
+      },
+      responsive: {
+        title: "Built for Every Screen",
+        description: "I create responsive layouts for desktop, tablet and mobile, keeping the experience clear, consistent and easy to navigate."
+      },
+      custom: {
+        title: "Beyond Default Templates",
+        description: "I use HTML, CSS and JavaScript to customize layouts, interactions, animations and individual page elements beyond standard funnel-builder settings."
+      },
+      crm: {
+        title: "Organized Behind the Scenes",
+        description: "I connect forms, contacts, tags, pipelines and follow-up sequences so leads move through an organized process."
+      },
+      automation: {
+        title: "Systems That Work Together",
+        description: "I build automated processes using tools such as GoHighLevel, Keap and n8n to connect actions and reduce repetitive tasks."
+      }
+    };
+
+    let active = null;
+    function selectCapability(key) {
+      active = key === active ? null : key;
+      buttons.forEach(button => {
+        const selected = button.dataset.capability === active;
+        button.classList.toggle("is-selected", selected);
+        button.setAttribute("aria-expanded", String(selected));
+      });
+      const open = active !== null;
+      if (open) {
+        heading.textContent = details[active].title;
+        description.textContent = details[active].description;
+      }
+      panel.classList.toggle("is-open", open);
+      panel.setAttribute("aria-hidden", String(!open));
+      if (closeButton) closeButton.tabIndex = open ? 0 : -1;
+    }
+
+    buttons.forEach(button => button.addEventListener("click", () => selectCapability(button.dataset.capability)));
+    closeButton?.addEventListener("click", () => selectCapability(active));
+  });
+  </script>
 
 </body>
 </html>
