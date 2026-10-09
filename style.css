@@ -2196,3 +2196,44 @@ section[id] { scroll-margin-top: 100px; }
 @media (prefers-reduced-motion: reduce) {
   .tool-details, .tool-details-inner { transition: none; }
 }
+/* ==========================================
+   AQUARIUS FROSTED GLASS REFINEMENT
+   ========================================== */
+
+/* Navigation */
+.site-nav {
+  background: rgba(9, 17, 23, 0.58) !important;
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
+  backdrop-filter: blur(12px) saturate(160%);
+}
+
+/* Under the Hood floating layers */
+.stack-card {
+  background: rgba(16, 35, 42, 0.38) !important;
+  -webkit-backdrop-filter: blur(10px) saturate(180%);
+  backdrop-filter: blur(10px) saturate(180%);
+}
+
+/* Capability strip */
+.capability-strip,
+.capability-card {
+  background: rgba(13, 28, 34, 0.38) !important;
+  -webkit-backdrop-filter: blur(10px) saturate(170%);
+  backdrop-filter: blur(10px) saturate(170%);
+}
+
+/* Contact panel */
+.contact-panel {
+  background: rgba(12, 26, 31, 0.46) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(170%);
+  backdrop-filter: blur(14px) saturate(170%);
+}
+
+/* Project and tool cards */
+.project-card,
+.tool-card,
+.browser-window {
+  background: rgba(13, 29, 35, 0.42) !important;
+  -webkit-backdrop-filter: blur(10px) saturate(170%);
+  backdrop-filter: blur(10px) saturate(170%);
+}
