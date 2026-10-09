@@ -1,0 +1,298 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Project Inquiry | Peter Pajarillaga</title>
+
+  <style>
+    :root {
+      --bg: #07131c;
+      --accent: #40e0d0;
+      --text: #f5fbff;
+      --muted: #a5b6c1;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(ellipse at top, #12313a, transparent 65%),
+        var(--bg);
+      color: var(--text);
+      font-family: Arial, sans-serif;
+      padding: 55px 20px;
+    }
+
+    .inquiry-wrap {
+      max-width: 760px;
+      margin: auto;
+    }
+
+    .back-link {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 13px;
+      letter-spacing: 1px;
+    }
+
+    h1 {
+      font-size: clamp(44px, 8vw, 78px);
+      line-height: 0.95;
+      letter-spacing: -3px;
+      margin: 35px 0 20px;
+    }
+
+    .intro {
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 550px;
+      margin-bottom: 35px;
+    }
+
+    .inquiry-card {
+      padding: clamp(22px, 5vw, 45px);
+      border: 1px solid rgba(64,224,208,.32);
+      border-radius: 24px;
+      background: rgba(15,35,45,.65);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 20px 80px rgba(0,0,0,.25);
+    }
+
+    .section-title {
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      margin: 25px 0 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255,255,255,.12);
+    }
+
+    .section-title:first-child { margin-top: 0; }
+
+    .field { margin-bottom: 20px; }
+
+    label {
+      display: block;
+      margin-bottom: 9px;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 15px;
+      background: rgba(4,16,24,.7);
+      color: white;
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 10px;
+      font: inherit;
+      outline: none;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--accent);
+    }
+
+    select option { background: #07131c; }
+    textarea { min-height: 130px; resize: vertical; }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 18px;
+      border: 0;
+      border-radius: 50px;
+      background: var(--accent);
+      color: #04151a;
+      font-weight: 800;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: .3s;
+    }
+
+    .submit-btn:hover {
+      box-shadow: 0 0 30px rgba(64,224,208,.45);
+      transform: translateY(-2px);
+    }
+
+    .form-status {
+      margin-top: 18px;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 600px) {
+      .two-col { grid-template-columns: 1fr; gap: 0; }
+      h1 { letter-spacing: -2px; }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="inquiry-wrap">
+    <a class="back-link" href="./index.html">
+      ← BACK TO PORTFOLIO
+    </a>
+
+    <h1>LET'S BUILD<br>SOMETHING.</h1>
+    <p class="intro">
+      Tell me a little about your business and what
+      you're looking to build. I'll review your
+      inquiry and get back to you.
+    </p>
+
+    <form
+      id="project-inquiry"
+      class="inquiry-card"
+      action="https://formspree.io/f/xjygrvbq"
+      method="POST"
+    >
+      <div class="section-title">01 / YOUR DETAILS</div>
+
+      <div class="two-col">
+        <div class="field">
+          <label for="name">Full Name *</label>
+          <input id="name" name="name" required>
+        </div>
+
+        <div class="field">
+          <label for="email">Email Address *</label>
+          <input id="email" type="email" name="email" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="business">Business Name</label>
+        <input id="business" name="business_name">
+      </div>
+
+      <div class="field">
+        <label for="website">Website / Social Media</label>
+        <input id="website" name="website">
+      </div>
+
+      <div class="section-title">02 / YOUR PROJECT</div>
+
+      <div class="field">
+        <label for="project">What do you need built? *</label>
+        <select id="project" name="project_type" required>
+          <option value="">Select a project type</option>
+          <option>Landing Page</option>
+          <option>Lead Magnet Funnel</option>
+          <option>Sales Funnel</option>
+          <option>Booking Funnel</option>
+          <option>Checkout Funnel</option>
+          <option>CRM / Email Automation</option>
+          <option>Complete Funnel System</option>
+          <option>Other / Not Sure</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="goal">Main Project Goal *</label>
+        <select id="goal" name="project_goal" required>
+          <option value="">Select a goal</option>
+          <option>Generate Leads</option>
+          <option>Book Appointments</option>
+          <option>Sell Products / Services</option>
+          <option>Automate Follow-Ups</option>
+          <option>Other / Not Sure</option>
+        </select>
+      </div>
+
+      <div class="two-col">
+        <div class="field">
+          <label for="platform">Funnel Platform</label>
+          <select id="platform" name="funnel_platform">
+            <option>Not Sure / Need Advice</option>
+            <option>GoHighLevel</option>
+            <option>ClickFunnels</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="crm">CRM / Email Platform</label>
+          <select id="crm" name="crm_platform">
+            <option>Not Sure / None</option>
+            <option>GoHighLevel</option>
+            <option>Keap</option>
+            <option>Other</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="timeline">Preferred Launch Date</label>
+        <input id="timeline" name="launch_date" type="date">
+      </div>
+
+      <div class="field">
+        <label for="details">Tell me about your project *</label>
+        <textarea
+          id="details"
+          name="project_details"
+          required
+          placeholder="What does your business do? What are you hoping to achieve?"
+        ></textarea>
+      </div>
+
+      <button class="submit-btn" type="submit">
+        SEND PROJECT INQUIRY ↗
+      </button>
+
+      <div
+        id="form-status"
+        class="form-status"
+        role="status"
+        aria-live="polite"
+      ></div>
+    </form>
+  </main>
+
+  <script>
+    const form = document.getElementById("project-inquiry");
+    const status = document.getElementById("form-status");
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const button = form.querySelector("button");
+      button.disabled = true;
+      button.textContent = "SENDING...";
+      status.textContent = "";
+
+      try {
+        const response = await fetch(form.action, {
+          method: "POST",
+          body: new FormData(form),
+          headers: { Accept: "application/json" }
+        });
+
+        if (!response.ok) throw new Error("Submission failed");
+
+        form.reset();
+        status.style.color = "#40e0d0";
+        status.textContent =
+          "Thank you! Your inquiry has been sent successfully.";
+      } catch (error) {
+        status.style.color = "#ff9c9c";
+        status.textContent =
+          "Something went wrong. Please try again.";
+      } finally {
+        button.disabled = false;
+        button.textContent = "SEND PROJECT INQUIRY ↗";
+      }
+    });
+  </script>
+</body>
+</html>
