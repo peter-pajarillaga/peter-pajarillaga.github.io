@@ -17,55 +17,69 @@
       --text: #f5fbff;
       --muted: #a5b6c1;
     }
-
     * { box-sizing: border-box; }
-
+    html { color-scheme: dark; }
     body {
       margin: 0;
       min-height: 100vh;
-      background:
-        radial-gradient(ellipse at top, #12313a, transparent 65%),
-        var(--bg);
+      padding: 55px 20px;
       color: var(--text);
       font-family: Arial, sans-serif;
-      padding: 55px 20px;
+      background: #07131c;
+      isolation: isolate;
     }
-
+    #aq-grid-lights {
+      position: fixed !important;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0 !important;
+      pointer-events: none;
+      opacity: 1;
+    }
     .inquiry-wrap {
+      position: relative;
+      z-index: 1;
       max-width: 760px;
       margin: auto;
     }
-
     .back-link {
       color: var(--accent);
       text-decoration: none;
       font-size: 13px;
       letter-spacing: 1px;
     }
-
     h1 {
       font-size: clamp(44px, 8vw, 78px);
-      line-height: 0.95;
+      line-height: .95;
       letter-spacing: -3px;
       margin: 35px 0 20px;
     }
-
     .intro {
       color: var(--muted);
       line-height: 1.7;
       max-width: 550px;
       margin-bottom: 35px;
     }
-
     .inquiry-card {
+      position: relative;
       padding: clamp(22px, 5vw, 45px);
       border: 1px solid rgba(64,224,208,.32);
       border-radius: 24px;
-      background: rgba(15,35,45,.65);
-      backdrop-filter: blur(18px);
-      box-shadow: 0 20px 80px rgba(0,0,0,.25);
+      background: rgba(8,24,34,.18);
+      -webkit-backdrop-filter: blur(12px) saturate(170%);
+      backdrop-filter: blur(12px) saturate(170%);
+      box-shadow: 0 20px 70px rgba(0,0,0,.18),
+                  inset 0 1px 0 rgba(255,255,255,.08);
     }
-
+    .inquiry-card::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      pointer-events: none;
+      box-shadow: 0 0 35px rgba(64,224,208,.06);
+    }
     .section-title {
       color: var(--accent);
       font-size: 12px;
@@ -75,165 +89,89 @@
       padding-bottom: 12px;
       border-bottom: 1px solid rgba(255,255,255,.12);
     }
-
     .section-title:first-child { margin-top: 0; }
-
     .field { margin-bottom: 20px; }
-
     label {
       display: block;
       margin-bottom: 9px;
       font-size: 13px;
       font-weight: bold;
     }
-
     input, select, textarea {
       width: 100%;
       padding: 15px;
-      background: rgba(4,16,24,.7);
+      background: rgba(4,16,24,.32);
       color: white;
-      border: 1px solid rgba(255,255,255,.16);
+      border: 1px solid rgba(180,220,225,.20);
       border-radius: 10px;
       font: inherit;
       outline: none;
+      -webkit-backdrop-filter: blur(6px);
+      backdrop-filter: blur(6px);
+      transition: border-color .25s ease, box-shadow .25s ease;
     }
-
     input:focus, select:focus, textarea:focus {
       border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(64,224,208,.08),
+                  0 0 20px rgba(64,224,208,.10);
     }
-
     select option { background: #07131c; }
     textarea { min-height: 130px; resize: vertical; }
-
     .two-col {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 18px;
     }
-
+    /* Compact glossy pill, matching portfolio hero buttons */
     .submit-btn {
-      width: 100%;
-      padding: 18px;
-      border: 0;
-      border-radius: 50px;
-      background: var(--accent);
-      color: #04151a;
+      display: block;
+      position: relative;
+      width: fit-content;
+      max-width: 100%;
+      min-width: 230px;
+      margin: 28px auto 0;
+      padding: 15px 27px;
+      border: 1px solid #8dfff0;
+      border-radius: 999px;
+      background: linear-gradient(180deg,
+        #a5fff4 0%, #5df2e2 28%, #32d5c8 58%, #10a8a4 100%);
+      color: #03171a;
+      font: inherit;
+      font-size: 13px;
       font-weight: 800;
-      letter-spacing: 1px;
+      line-height: 1.2;
+      text-align: center;
       cursor: pointer;
-      transition: .3s;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.7),
+                  inset 0 -2px 0 rgba(0,75,80,.25),
+                  0 4px 0 #086c70,
+                  0 7px 14px rgba(0,0,0,.18);
+      transition: transform .2s ease, box-shadow .2s ease;
     }
-
     .submit-btn:hover {
-      box-shadow: 0 0 30px rgba(64,224,208,.45);
       transform: translateY(-2px);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.8),
+                  inset 0 -2px 0 rgba(0,75,80,.25),
+                  0 6px 0 #086c70,
+                  0 10px 22px rgba(64,224,208,.22);
     }
-
-    .form-status {
-      margin-top: 18px;
-      line-height: 1.5;
+    .submit-btn:active {
+      transform: translateY(3px);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.6),
+                  0 1px 0 #086c70;
     }
-
+    .submit-btn:disabled { cursor: wait; opacity: .7; }
+    .form-status { margin-top: 18px; line-height: 1.5; text-align: center; }
     @media (max-width: 600px) {
       .two-col { grid-template-columns: 1fr; gap: 0; }
       h1 { letter-spacing: -2px; }
     }
-    
-/* ========================================
-   INQUIRY PAGE: ANIMATED GRID + GLASS
-   ======================================== */
-
-/* Keep the grid animation visible */
-#aq-grid-lights {
-  position: fixed !important;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0 !important;
-  pointer-events: none;
-  opacity: 1;
-}
-
-/* Make the page background compatible
-   with the animated grid */
-body {
-  background:
-    linear-gradient(
-      rgba(5, 15, 23, 0.18),
-      rgba(5, 15, 23, 0.35)
-    ),
-    #07131c;
-  isolation: isolate;
-}
-
-/* Keep content above the animation */
-.inquiry-wrap {
-  position: relative;
-  z-index: 1;
-}
-
-/* Frosted glass form */
-.inquiry-card {
-  background: rgba(12, 30, 40, 0.48);
-  backdrop-filter: blur(14px) saturate(180%);
-  -webkit-backdrop-filter: blur(14px) saturate(180%);
-
-  border: 1px solid rgba(64, 224, 208, 0.32);
-
-  box-shadow:
-    0 20px 80px rgba(0, 0, 0, 0.25),
-    inset 0 1px 0 rgba(255, 255, 255, 0.07);
-
-  position: relative;
-}
-
-/* Glass-style form fields */
-.inquiry-card input,
-.inquiry-card select,
-.inquiry-card textarea {
-  background: rgba(4, 16, 24, 0.50);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-
-  border: 1px solid rgba(255, 255, 255, 0.16);
-
-  transition:
-    border-color 0.25s ease,
-    box-shadow 0.25s ease;
-}
-
-/* Turquoise glow when typing */
-.inquiry-card input:focus,
-.inquiry-card select:focus,
-.inquiry-card textarea:focus {
-  border-color: #40e0d0;
-
-  box-shadow:
-    0 0 0 3px rgba(64, 224, 208, 0.08),
-    0 0 20px rgba(64, 224, 208, 0.10);
-}
-
-/* Subtle glow around the form */
-.inquiry-card::before {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  pointer-events: none;
-
-  box-shadow:
-    0 0 35px rgba(64, 224, 208, 0.06);
-}
-
-/* Respect reduced-motion preferences */
-@media (prefers-reduced-motion: reduce) {
-  .inquiry-card input,
-  .inquiry-card select,
-  .inquiry-card textarea {
-    transition: none;
-  }
-}
-
+    @media (max-width: 480px) {
+      .submit-btn { width: 100%; min-width: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      input, select, textarea, .submit-btn { transition: none; }
+    }
   </style>
 </head>
 
