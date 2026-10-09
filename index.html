@@ -386,36 +386,36 @@
             the follow-up.
           </p>
 
+          <div class="hood-info" id="hoodInfo" aria-hidden="true" aria-live="polite">
+            <div class="hood-info-inner">
+              <div class="hood-info-top">
+                <span>BEHIND THE BUILD</span>
+                <button class="hood-info-close" type="button" aria-label="Close detail">&times;</button>
+              </div>
+              <h3 id="hoodInfoTitle"></h3>
+              <p id="hoodInfoDescription"></p>
+            </div>
+          </div>
+
         </div>
 
 
-        <div class="system-layers">
-
-          <div class="system-layer">
-            <strong>Design</strong>
-            <span>01 / EXPERIENCE</span>
-          </div>
-
-          <div class="system-layer">
-            <strong>Front End</strong>
-            <span>02 / CSS + JS</span>
-          </div>
-
-          <div class="system-layer">
-            <strong>Conversion</strong>
-            <span>03 / FORMS + CHECKOUT</span>
-          </div>
-
-          <div class="system-layer">
-            <strong>Automation</strong>
-            <span>04 / WORKFLOWS</span>
-          </div>
-
-          <div class="system-layer">
-            <strong>Integration</strong>
-            <span>05 / CONNECTED SYSTEMS</span>
-          </div>
-
+        <div class="system-layers" aria-label="Interactive technology stack">
+          <button class="system-layer" type="button" data-layer="design" aria-pressed="false" aria-controls="hoodInfo">
+            <strong>Design</strong><span>EXPERIENCE</span>
+          </button>
+          <button class="system-layer" type="button" data-layer="front" aria-pressed="false" aria-controls="hoodInfo">
+            <strong>Front End</strong><span>HTML + CSS + JS</span>
+          </button>
+          <button class="system-layer" type="button" data-layer="conversion" aria-pressed="false" aria-controls="hoodInfo">
+            <strong>Conversion</strong><span>FORMS + CHECKOUT</span>
+          </button>
+          <button class="system-layer" type="button" data-layer="automation" aria-pressed="false" aria-controls="hoodInfo">
+            <strong>Automation</strong><span>WORKFLOWS</span>
+          </button>
+          <button class="system-layer" type="button" data-layer="integration" aria-pressed="false" aria-controls="hoodInfo">
+            <strong>Integration</strong><span>CONNECTED SYSTEMS</span>
+          </button>
         </div>
 
       </div>
@@ -869,6 +869,46 @@ document.addEventListener("DOMContentLoaded", () => {
     closeButton?.addEventListener("click", () => selectCapability(active));
   });
   </script>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const cards = [...document.querySelectorAll(".system-layers .system-layer")];
+  const panel = document.getElementById("hoodInfo");
+  const title = document.getElementById("hoodInfoTitle");
+  const description = document.getElementById("hoodInfoDescription");
+  const close = panel?.querySelector(".hood-info-close");
+  if (!cards.length || !panel || !title || !description) return;
+
+  const content = {
+    design: ["Design & Experience", "I shape the visual hierarchy, page structure and user experience so every part of the funnel feels consistent and easy to follow."],
+    front: ["Front-End Development", "I use HTML, CSS and JavaScript to create responsive layouts, custom styling and interactive elements beyond standard page-builder templates."],
+    conversion: ["Conversion Path", "I connect forms, calls to action and checkout experiences to guide visitors toward a clear next step."],
+    automation: ["CRM & Automation", "I configure triggers, follow-up sequences and workflows that support the customer journey after a visitor takes action."],
+    integration: ["Connected Systems", "I connect funnel platforms, CRMs and supporting tools using integrations, APIs and webhooks where appropriate."]
+  };
+
+  let active = null;
+  function choose(key) {
+    active = key === active ? null : key;
+    cards.forEach(card => {
+      const selected = card.dataset.layer === active;
+      card.classList.toggle("is-selected", selected);
+      card.setAttribute("aria-pressed", String(selected));
+    });
+    if (active) {
+      title.textContent = content[active][0];
+      description.textContent = content[active][1];
+    }
+    const open = active !== null;
+    panel.classList.toggle("is-open", open);
+    panel.setAttribute("aria-hidden", String(!open));
+    close.tabIndex = open ? 0 : -1;
+  }
+  cards.forEach(card => card.addEventListener("click", () => choose(card.dataset.layer)));
+  close.addEventListener("click", () => choose(active));
+});
+</script>
 
 </body>
 </html>
