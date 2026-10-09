@@ -653,9 +653,7 @@ section {
   min-height: 660px;
 }
 
-.profile-image,
-.fishing-image
- {
+.profile-image {
   position: absolute;
 
   overflow: hidden;
@@ -680,28 +678,13 @@ section {
   border-radius: 28px;
 }
 
-.profile-image img,
-.fishing-image img {
+.profile-image img {
   width: 100%;
   height: 100%;
 
   object-fit: cover;
 }
 
-.fishing-image {
-  z-index: 3;
-
-  width: 43%;
-  height: 310px;
-
-  right: 0;
-  bottom: 0;
-
-  border-radius: 20px;
-
-  transform:
-    rotate(3deg);
-}
 
 .about-copy h2 {
   margin: 0 0 25px;
@@ -1036,12 +1019,8 @@ footer {
     height: 470px;
   }
 
-  .fishing-image {
-    width: 48%;
-    height: 240px;
-  }
 
-  .about-stats {
+.about-stats {
     grid-template-columns: 1fr;
   }
 
@@ -1881,7 +1860,6 @@ section[id] { scroll-margin-top: 100px; }
 .portfolio-viewer,
 .tool-card,
 .profile-image,
-.fishing-image,
 .contact-panel {
   position: relative;
 }
@@ -1894,7 +1872,6 @@ section[id] { scroll-margin-top: 100px; }
 .portfolio-viewer::before,
 .tool-card::before,
 .profile-image::before,
-.fishing-image::before,
 .contact-panel::before {
   content: "";
   position: absolute;
@@ -1925,7 +1902,6 @@ section[id] { scroll-margin-top: 100px; }
 /* Stagger the motion slightly so the page feels less mechanical. */
 .tool-card:nth-child(2n)::before { animation-delay: -2s; }
 .tool-card:nth-child(3n)::before { animation-delay: -4s; }
-.fishing-image::before { animation-delay: -3s; }
 .contact-panel::before { animation-duration: 12s; }
 .portfolio-viewer::before { animation-duration: 11s; }
 
@@ -1938,7 +1914,6 @@ section[id] { scroll-margin-top: 100px; }
   .portfolio-viewer::before,
   .tool-card::before,
   .profile-image::before,
-  .fishing-image::before,
   .contact-panel::before { animation: none; }
 }
 
