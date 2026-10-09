@@ -2222,3 +2222,10 @@ section[id] { scroll-margin-top: 100px; }
   -webkit-backdrop-filter: blur(10px) saturate(165%);
   backdrop-filter: blur(10px) saturate(165%);
 }
+/* CENTER PROFILE PHOTO WITH ABOUT TEXT - DESKTOP ONLY */
+
+@media (min-width: 769px) {
+  .about-images {
+    transform: translateY(35px);
+  }
+}
