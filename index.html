@@ -1007,8 +1007,11 @@ const emailLink =
       label.includes("LET'S TALK") ||
       label.includes("LET'S BUILD")
     ) {
-      link.href = emailLink;
-      link.removeAttribute("target");
+      
+link.href = emailLink;
+link.setAttribute("target", "_blank");
+link.setAttribute("rel", "noopener noreferrer");
+
     }
   });
 })();
