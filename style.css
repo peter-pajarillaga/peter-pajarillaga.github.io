@@ -2196,20 +2196,3 @@ section[id] { scroll-margin-top: 100px; }
 @media (prefers-reduced-motion: reduce) {
   .tool-details, .tool-details-inner { transition: none; }
 }
-/* FROSTED GLASS EFFECT FOR GRID LIGHTS */
-
-:root {
-  --glass-blur: 18px;
-}
-
-:is(
-  .browser-window,
-  .capability-card,
-  .tool-card,
-  .project-card,
-  .stack-card,
-  .glass-card
-) {
-  -webkit-backdrop-filter: blur(var(--glass-blur));
-  backdrop-filter: blur(var(--glass-blur));
-}
