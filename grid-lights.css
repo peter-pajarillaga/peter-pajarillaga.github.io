@@ -42,3 +42,9 @@ body > *:not(#aq-grid-lights):not(script) {
     backdrop-filter: blur(8px) saturate(130%);
   }
 }
+/* Mobile performance test */
+@media (max-width: 700px) {
+  #aq-grid-lights {
+    display: none !important;
+  }
+}
