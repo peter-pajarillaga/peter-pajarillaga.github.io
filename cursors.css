@@ -34,7 +34,7 @@
   body .project-rail.is-dragging *,
   body .project-rail.is-dragging .explorer-card,
   body .project-rail.is-dragging .explorer-card * {
-    cursor: url("cursor-grab.svg") 16 16, grabbing !important;
+    cursor: url("cursor-grab.png") 29 24, grabbing !important;
   }
 }
 
