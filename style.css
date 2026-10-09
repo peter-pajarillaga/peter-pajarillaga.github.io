@@ -640,6 +640,7 @@ section {
 
 .profile-image,
 .fishing-image
+
  {
   position: absolute;
 
@@ -1323,6 +1324,7 @@ footer {
   background: #40e0d0;
 
 
+
   border-color: #40e0d0;
 
   color: #031013;
@@ -1825,6 +1827,7 @@ section[id] { scroll-margin-top: 100px; }
 }
 @media (max-width: 700px) {
   .site-nav
+
  { left: 50%; }
   .hero { padding-top: 135px; }
   .hero h1 { font-size: clamp(42px, 12vw, 76px); }
@@ -1889,11 +1892,11 @@ section[id] { scroll-margin-top: 100px; }
   background: conic-gradient(
     from var(--orbit-angle),
     transparent 0deg,
-    transparent 235deg,
-    rgba(0,191,255,.08) 270deg,
-    rgba(64,224,208,.65) 310deg,
-    #cafffa 332deg,
-    #40e0d0 345deg,
+    transparent 304deg,
+    rgba(0,191,255,.12) 319deg,
+    rgba(64,224,208,.60) 332deg,
+    #d8fffb 342deg,
+    rgba(64,224,208,.60) 352deg,
     transparent 360deg
   );
   -webkit-mask: linear-gradient(#000 0 0) content-box,
@@ -1902,15 +1905,15 @@ section[id] { scroll-margin-top: 100px; }
   mask: linear-gradient(#000 0 0) content-box,
         linear-gradient(#000 0 0);
   mask-composite: exclude;
-  animation: orbitBorderLight 6s linear infinite;
+  animation: orbitBorderLight 9s linear infinite;
 }
 
 /* Stagger the motion slightly so the page feels less mechanical. */
 .tool-card:nth-child(2n)::before { animation-delay: -2s; }
 .tool-card:nth-child(3n)::before { animation-delay: -4s; }
 .fishing-image::before { animation-delay: -3s; }
-.contact-panel::before { animation-duration: 9s; }
-.portfolio-viewer::before { animation-duration: 8s; }
+.contact-panel::before { animation-duration: 12s; }
+.portfolio-viewer::before { animation-duration: 11s; }
 
 /* Decorative label rules removed. Keep label text unchanged. */
 .section-label { gap: 0; }
@@ -1923,4 +1926,94 @@ section[id] { scroll-margin-top: 100px; }
   .profile-image::before,
   .fishing-image::before,
   .contact-panel::before { animation: none; }
+}
+
+/* =========================================================
+   CAPABILITY STRIP | CONNECTED AQUARIUS SKILLS BAR
+   ========================================================= */
+.capability-strip { padding: 22px 0 30px; }
+.capability-inner {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  border: 1px solid rgba(64,224,208,.24);
+  border-radius: 22px;
+  background: linear-gradient(135deg, #111b21, #0c141a 60%, #101a20);
+  box-shadow: inset 0 1px rgba(255,255,255,.045), 0 12px 38px rgba(0,0,0,.18);
+}
+.capability-inner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border-radius: inherit;
+  padding: 2px;
+  pointer-events: none;
+  background: conic-gradient(from var(--orbit-angle),
+    transparent 0deg, transparent 304deg,
+    rgba(0,191,255,.12) 319deg,
+    rgba(64,224,208,.60) 332deg,
+    #d8fffb 342deg,
+    rgba(64,224,208,.60) 352deg,
+    transparent 360deg);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  animation: orbitBorderLight 11s linear infinite;
+}
+.capability {
+  position: relative;
+  min-width: 0;
+  min-height: 118px;
+  padding: 22px 15px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #c4d0d5;
+  border-right: 1px solid rgba(255,255,255,.075);
+  background: transparent;
+  transition: color .25s ease, background .25s ease;
+}
+.capability::before {
+  content: counter(capability, decimal-leading-zero);
+  color: var(--cyan);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .16em;
+  opacity: .8;
+}
+.capability-inner { counter-reset: capability; }
+.capability { counter-increment: capability; }
+.capability::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 18%;
+  right: 18%;
+  height: 2px;
+  background: var(--cyan);
+  opacity: 0;
+  transform: scaleX(.35);
+  transition: opacity .3s ease, transform .3s ease;
+}
+.capability:hover { color: #fff; background: rgba(64,224,208,.07); }
+.capability:hover::after { opacity: 1; transform: scaleX(1); }
+.capability:last-child { border-right: 0; }
+@media (max-width: 980px) {
+  .capability-inner { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .capability { border-bottom: 1px solid rgba(255,255,255,.075); }
+  .capability:nth-child(2n) { border-right: 0; }
+  .capability:last-child { grid-column: 1 / -1; border-bottom: 0; }
+}
+@media (max-width: 520px) {
+  .capability-strip { padding: 12px 0 22px; }
+  .capability-inner { border-radius: 18px; }
+  .capability { min-height: 92px; padding: 16px 8px; font-size: 10px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .capability-inner::before { animation: none; }
 }
