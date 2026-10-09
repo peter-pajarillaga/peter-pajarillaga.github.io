@@ -76,8 +76,8 @@ body::before {
   z-index: -1;
 
   background-image:
-    linear-gradient(rgba(255,255,255,.022) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.022) 1px, transparent 1px);
+    linear-gradient(rgba(64,224,208,.15) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(64,224,208,.15) 1px, transparent 1px);
 
   background-size: 52px 52px;
 
