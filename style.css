@@ -2229,3 +2229,101 @@ section[id] { scroll-margin-top: 100px; }
     transform: translateY(35px);
   }
 }
+/* =========================================================
+   DRAGGABLE PROJECT CAROUSEL | ISOLATED COMPONENT
+   All cards are existing real projects. No placeholders.
+   ========================================================= */
+.project-rail-wrap {
+  width: min(750px, 62%);
+  right: 22px;
+  bottom: 20px;
+  overflow: visible;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.carousel-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px 6px;
+  gap: 12px;
+}
+.carousel-hint {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .14em;
+  color: #a7e8e2;
+  text-shadow: 0 1px 8px #001;
+}
+.carousel-controls { display: flex; gap: 8px; }
+.carousel-arrow {
+  appearance: none;
+  width: 36px;
+  height: 32px;
+  border: 1px solid rgba(255,255,255,.6);
+  border-bottom: 3px solid #087e7b;
+  border-radius: 999px;
+  background: linear-gradient(180deg,#c5fffa,#40e0d0 50%,#16aaa7);
+  color: #06282a;
+  font-size: 18px;
+  font-weight: 900;
+  cursor: pointer;
+}
+.project-rail {
+  position: relative;
+  display: block;
+  height: 210px;
+  overflow: hidden;
+  padding: 0;
+  perspective: 1050px;
+  perspective-origin: 50% 45%;
+  touch-action: pan-y;
+  cursor: grab;
+  scrollbar-width: none;
+  isolation: isolate;
+}
+.project-rail.is-dragging { cursor: grabbing; }
+.project-rail .explorer-card {
+  position: absolute;
+  top: 22px;
+  left: 50%;
+  width: min(33%, 205px);
+  height: 145px;
+  margin-left: calc(-1 * min(16.5%, 102.5px));
+  flex: none;
+  transform-origin: center;
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+  transition: transform .55s cubic-bezier(.2,.8,.2,1), opacity .45s ease, border-color .3s ease;
+  scroll-snap-align: none;
+  -webkit-user-drag: none;
+  cursor: grab;
+}
+.project-rail.is-dragging .explorer-card { transition: none; cursor: grabbing; }
+.project-rail .explorer-card:hover,
+.project-rail .explorer-card.active {
+  /* Position is controlled by the carousel, not hover CSS. */
+  transform: var(--carousel-transform) !important;
+}
+.project-rail .explorer-card img { pointer-events: none; -webkit-user-drag: none; }
+.project-rail .explorer-card-overlay { pointer-events: none; }
+@media (max-width: 900px) {
+  .project-rail-wrap { left: 12px; right: 12px; bottom: 9px; width: auto; }
+  .project-rail { height: 165px; }
+  .project-rail .explorer-card {
+    top: 17px; width: 160px; height: 112px; margin-left: -80px;
+  }
+  .viewer-info { bottom: 206px; }
+}
+@media (max-width: 520px) {
+  .project-rail { height: 142px; }
+  .project-rail .explorer-card {
+    top: 13px; width: 122px; height: 92px; margin-left: -61px;
+  }
+  .viewer-info { bottom: 176px; }
+  .carousel-hint { font-size: 8px; }
+  .carousel-arrow { width: 31px; height: 29px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .project-rail .explorer-card { transition: none; }
+}
