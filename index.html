@@ -440,48 +440,50 @@
         </h2>
 
 
-        <div class="tools-grid">
-
-          <div class="tool-card">
+        <div class="tools-grid" id="toolsGrid">
+          <button class="tool-card" type="button" data-tool="ghl" aria-pressed="false" aria-controls="toolDetails">
             <small>FUNNEL PLATFORM</small>
             <strong>GoHighLevel</strong>
-          </div>
-
-          <div class="tool-card">
+          </button>
+          <button class="tool-card" type="button" data-tool="clickfunnels" aria-pressed="false" aria-controls="toolDetails">
             <small>FUNNEL PLATFORM</small>
             <strong>ClickFunnels</strong>
-          </div>
-
-          <div class="tool-card">
+          </button>
+          <button class="tool-card" type="button" data-tool="html" aria-pressed="false" aria-controls="toolDetails">
             <small>FRONT END</small>
             <strong>HTML</strong>
-          </div>
-
-          <div class="tool-card">
+          </button>
+          <button class="tool-card" type="button" data-tool="css" aria-pressed="false" aria-controls="toolDetails">
             <small>FRONT END</small>
             <strong>CSS</strong>
-          </div>
-
-          <div class="tool-card">
+          </button>
+          <button class="tool-card" type="button" data-tool="javascript" aria-pressed="false" aria-controls="toolDetails">
             <small>FRONT END</small>
             <strong>JavaScript</strong>
-          </div>
-
-          <div class="tool-card">
+          </button>
+          <button class="tool-card" type="button" data-tool="n8n" aria-pressed="false" aria-controls="toolDetails">
             <small>AUTOMATION</small>
             <strong>n8n</strong>
-          </div>
-
-          <div class="tool-card">
-            <small>CRM / AUTOMATION</small>
+          </button>
+          <button class="tool-card" type="button" data-tool="keap" aria-pressed="false" aria-controls="toolDetails">
+            <small>CRM & EMAIL AUTOMATION</small>
             <strong>Keap</strong>
-          </div>
-
-          <div class="tool-card">
+          </button>
+          <button class="tool-card" type="button" data-tool="integrations" aria-pressed="false" aria-controls="toolDetails">
             <small>INTEGRATIONS</small>
             <strong>APIs + Webhooks</strong>
-          </div>
+          </button>
+        </div>
 
+        <div class="tool-details" id="toolDetails" aria-hidden="true" aria-live="polite">
+          <div class="tool-details-inner">
+            <div class="tool-details-top">
+              <span id="toolDetailsCategory">TECHNOLOGY</span>
+              <button class="tool-details-close" type="button" aria-label="Close technology details" tabindex="-1">×</button>
+            </div>
+            <h3 id="toolDetailsTitle"></h3>
+            <p id="toolDetailsDescription"></p>
+          </div>
         </div>
 
       </div>
@@ -906,6 +908,50 @@ document.addEventListener("DOMContentLoaded", () => {
     close.tabIndex = open ? 0 : -1;
   }
   cards.forEach(card => card.addEventListener("click", () => choose(card.dataset.layer)));
+  close.addEventListener("click", () => choose(active));
+});
+</script>
+
+
+<!-- INTERACTIVE TOOLS & TECHNOLOGIES -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const cards = [...document.querySelectorAll("#toolsGrid .tool-card")];
+  const panel = document.getElementById("toolDetails");
+  const category = document.getElementById("toolDetailsCategory");
+  const title = document.getElementById("toolDetailsTitle");
+  const description = document.getElementById("toolDetailsDescription");
+  const close = panel?.querySelector(".tool-details-close");
+  if (!cards.length || !panel || !category || !title || !description || !close) return;
+
+  const details = {
+    ghl: ["FUNNEL PLATFORM", "GoHighLevel", "I build landing pages, funnels, forms, checkout flows, CRM pipelines, email sequences and automated follow-up workflows in GoHighLevel."],
+    clickfunnels: ["FUNNEL PLATFORM", "ClickFunnels", "I build structured sales funnels, landing pages and checkout experiences that guide visitors through a clear customer journey."],
+    html: ["FRONT END", "HTML", "I use HTML to structure pages and create custom elements that work alongside funnel-builder platforms."],
+    css: ["FRONT END", "CSS", "I use CSS for responsive layouts, custom styling, motion effects and polished interfaces beyond standard templates."],
+    javascript: ["FRONT END", "JavaScript", "I use JavaScript to build interactive components, custom behaviors and dynamic page experiences."],
+    n8n: ["AUTOMATION", "n8n", "I create multi-step automations that connect tools, move data between systems and reduce repetitive manual work."],
+    keap: ["CRM & EMAIL AUTOMATION", "Keap", "I work with contact management, email marketing and follow-up workflows in Keap. My CRM and automation approach is platform-flexible, based on the client's preferred tools, including GoHighLevel and Keap."],
+    integrations: ["INTEGRATIONS", "APIs + Webhooks", "I connect funnels, CRMs and supporting platforms using available integrations, APIs and webhooks to pass information between systems."]
+  };
+
+  let active = null;
+  function choose(key) {
+    active = active === key ? null : key;
+    cards.forEach(card => {
+      const selected = card.dataset.tool === active;
+      card.classList.toggle("is-selected", selected);
+      card.setAttribute("aria-pressed", String(selected));
+    });
+    if (active) {
+      [category.textContent, title.textContent, description.textContent] = details[active];
+    }
+    const isOpen = active !== null;
+    panel.classList.toggle("is-open", isOpen);
+    panel.setAttribute("aria-hidden", String(!isOpen));
+    close.tabIndex = isOpen ? 0 : -1;
+  }
+  cards.forEach(card => card.addEventListener("click", () => choose(card.dataset.tool)));
   close.addEventListener("click", () => choose(active));
 });
 </script>
