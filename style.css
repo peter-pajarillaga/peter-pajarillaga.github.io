@@ -2205,3 +2205,20 @@ section[id] { scroll-margin-top: 100px; }
 .capability-strip { background: transparent !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
 .capability-inner { background-color: transparent; }
 .system-layers .system-layer { background-color: transparent; }
+
+/* Glass refinement: Tools cards and large contact panel */
+#tools .tool-card {
+  background: rgba(12, 26, 33, .24) !important;
+  -webkit-backdrop-filter: blur(9px) saturate(165%);
+  backdrop-filter: blur(9px) saturate(165%);
+}
+#tools .tool-card:hover { background: rgba(18, 48, 53, .30) !important; }
+#tools .tool-card.is-selected {
+  background: rgba(28, 80, 78, .32) !important;
+}
+.contact-panel {
+  background: radial-gradient(circle at 80% 20%, rgba(64,224,208,.09), transparent 42%),
+              rgba(10, 22, 29, .27) !important;
+  -webkit-backdrop-filter: blur(10px) saturate(165%);
+  backdrop-filter: blur(10px) saturate(165%);
+}
