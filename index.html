@@ -951,5 +951,63 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 
 <script src="grid-lights.js" defer></script>
+  
+<script>
+/* PORTFOLIO PROJECT INQUIRY EMAIL */
+
+(function () {
+  const recipient = "pppajarillaga@gmail.com";
+
+  const subject = "Funnel Project Inquiry";
+
+  const message = `Hi Peter,
+
+I'm interested in discussing a funnel project.
+
+BUSINESS INFORMATION
+
+Business Name:
+Website / Social Media:
+
+PROJECT DETAILS
+
+What do you need help with?
+(Landing Page / Sales Funnel / Booking Funnel / Automation / Other)
+
+What is the main goal of your project?
+(Generate Leads / Book Appointments / Sell Products / Other)
+
+Do you already have a funnel platform or CRM?
+(Yes / No / Not Sure)
+
+Preferred Launch Date:
+
+Anything else you'd like me to know?
+
+
+Thank you!`;
+
+  const emailLink =
+    "mailto:" + recipient +
+    "?subject=" + encodeURIComponent(subject) +
+    "&body=" + encodeURIComponent(message);
+
+  document.querySelectorAll("a").forEach((link) => {
+    const label = link.textContent
+      .replace(/\s+/g, " ")
+      .trim()
+      .toUpperCase();
+
+    if (
+      label.includes("LET'S TALK") ||
+      label.includes("LET'S BUILD")
+    ) {
+      link.href = emailLink;
+      link.removeAttribute("target");
+    }
+  });
+})();
+</script>
+
 </body>
 </html>
