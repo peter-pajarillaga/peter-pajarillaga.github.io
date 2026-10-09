@@ -8,6 +8,7 @@
   
 <link rel="stylesheet" href="grid-lights.css">
 <script src="grid-lights.js" defer></script>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 
   <style>
@@ -35,7 +36,7 @@
       height: 100%;
       z-index: 0 !important;
       pointer-events: none;
-      opacity: 2;
+      opacity: 1;
     }
     .inquiry-wrap {
       position: relative;
@@ -122,43 +123,47 @@
       grid-template-columns: 1fr 1fr;
       gap: 18px;
     }
-    /* Same glossy button treatment as portfolio hero buttons */
+    /* Compact glossy pill, matching portfolio hero buttons */
     .submit-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: block;
+      position: relative;
       width: fit-content;
       max-width: 100%;
-      min-height: 48px;
+      min-width: 230px;
       margin: 28px auto 0;
-      padding: 12px 26px;
+      padding: 15px 27px;
+      border: 1px solid #8dfff0;
       border-radius: 999px;
-      font-family: inherit;
+      background: linear-gradient(180deg,
+        #a5fff4 0%, #5df2e2 28%, #32d5c8 58%, #10a8a4 100%);
+      color: #03171a;
+      font: inherit;
       font-size: 13px;
-      font-weight: 900;
-      line-height: 1.1;
-      letter-spacing: 0;
+      font-weight: 800;
+      line-height: 1.2;
       text-align: center;
-      color: #000;
-      background: linear-gradient(180deg, #c5fffa 0%, #7af7ee 15%, #40e0d0 50%, #16aaa7 100%);
-      border: 1px solid rgba(255,255,255,.65);
-      border-bottom: 3px solid #087e7b;
-      box-shadow: none;
-      text-shadow: none;
-      filter: none;
       cursor: pointer;
-      transition: transform .25s ease, background .25s ease, color .25s ease;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.7),
+                  inset 0 -2px 0 rgba(0,75,80,.25),
+                  0 4px 0 #086c70,
+                  0 7px 14px rgba(0,0,0,.18);
+      transition: transform .2s ease, box-shadow .2s ease;
     }
     .submit-btn:hover {
       transform: translateY(-2px);
-      color: #000;
-      background: linear-gradient(180deg, #e0fffc 0%, #a0fff7 15%, #55eee5 50%, #20b9b3 100%);
-      box-shadow: none;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.8),
+                  inset 0 -2px 0 rgba(0,75,80,.25),
+                  0 6px 0 #086c70,
+                  0 10px 22px rgba(64,224,208,.22);
     }
     .submit-btn:active {
-      transform: translateY(0);
+      transform: translateY(3px);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.6),
+                  0 1px 0 #086c70;
     }
     .submit-btn:disabled { cursor: wait; opacity: .7; }
+    .captcha-wrap { display: flex; justify-content: center; margin-top: 24px; min-height: 78px; }
+    .captcha-wrap .g-recaptcha { max-width: 100%; }
     .form-status { margin-top: 18px; line-height: 1.5; text-align: center; }
     @media (max-width: 600px) {
       .two-col { grid-template-columns: 1fr; gap: 0; }
@@ -282,6 +287,10 @@
         ></textarea>
       </div>
 
+      <div class="captcha-wrap">
+        <div class="g-recaptcha" data-sitekey="6LfoW-ctAAAAAGgeurxIT2IzQw0LJTdZ_4aiaCLk"></div>
+      </div>
+
       <button class="submit-btn" type="submit">
         SEND PROJECT INQUIRY ↗
       </button>
@@ -302,7 +311,13 @@
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
 
-      const button = form.querySelector("button");
+      const button = form.querySelector('button[type="submit"]');
+      const captchaToken = form.querySelector('[name="g-recaptcha-response"]')?.value;
+      if (!captchaToken) {
+        status.style.color = "#ff9c9c";
+        status.textContent = "Please complete the I'm not a robot checkbox before sending.";
+        return;
+      }
       button.disabled = true;
       button.textContent = "SENDING...";
       status.textContent = "";
@@ -317,10 +332,12 @@
         if (!response.ok) throw new Error("Submission failed");
 
         form.reset();
+        if (window.grecaptcha) window.grecaptcha.reset();
         status.style.color = "#40e0d0";
         status.textContent =
           "Thank you! Your inquiry has been sent successfully.";
       } catch (error) {
+        if (window.grecaptcha) window.grecaptcha.reset();
         status.style.color = "#ff9c9c";
         status.textContent =
           "Something went wrong. Please try again.";
