@@ -1,27 +1,30 @@
-/* Glossy turquoise cursors shared by the portfolio and inquiry form.
-   Only apply to precise pointer devices, not touchscreens. */
+/* Shared glossy brand turquoise cursors: portfolio + inquiry page */
 @media (hover: hover) and (pointer: fine) {
   html, body, body * {
-    cursor: url("cursor-arrow.svg") 5 3, auto;
+    cursor: url("cursor-arrow.png") 5 3, auto;
   }
 
+  /* Interactive controls and their nested text/icons */
   a, a *, button, button *,
   [role="button"], [role="button"] *,
-  summary, summary *,
+  [role="link"], [role="link"] *,
+  [role="tab"], [role="tab"] *,
+  [role="menuitem"], [role="menuitem"] *,
+  summary, summary *, label[for], label[for] *,
   input[type="submit"], input[type="button"], input[type="reset"],
   input[type="checkbox"], input[type="radio"],
-  select, label[for], label[for] * {
-    cursor: url("cursor-hand.svg") 7 5, pointer;
+  select, option,
+  [onclick], [onclick] *,
+  [tabindex="0"]:not(input):not(textarea),
+  [tabindex="0"]:not(input):not(textarea) *,
+  .clickable, .clickable *, .project-card, .project-card *,
+  .portfolio-card, .portfolio-card *, .card-link, .card-link * {
+    cursor: url("cursor-hand.png") 12 4, pointer !important;
   }
 
-  input[type="text"], input[type="email"], input[type="tel"],
-  input[type="url"], input[type="date"], input[type="number"],
-  input[type="search"], input[type="password"], textarea,
-  [contenteditable="true"] {
-    cursor: text;
+  input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]):not([type="reset"]),
+  textarea, [contenteditable="true"] {
+    cursor: text !important;
   }
-
-  button:disabled, input:disabled, select:disabled {
-    cursor: not-allowed;
-  }
+  :disabled, :disabled * { cursor: not-allowed !important; }
 }
