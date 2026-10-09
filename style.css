@@ -112,13 +112,6 @@ section {
   text-transform: uppercase;
 }
 
-.section-label::before {
-  content: "";
-  width: 28px;
-  height: 1px;
-  background: var(--cyan);
-}
-
 .section-title {
   max-width: 850px;
   margin: 0;
@@ -646,7 +639,8 @@ section {
 }
 
 .profile-image,
-.fishing-image {
+.fishing-image
+ {
   position: absolute;
 
   overflow: hidden;
@@ -1328,6 +1322,7 @@ footer {
 .page-button.active {
   background: #40e0d0;
 
+
   border-color: #40e0d0;
 
   color: #031013;
@@ -1829,7 +1824,8 @@ section[id] { scroll-margin-top: 100px; }
  700px; width: 100%; margin: 0 auto; }
 }
 @media (max-width: 700px) {
-  .site-nav { left: 50%; }
+  .site-nav
+ { left: 50%; }
   .hero { padding-top: 135px; }
   .hero h1 { font-size: clamp(42px, 12vw, 76px); }
   .hero-system { height: 390px; min-height: 390px; }
@@ -1846,3 +1842,85 @@ section[id] { scroll-margin-top: 100px; }
   .hero-system .browser-window, .hero-system .browser-top span { animation: none; }
 }
 
+
+/* =========================================================
+   AQUARIUS ORBIT LIGHT
+   A thin turquoise light travels around each frame.
+   Frames and their contents remain stationary.
+   ========================================================= */
+
+@property --orbit-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes orbitBorderLight {
+  to { --orbit-angle: 360deg; }
+}
+
+/* Frames requested for the orbiting border effect. */
+.site-nav,
+.portfolio-viewer,
+.tool-card,
+.profile-image,
+.fishing-image,
+.contact-panel {
+  position: relative;
+}
+
+/* The nav retains its fixed positioning and centered transform. */
+.site-nav { position: fixed; }
+
+/* The light is confined to a 2px border, not the card's interior. */
+.site-nav::before,
+.portfolio-viewer::before,
+.tool-card::before,
+.profile-image::before,
+.fishing-image::before,
+.contact-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  pointer-events: none;
+  z-index: 10;
+  background: conic-gradient(
+    from var(--orbit-angle),
+    transparent 0deg,
+    transparent 235deg,
+    rgba(0,191,255,.08) 270deg,
+    rgba(64,224,208,.65) 310deg,
+    #cafffa 332deg,
+    #40e0d0 345deg,
+    transparent 360deg
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box,
+                linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  animation: orbitBorderLight 6s linear infinite;
+}
+
+/* Stagger the motion slightly so the page feels less mechanical. */
+.tool-card:nth-child(2n)::before { animation-delay: -2s; }
+.tool-card:nth-child(3n)::before { animation-delay: -4s; }
+.fishing-image::before { animation-delay: -3s; }
+.contact-panel::before { animation-duration: 9s; }
+.portfolio-viewer::before { animation-duration: 8s; }
+
+/* Decorative label rules removed. Keep label text unchanged. */
+.section-label { gap: 0; }
+.section-label::before { content: none; display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .site-nav::before,
+  .portfolio-viewer::before,
+  .tool-card::before,
+  .profile-image::before,
+  .fishing-image::before,
+  .contact-panel::before { animation: none; }
+}
