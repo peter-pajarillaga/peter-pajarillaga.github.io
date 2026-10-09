@@ -2160,3 +2160,64 @@ section[id] { scroll-margin-top: 100px; }
 @media (prefers-reduced-motion: reduce) {
   .hood-info, .hood-info-inner { transition: none; }
 }
+
+/* =========================================================
+   TOOLS & TECHNOLOGIES | INTERACTIVE DETAIL PANEL
+   Existing grid and orbiting border light remain intact.
+   ========================================================= */
+#tools .tool-card {
+  appearance: none;
+  width: 100%;
+  font-family: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  position: relative;
+  isolation: isolate;
+}
+#tools .tool-card.is-selected {
+  border-color: rgba(64,224,208,.9);
+  background: linear-gradient(135deg,rgba(64,224,208,.10),rgba(255,255,255,.025));
+  box-shadow: 0 0 26px rgba(64,224,208,.14);
+}
+#tools .tool-card:focus-visible { outline: 2px solid var(--cyan); outline-offset: 4px; }
+.tool-details {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  visibility: hidden;
+  margin-top: 0;
+  border: 0 solid transparent;
+  border-radius: 22px;
+  background: linear-gradient(135deg,rgba(18,42,48,.96),rgba(9,19,25,.98));
+  transition: grid-template-rows .4s ease, opacity .3s ease, margin-top .4s ease, visibility .4s;
+}
+.tool-details.is-open {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  visibility: visible;
+  margin-top: 20px;
+  border: 1px solid rgba(64,224,208,.45);
+  box-shadow: 0 20px 50px rgba(0,0,0,.25),0 0 24px rgba(64,224,208,.07);
+}
+.tool-details-inner { min-height: 0; overflow: hidden; padding: 0 30px; transition: padding .4s ease; }
+.tool-details.is-open .tool-details-inner { padding: 26px 30px 30px; }
+.tool-details-top { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+#toolDetailsCategory { color: var(--cyan); font-size: 11px; font-weight: 900; letter-spacing: .13em; }
+.tool-details-close {
+  appearance: none; cursor: pointer; width: 34px; height: 34px;
+  border-radius: 50%; border: 1px solid rgba(64,224,208,.45);
+  background: #0c1d23; color: #d8fffb; font-size: 24px; line-height: 1;
+}
+.tool-details-close:hover { background: rgba(64,224,208,.15); }
+.tool-details h3 { margin: 12px 0 10px; color: #f4f7fa; font-size: clamp(24px,3vw,36px); line-height: 1.15; }
+.tool-details p { max-width: 850px; margin: 0; color: #b9c9ce; font-size: 16px; line-height: 1.7; }
+@media (max-width: 700px) {
+  .tool-details.is-open .tool-details-inner { padding: 22px 20px; }
+  .tool-details p { font-size: 14px; }
+  #tools .tool-card { padding: 17px; }
+  #tools .tool-card strong { font-size: 16px; overflow-wrap: anywhere; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tool-details, .tool-details-inner { transition: none; }
+}
