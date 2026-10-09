@@ -122,43 +122,41 @@
       grid-template-columns: 1fr 1fr;
       gap: 18px;
     }
-    /* Compact glossy pill, matching portfolio hero buttons */
+    /* Same glossy button treatment as portfolio hero buttons */
     .submit-btn {
-      display: block;
-      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       width: fit-content;
       max-width: 100%;
-      min-width: 230px;
+      min-height: 48px;
       margin: 28px auto 0;
-      padding: 15px 27px;
-      border: 1px solid #8dfff0;
+      padding: 12px 26px;
       border-radius: 999px;
-      background: linear-gradient(180deg,
-        #a5fff4 0%, #5df2e2 28%, #32d5c8 58%, #10a8a4 100%);
-      color: #03171a;
-      font: inherit;
+      font-family: inherit;
       font-size: 13px;
-      font-weight: 800;
-      line-height: 1.2;
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: 0;
       text-align: center;
+      color: #000;
+      background: linear-gradient(180deg, #c5fffa 0%, #7af7ee 15%, #40e0d0 50%, #16aaa7 100%);
+      border: 1px solid rgba(255,255,255,.65);
+      border-bottom: 3px solid #087e7b;
+      box-shadow: none;
+      text-shadow: none;
+      filter: none;
       cursor: pointer;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.7),
-                  inset 0 -2px 0 rgba(0,75,80,.25),
-                  0 4px 0 #086c70,
-                  0 7px 14px rgba(0,0,0,.18);
-      transition: transform .2s ease, box-shadow .2s ease;
+      transition: transform .25s ease, background .25s ease, color .25s ease;
     }
     .submit-btn:hover {
       transform: translateY(-2px);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.8),
-                  inset 0 -2px 0 rgba(0,75,80,.25),
-                  0 6px 0 #086c70,
-                  0 10px 22px rgba(64,224,208,.22);
+      color: #000;
+      background: linear-gradient(180deg, #e0fffc 0%, #a0fff7 15%, #55eee5 50%, #20b9b3 100%);
+      box-shadow: none;
     }
     .submit-btn:active {
-      transform: translateY(3px);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.6),
-                  0 1px 0 #086c70;
+      transform: translateY(0);
     }
     .submit-btn:disabled { cursor: wait; opacity: .7; }
     .form-status { margin-top: 18px; line-height: 1.5; text-align: center; }
