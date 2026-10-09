@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 64 64">
+ <defs>
+  <linearGradient id="fist" x1=".16" y1="0" x2=".82" y2="1" objectBoundingBox="true">
+   <stop offset="0" stop-color="#D9FFFC"/>
+   <stop offset=".25" stop-color="#91FFF4"/>
+   <stop offset=".57" stop-color="#40E0D0"/>
+   <stop offset="1" stop-color="#129C9C"/>
+  </linearGradient>
+  <filter id="shadow" x="-30%" y="-30%" width="170%" height="170%"><feDropShadow dx="1" dy="2" stdDeviation="1.2" flood-color="#02181D" flood-opacity=".8"/></filter>
+ </defs>
+ <!-- Closed gripping fist, modeled after the supplied reference silhouette. -->
+ <path d="M18 22 V17 Q18 12 23 12 Q28 12 28 17 V12 Q28 7 33 7 Q39 7 39 13 V16 Q40 11 45 11 Q51 11 51 17 V22 Q53 19 57 20 Q61 21 61 27 V42 Q61 51 54 58 H24 Q11 51 7 39 Q3 28 11 23 Q15 20 18 22 Z" transform="translate(-2 -2) scale(.98)" fill="url(#fist)" stroke="#083A43" stroke-width="3.5" stroke-linejoin="round" filter="url(#shadow)"/>
+ <path d="M17 19 V31 M27 16 V27 M38 16 V27 M49 22 V30" fill="none" stroke="#075C63" stroke-width="3" stroke-linecap="round" opacity=".9"/>
+ <path d="M12 28 Q10 39 22 51 Q25 54 29 54 H50" fill="none" stroke="#D7FFFB" stroke-width="2" stroke-linecap="round" opacity=".55"/>
+</svg>
