@@ -260,7 +260,14 @@
 
       <!-- PROJECT CARDS -->
 
-      <div class="project-rail-wrap">
+      <div class="project-rail-wrap" aria-label="Drag or swipe to rotate projects">
+         <div class="carousel-toolbar">
+           <span class="carousel-hint">DRAG TO ROTATE</span>
+           <div class="carousel-controls">
+             <button type="button" class="carousel-arrow" id="projectPrev" aria-label="Previous project">&#8592;</button>
+             <button type="button" class="carousel-arrow" id="projectNext" aria-label="Next project">&#8594;</button>
+           </div>
+         </div>
 
         <div class="project-rail" id="projectRail">
 
@@ -951,6 +958,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 
+<script src="project-carousel.js" defer></script>
 <script src="grid-lights.js" defer></script>
   
 
