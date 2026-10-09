@@ -1,0 +1,14 @@
+/* Grid lights appear over dark section backgrounds without blocking clicks. */
+#aq-grid-lights {
+  position: fixed !important;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 900;
+  pointer-events: none;
+  opacity: .55;
+  display: block;
+}
+@media (prefers-reduced-motion: reduce) {
+  #aq-grid-lights { opacity: .3; }
+}

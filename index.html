@@ -717,8 +717,8 @@ document.addEventListener("DOMContentLoaded", () => {
     "first-circle": {
       number: "PROJECT 01",
       title: "First Circle",
-      description: "A program sales experience built for Donna Zerger's First Circle, including the sales page, checkout and post-purchase journey.",
-      tags: ["GOHIGHLEVEL", "SALES FUNNEL", "CHECKOUT", "CUSTOM CSS"],
+      description: "A GoHighLevel program funnel for Donna Zerger's First Circle, featuring a sales page, checkout and post-purchase experience.",
+      tags: ["GOHIGHLEVEL", "PROGRAM SALES FUNNEL", "CHECKOUT", "CUSTOM CSS / JS"],
       pages: {
         sales: "assets/first-circle-sales.png",
         checkout: "assets/first-circle-checkout.png",
@@ -727,9 +727,9 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     "cba-live": {
       number: "PROJECT 02",
-      title: "CBA Live",
-      description: "A live-event funnel featuring event information, ticket options, checkout and post-purchase pages.",
-      tags: ["CLICKFUNNELS", "EVENT FUNNEL", "CHECKOUT", "CUSTOM CSS"],
+      title: "CBA Live 2027",
+      description: "An event ticket funnel built in ClickFunnels, featuring ticket options, checkout, a BBQ add-on and tailored post-purchase pages.",
+      tags: ["CLICKFUNNELS", "EVENT SALES FUNNEL", "CHECKOUT", "CUSTOM CSS / JS"],
       pages: {
         sales: "assets/cba-live-sales.png",
         checkout: "assets/cba-live-checkout.png",
@@ -739,8 +739,8 @@ document.addEventListener("DOMContentLoaded", () => {
     "cba-book": {
       number: "PROJECT 03",
       title: "CBA Book Funnel",
-      description: "A book funnel designed to introduce the offer and guide visitors through the next step.",
-      tags: ["FUNNEL DESIGN", "RESPONSIVE", "SALES PAGE"],
+      description: "A ClickFunnels book sales experience designed to present the offer and guide visitors through the next step.",
+      tags: ["CLICKFUNNELS", "BOOK SALES FUNNEL", "RESPONSIVE DESIGN"],
       pages: {
         sales: "assets/cba-book-sales.png",
         checkout: "assets/cba-book-checkout.png",
@@ -767,13 +767,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     const requestedPage = project.pages[currentPage];
-    const salesPage = project.pages.sales;
     viewerImage.onerror = () => {
       viewerImage.onerror = null;
-      if (viewerImage.getAttribute("src") !== salesPage) {
-        viewerImage.src = salesPage;
-      }
+      // Do not silently display a different page when a screenshot is missing.
+      viewerImage.alt = `${project.title} ${currentPage} screenshot unavailable`;
+      viewerImage.style.visibility = "hidden";
     };
+    viewerImage.style.visibility = "visible";
     viewerImage.src = requestedPage;
     viewerImage.alt = `${project.title} ${currentPage} page preview`;
     viewerScroll.scrollTop = 0;
@@ -949,6 +949,7 @@ document.addEventListener("DOMContentLoaded", () => {
   close.addEventListener("click", () => choose(active));
 });
 </script>
+
 <script src="grid-lights.js" defer></script>
 </body>
 </html>
