@@ -987,10 +987,15 @@ Anything else you'd like me to know?
 
 Thank you!`;
 
-  const emailLink =
-    "mailto:" + recipient +
-    "?subject=" + encodeURIComponent(subject) +
-    "&body=" + encodeURIComponent(message);
+  
+const formattedMessage = message
+  .trim()
+  .replace(/\r?\n/g, "\r\n");
+
+const emailLink =
+  "mailto:" + recipient +
+  "?subject=" + encodeURIComponent(subject) +
+  "&body=" + encodeURIComponent(formattedMessage);
 
   document.querySelectorAll("a").forEach((link) => {
     const label = link.textContent
