@@ -28,3 +28,13 @@
   }
   :disabled, :disabled * { cursor: not-allowed !important; }
 }
+/* Closed-fist turquoise cursor ONLY while dragging project carousel. */
+@media (hover: hover) and (pointer: fine) {
+  body .project-rail.is-dragging,
+  body .project-rail.is-dragging *,
+  body .project-rail.is-dragging .explorer-card,
+  body .project-rail.is-dragging .explorer-card * {
+    cursor: url("cursor-grab.png") 29 24, grabbing !important;
+  }
+}
+
