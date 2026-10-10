@@ -910,7 +910,7 @@ footer {
   }
 
   section {
-    padding: 85px 0;
+    padding: 50px 0;
   }
 
   .site-nav {
@@ -2326,4 +2326,40 @@ section[id] { scroll-margin-top: 100px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .project-rail .explorer-card { transition: none; }
+}
+/* MOBILE SECTION SPACING */
+@media (max-width: 700px) {
+
+  .hero {
+    padding-top: 120px;
+    padding-bottom: 35px;
+  }
+
+  .hero-system {
+    min-height: 350px;
+    height: 350px;
+  }
+
+  .project-explorer {
+    padding-top: 45px;
+    padding-bottom: 45px;
+  }
+
+  .under-hood {
+    padding-top: 45px;
+    padding-bottom: 45px;
+  }
+
+  .about-grid {
+    gap: 30px;
+  }
+
+  .about-images {
+    min-height: 490px;
+  }
+
+  .contact {
+    padding-top: 45px;
+  }
+
 }
