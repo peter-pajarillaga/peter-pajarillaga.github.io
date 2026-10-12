@@ -2429,3 +2429,50 @@ section[id] { scroll-margin-top: 100px; }
 .technical-panel p {
   margin: 0;
 }
+
+
+/* TECHNICAL DETAILS — ISOLATED STYLING */
+
+.viewer-info .viewer-technical {
+  position: relative;
+  z-index: 2;
+  pointer-events: auto;
+  margin-top: 18px;
+  max-width: 340px;
+}
+
+.viewer-info .technical-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 12px 16px;
+  background: rgba(5, 15, 20, 0.9);
+  border: 1px solid #40e0d0;
+  border-radius: 8px;
+  color: #40e0d0;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.viewer-info .technical-panel {
+  margin-top: 10px;
+  padding: 14px;
+  background: rgba(5, 15, 20, 0.95);
+  border: 1px solid rgba(64, 224, 208, 0.25);
+  border-radius: 8px;
+  color: #c5d3d8;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.viewer-info .technical-panel[hidden] {
+  display: none;
+}
+
+.viewer-info .technical-panel p {
+  margin: 0;
+}
