@@ -1017,5 +1017,68 @@ document.querySelectorAll("a").forEach((link) => {
 });
 </script>
 
+  
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const toggle = document.getElementById("technicalToggle");
+  const panel = document.getElementById("technicalPanel");
+  const content = document.getElementById("technicalContent");
+
+  if (!toggle || !panel || !content) return;
+
+  const details = {
+    "first-circle":
+      "Platform: GoHighLevel. Sales page, checkout flow, thank-you page, responsive layout, and custom CSS.",
+
+    "cba-live":
+      "Event funnel featuring ticket checkout, payment options, BBQ order bump, thank-you routing, and custom styling.",
+
+    "cba-book":
+      "Book funnel featuring sales page design and responsive layouts."
+  };
+
+  let selectedProject = "first-circle";
+
+  function updateDetails(projectId) {
+    selectedProject = projectId;
+    content.textContent = details[projectId] || "";
+    panel.hidden = true;
+    toggle.setAttribute("aria-expanded", "false");
+    toggle.querySelector("span").textContent = "+";
+  }
+
+  toggle.addEventListener("click", function () {
+    const opening = panel.hidden;
+    panel.hidden = !opening;
+    toggle.setAttribute("aria-expanded", String(opening));
+    toggle.querySelector("span").textContent = opening ? "−" : "+";
+  });
+
+  document.querySelectorAll(".explorer-card").forEach(function (card) {
+    card.addEventListener("click", function () {
+      updateDetails(card.dataset.project);
+    });
+  });
+
+  const title = document.getElementById("viewerTitle");
+  if (title) {
+    const observer = new MutationObserver(function () {
+      const active = document.querySelector(".explorer-card.active");
+      if (active && active.dataset.project !== selectedProject) {
+        updateDetails(active.dataset.project);
+      }
+    });
+
+    observer.observe(title, {
+      childList: true,
+      characterData: true,
+      subtree: true
+    });
+  }
+
+  updateDetails(selectedProject);
+});
+</script>
+  
 </body>
 </html>
