@@ -1012,5 +1012,62 @@ document.querySelectorAll("a").forEach((link) => {
 });
 </script>
 
+  
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const toggle = document.getElementById("technicalToggle");
+  const panel = document.getElementById("technicalPanel");
+  const content = document.getElementById("technicalContent");
+
+  if (!toggle || !panel || !content) return;
+
+  const details = {
+    "first-circle":
+      "Platform: GoHighLevel. Program sales page, checkout, thank-you page, responsive design, and custom CSS.",
+
+    "cba-live":
+      "Platform: ClickFunnels. Event ticket funnel, payment options, BBQ order bump, custom CSS/JavaScript, and thank-you routing.",
+
+    "cba-book":
+      "Book sales funnel featuring conversion-focused page design and responsive layouts."
+  };
+
+  function updateDetails(projectId) {
+    content.textContent = details[projectId] || "";
+    panel.hidden = true;
+    toggle.setAttribute("aria-expanded", "false");
+    toggle.querySelector("span").textContent = "+";
+  }
+
+  toggle.addEventListener("click", function () {
+    const opening = panel.hidden;
+    panel.hidden = !opening;
+    toggle.setAttribute("aria-expanded", String(opening));
+    toggle.querySelector("span").textContent = opening ? "−" : "+";
+  });
+
+  document.querySelectorAll(".explorer-card").forEach(function (card) {
+    card.addEventListener("click", function () {
+      updateDetails(card.dataset.project);
+    });
+  });
+
+  document.getElementById("projectPrev")?.addEventListener("click", function () {
+    setTimeout(syncActiveProject, 50);
+  });
+
+  document.getElementById("projectNext")?.addEventListener("click", function () {
+    setTimeout(syncActiveProject, 50);
+  });
+
+  function syncActiveProject() {
+    const active = document.querySelector(".explorer-card.active");
+    if (active) updateDetails(active.dataset.project);
+  }
+
+  updateDetails("first-circle");
+});
+</script>
+
 </body>
 </html>
