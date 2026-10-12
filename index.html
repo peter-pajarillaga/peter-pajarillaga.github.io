@@ -7,6 +7,7 @@
 
   <meta name="description"
   content="FunnelFlow Assist builds high-converting sales funnels, landing pages, CRM workflows, and marketing automations using GoHighLevel, ClickFunnels, Keap, and n8n.">
+  >
 
   <title>FunnelFlow Assist | Funnel Builder & Automation Specialist</title>
   
@@ -258,26 +259,6 @@
           <span>CUSTOM CSS</span>
 
         </div>
-
-        
-<!-- PROJECT TECHNICAL DETAILS -->
-<div class="viewer-technical">
-  <button
-    type="button"
-    class="technical-toggle"
-    id="technicalToggle"
-    aria-expanded="false"
-    aria-controls="technicalPanel"
-  >
-    VIEW TECHNICAL DETAILS
-    <span aria-hidden="true">+</span>
-  </button>
-
-  <div class="technical-panel" id="technicalPanel" hidden>
-    <p id="technicalContent"></p>
-  </div>
-</div>
-
 
 
 
@@ -753,6 +734,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const viewerDescription = document.getElementById("viewerDescription");
   const viewerTags = document.getElementById("viewerTags");
   const projectButtons = [...document.querySelectorAll(".explorer-card")];
+  const pageButtons = [...document.querySelectorAll(".page-button")];
 
   if (!viewerImage || !viewerScroll || !projectButtons.length) return;
 
@@ -793,6 +775,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   let currentProject = "first-circle";
+  let currentPage = "sales";
 
   function renderViewer() {
     const project = projects[currentProject];
@@ -808,16 +791,16 @@ document.addEventListener("DOMContentLoaded", () => {
       viewerTags.appendChild(span);
     });
 
-    const requestedPage = project.pages.sales;
+    const requestedPage = project.pages[currentPage];
     viewerImage.onerror = () => {
       viewerImage.onerror = null;
       // Do not silently display a different page when a screenshot is missing.
-      viewerImage.alt = `${project.title} sales screenshot unavailable`;
+      viewerImage.alt = `${project.title} ${currentPage} screenshot unavailable`;
       viewerImage.style.visibility = "hidden";
     };
     viewerImage.style.visibility = "visible";
     viewerImage.src = requestedPage;
-    viewerImage.alt = `${project.title} sales page preview`;
+    viewerImage.alt = `${project.title} ${currentPage} page preview`;
     viewerScroll.scrollTop = 0;
 
     projectButtons.forEach(button => {
@@ -825,17 +808,27 @@ document.addEventListener("DOMContentLoaded", () => {
       button.classList.toggle("active", active);
       button.setAttribute("aria-pressed", String(active));
     });
-
+    pageButtons.forEach(button => {
+      const active = button.dataset.page === currentPage;
+      button.classList.toggle("active", active);
+      button.setAttribute("aria-pressed", String(active));
+    });
   }
 
   projectButtons.forEach(button => {
     button.addEventListener("click", () => {
       currentProject = button.dataset.project;
+      currentPage = "sales";
       renderViewer();
     });
   });
 
-
+  pageButtons.forEach(button => {
+    button.addEventListener("click", () => {
+      currentPage = button.dataset.page;
+      renderViewer();
+    });
+  });
 
   renderViewer();
 });
@@ -957,4 +950,52 @@ document.addEventListener("DOMContentLoaded", () => {
     css: ["FRONT END", "CSS", "I use CSS for responsive layouts, custom styling, motion effects and polished interfaces beyond standard templates."],
     javascript: ["FRONT END", "JavaScript", "I use JavaScript to build interactive components, custom behaviors and dynamic page experiences."],
     n8n: ["AUTOMATION", "n8n", "I create multi-step automations that connect tools, move data between systems and reduce repetitive manual work."],
-    keap: ["CRM & EMAIL AUTOMATION", "Keap", "I work with contact management, email marketing and follow-up workflows in Keap. My CRM and automation approach is platf
+    keap: ["CRM & EMAIL AUTOMATION", "Keap", "I work with contact management, email marketing and follow-up workflows in Keap. My CRM and automation approach is platform-flexible, based on the client's preferred tools, including GoHighLevel and Keap."],
+    integrations: ["INTEGRATIONS", "APIs + Webhooks", "I connect funnels, CRMs and supporting platforms using available integrations, APIs and webhooks to pass information between systems."]
+  };
+
+  let active = null;
+  function choose(key) {
+    active = active === key ? null : key;
+    cards.forEach(card => {
+      const selected = card.dataset.tool === active;
+      card.classList.toggle("is-selected", selected);
+      card.setAttribute("aria-pressed", String(selected));
+    });
+    if (active) {
+      [category.textContent, title.textContent, description.textContent] = details[active];
+    }
+    const isOpen = active !== null;
+    panel.classList.toggle("is-open", isOpen);
+    panel.setAttribute("aria-hidden", String(!isOpen));
+    close.tabIndex = isOpen ? 0 : -1;
+  }
+  cards.forEach(card => card.addEventListener("click", () => choose(card.dataset.tool)));
+  close.addEventListener("click", () => choose(active));
+});
+</script>
+
+<script src="project-carousel.js" defer></script>
+<script src="grid-lights.js" defer></script>
+  
+
+<script>
+document.querySelectorAll("a").forEach((link) => {
+  const label = link.textContent
+    .replace(/\s+/g, " ")
+    .trim()
+    .toUpperCase();
+
+  if (
+    label.includes("LET'S TALK") ||
+    label.includes("LET'S BUILD")
+  ) {
+    link.href = "./inquiry.html";
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+  }
+});
+</script>
+
+</body>
+</html>
