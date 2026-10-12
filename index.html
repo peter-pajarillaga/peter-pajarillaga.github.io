@@ -1021,31 +1021,57 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (!toggle || !panel || !content) return;
 
-  const details = {
-    
-"first-circle":
-  "Platform: GoHighLevel. Program sales page, checkout, thank-you page, responsive design, and custom CSS/JavaScript. Post-purchase email automation delivers onboarding instructions and access to the program modules.",
+  
+const details = {
+  "first-circle": {
+    platform: "GoHighLevel",
+    features: "Program sales page, checkout, thank-you page, responsive design, and custom CSS/JavaScript.",
+    automation: "Post-purchase onboarding emails with instructions and access to program modules."
+  },
 
+  "cba-live": {
+    platform: "GoHighLevel",
+    features: "Event ticket sales funnel, full-payment and installment options, BBQ order bump, custom CSS/JavaScript, and purchase-based thank-you page routing.",
+    automation: "Conditional purchase workflows, community access, confirmation emails, and event onboarding."
+  },
 
-    
-"cba-live":
-  "Platform: GoHighLevel. Event registration and ticket sales funnel with full-payment and installment options, BBQ order bump, and custom CSS/JavaScript. Purchase-based workflows route customers to the appropriate thank-you page depending on their ticket and add-on selections. Includes community access and automated onboarding emails with purchase confirmations and event information.",
-
-
-    
-
-"cba-book":
-  "Platform: ClickFunnels. Book sales funnel featuring a responsive sales page, checkout, and post-purchase thank-you page. Includes automated order confirmation emails and a podcast promotion CTA directing customers to the Let's Talk Dog Business podcast while awaiting their book."
-
-
-  };
-
-  function updateDetails(projectId) {
-    content.textContent = details[projectId] || "";
-    panel.hidden = true;
-    toggle.setAttribute("aria-expanded", "false");
-    toggle.querySelector("span").textContent = "+";
+  "cba-book": {
+    platform: "ClickFunnels",
+    features: "Responsive book sales page, checkout, thank-you page, and a post-purchase CTA promoting the Let's Talk Dog Business podcast.",
+    automation: "Automated book order confirmation emails."
   }
+};
+
+  
+function updateDetails(projectId) {
+  const project = details[projectId];
+
+  if (project) {
+    content.replaceChildren();
+
+    [
+      ["PLATFORM", project.platform],
+      ["FUNNEL FEATURES", project.features],
+      ["AUTOMATIONS", project.automation]
+    ].forEach(function ([heading, description]) {
+      const item = document.createElement("div");
+      item.className = "technical-detail-item";
+
+      const label = document.createElement("strong");
+      label.textContent = heading;
+
+      const paragraph = document.createElement("p");
+      paragraph.textContent = description;
+
+      item.append(label, paragraph);
+      content.appendChild(item);
+    });
+  }
+
+  panel.hidden = true;
+  toggle.setAttribute("aria-expanded", "false");
+  toggle.querySelector("span").textContent = "+";
+}
 
   toggle.addEventListener("click", function () {
     const opening = panel.hidden;
