@@ -2476,3 +2476,25 @@ section[id] { scroll-margin-top: 100px; }
 .viewer-info .technical-panel p {
   margin: 0;
 }
+
+/* TECHNICAL DETAILS CONTENT FORMATTING */
+
+.technical-detail-item + .technical-detail-item {
+  margin-top: 14px;
+}
+
+.technical-detail-item strong {
+  display: block;
+  margin-bottom: 4px;
+  color: #40e0d0;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+}
+
+.technical-detail-item p {
+  margin: 0;
+  color: #c5d3d8;
+  font-size: 12px;
+  line-height: 1.6;
+}
