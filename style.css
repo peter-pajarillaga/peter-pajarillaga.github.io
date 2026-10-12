@@ -1197,7 +1197,7 @@ footer {
 
   width: min(390px, 34%);
 
-  pointer-events: none;
+  pointer-events: auto;
 }
 
 .viewer-project-number {
@@ -2429,3 +2429,6 @@ section[id] { scroll-margin-top: 100px; }
 .technical-panel p {
   margin: 0;
 }
+/* Technical details: keep the interactive controls above the preview. */
+.viewer-technical { position: relative; z-index: 6; pointer-events: auto; }
+.technical-toggle { position: relative; z-index: 7; pointer-events: auto; }
