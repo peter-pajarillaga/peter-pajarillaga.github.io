@@ -183,6 +183,121 @@ h1 {
   .hero-content { animation: none; }
   .hero-image { will-change: auto; }
 }
+  
+/* =====================================
+   NATURE METHOD — LIVING SUNLIGHT
+===================================== */
+
+.hero {
+  isolation: isolate;
+}
+
+/* Animated sunlight behind the content */
+.sunlight {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+/* Soft glowing sunlight */
+.sun-glow {
+  position: absolute;
+  width: 75%;
+  height: 85%;
+  top: -35%;
+  left: 48%;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    ellipse,
+    rgba(255, 207, 118, .26) 0%,
+    rgba(255, 179, 85, .10) 38%,
+    transparent 72%
+  );
+  filter: blur(38px);
+  animation: sunlightPulse 7s ease-in-out infinite alternate;
+}
+
+/* Rays spreading down from the sun */
+.sun-rays {
+  position: absolute;
+  width: 110%;
+  height: 145%;
+  top: -45%;
+  left: 51%;
+  transform-origin: 50% 12%;
+
+  background: repeating-conic-gradient(
+    from 165deg at 50% 12%,
+    transparent 0deg,
+    rgba(255, 210, 125, .08) 5deg,
+    rgba(255, 225, 160, .17) 8deg,
+    transparent 13deg,
+    transparent 24deg
+  );
+
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 24%,
+    black 72%,
+    transparent 100%
+  );
+
+  filter: blur(17px);
+  opacity: .5;
+  animation: raysMove 12s ease-in-out infinite alternate;
+}
+
+/* Gentle golden atmosphere */
+.sun-haze {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at 62% 17%,
+    rgba(255, 201, 113, .12),
+    transparent 55%
+  );
+  animation: hazeMove 9s ease-in-out infinite alternate;
+}
+
+@keyframes sunlightPulse {
+  from {
+    opacity: .55;
+    transform: translateX(-50%) scale(.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.12);
+  }
+}
+
+@keyframes raysMove {
+  from {
+    transform: translateX(-50%) rotate(-3deg) scale(1);
+    opacity: .25;
+  }
+  to {
+    transform: translateX(-50%) rotate(3deg) scale(1.08);
+    opacity: .65;
+  }
+}
+
+@keyframes hazeMove {
+  from { opacity: .35; }
+  to { opacity: .9; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sun-glow,
+  .sun-rays,
+  .sun-haze {
+    animation: none;
+  }
+}
+
 </style>
 </head>
 
