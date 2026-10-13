@@ -1,12 +1,273 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
-  <title>Nature Method | 3D Parallax Test</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nature Method | Parallax Experience</title>
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: #FFF5EC;
+  color: #575050;
+  font-family: "DM Sans", sans-serif;
+}
+
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  isolation: isolate;
+  color: #fff;
+}
+
+.hero-image {
+  position: absolute;
+  inset: -90px 0;
+  z-index: -2;
+  background-image: url("./Sunrise%20Meditation%20on%20a%20Wooden%20Deck.png");
+  background-size: cover;
+  background-position: center;
+  transform: translate3d(0, var(--shift, 0px), 0) scale(1.05);
+  will-change: transform;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    90deg,
+    rgba(28, 24, 25, .68) 0%,
+    rgba(28, 24, 25, .30) 52%,
+    rgba(28, 24, 25, .12) 100%
+  );
+}
+
+.nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 30px 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.brand {
+  font-family: "Playfair Display", serif;
+  font-size: 24px;
+  letter-spacing: .02em;
+}
+
+.nav-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .2em;
+}
+
+.hero-content {
+  width: min(900px, 88%);
+  margin-left: 8%;
+  padding: 130px 0 100px;
+  animation: appear 1.3s ease both;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: .3em;
+  font-size: 12px;
+  margin-bottom: 24px;
+}
+
+h1 {
+  font-family: "Playfair Display", serif;
+  font-weight: 400;
+  font-size: clamp(68px, 10vw, 160px);
+  line-height: .95;
+  letter-spacing: -.055em;
+  margin: 0 0 40px;
+  max-width: 850px;
+}
+
+.hero-content p {
+  max-width: 440px;
+  line-height: 1.8;
+  font-size: 16px;
+  margin-bottom: 35px;
+}
+
+.cta {
+  display: inline-block;
+  padding: 17px 27px;
+  border: 1px solid rgba(255,255,255,.8);
+  color: white;
+  text-decoration: none;
+  font-size: 13px;
+  letter-spacing: .06em;
+  transition: background .3s, color .3s;
+}
+
+.cta:hover {
+  background: white;
+  color: #575050;
+}
+
+.scroll-note {
+  position: absolute;
+  bottom: 32px;
+  right: 6%;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .2em;
+}
+
+.next-section {
+  min-height: 85vh;
+  padding: 130px 9%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.next-section h2 {
+  font-family: "Playfair Display", serif;
+  font-weight: 400;
+  font-size: clamp(44px, 7vw, 90px);
+  max-width: 800px;
+  line-height: 1.12;
+}
+
+.next-section p {
+  max-width: 540px;
+  line-height: 1.9;
+}
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 767px) {
+  .hero-content {
+    margin-left: 7%;
+    width: 86%;
+  }
+
+  h1 {
+    font-size: clamp(58px, 13vw, 92px);
+  }
+
+  .nav { padding: 24px 7%; }
+  .nav-label { display: none; }
+
+  .hero-image {
+    background-position: 58% center;
+    will-change: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .hero-content { animation: none; }
+  .hero-image { will-change: auto; }
+}
+</style>
 </head>
+
 <body>
-  <h1>Nature Method Parallax Test</h1>
+
+<section class="hero" id="hero">
+  <div class="hero-image"></div>
+  <div class="hero-overlay"></div>
+
+  <nav class="nav">
+    <div class="brand">Nature Method</div>
+    <div class="nav-label">A journey back to yourself</div>
+  </nav>
+
+  <div class="hero-content">
+    <div class="eyebrow">Wellness • Balance • Transformation</div>
+    <h1>Become<br>limitless.</h1>
+    <p>
+      Reconnect with your body, restore your energy,
+      and discover a more intentional way of living.
+    </p>
+    <a class="cta" href="#discover">Start your journey ↗</a>
+  </div>
+
+  <div class="scroll-note">Scroll to explore ↓</div>
+</section>
+
+<section class="next-section" id="discover">
+  <div class="eyebrow">The Nature Method</div>
+  <h2>Your next chapter begins within.</h2>
+  <p>
+    This is a visual demonstration of the Nature Method
+    hero experience. Scroll upward and downward to see
+    the background move at a different speed from the content.
+  </p>
+</section>
+
+<script>
+(function () {
+  const hero = document.getElementById("hero");
+  if (!hero) return;
+
+  const reducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  );
+  const mobile = window.matchMedia("(max-width: 767px)");
+  let ticking = false;
+
+  function update() {
+    ticking = false;
+
+    if (reducedMotion.matches || mobile.matches) {
+      hero.style.setProperty("--shift", "0px");
+      return;
+    }
+
+    const rect = hero.getBoundingClientRect();
+
+    if (rect.bottom < 0 || rect.top > innerHeight) return;
+
+    const shift = Math.max(
+      -65,
+      Math.min(65, -rect.top * 0.15)
+    );
+
+    hero.style.setProperty(
+      "--shift",
+      shift.toFixed(1) + "px"
+    );
+  }
+
+  function requestUpdate() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(update);
+  }
+
+  addEventListener("scroll", requestUpdate, { passive: true });
+  addEventListener("resize", requestUpdate);
+  reducedMotion.addEventListener("change", requestUpdate);
+  mobile.addEventListener("change", requestUpdate);
+
+  update();
+})();
+</script>
+
 </body>
 </html>
