@@ -4,291 +4,185 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nature Method | Parallax Experience</title>
-
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+<title>Nature Method — Sunlight Test</title>
 
 <style>
-* { box-sizing: border-box; }
-
-html { scroll-behavior: smooth; }
-
-body {
-  margin: 0;
-  background: #FFF5EC;
-  color: #575050;
-  font-family: "DM Sans", sans-serif;
+* {
+  box-sizing: border-box;
 }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #17100b;
+}
+
+/* FULL SCREEN IMAGE */
 
 .hero {
   position: relative;
-  min-height: 100svh;
-  display: flex;
-  align-items: center;
+  height: 100svh;
+  min-height: 500px;
   overflow: hidden;
   isolation: isolate;
-  color: #fff;
+  background: #17100b;
 }
 
 .hero-image {
   position: absolute;
-  inset: -90px 0;
-  z-index: -2;
-  background-image: url("./Sunrise%20Meditation%20on%20a%20Wooden%20Deck.png");
+  inset: -100px 0;
+  z-index: 0;
+
+  background-image:
+    url("./Sunrise%20Meditation%20on%20a%20Wooden%20Deck.png");
+
   background-size: cover;
   background-position: center;
-  transform: translate3d(0, var(--shift, 0px), 0) scale(1.05);
+
+  transform:
+    translate3d(0, var(--shift, 0px), 0)
+    scale(1.04);
+
   will-change: transform;
 }
 
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: linear-gradient(
-    90deg,
-    rgba(28, 24, 25, .68) 0%,
-    rgba(28, 24, 25, .30) 52%,
-    rgba(28, 24, 25, .12) 100%
-  );
-}
+/* LIGHT LAYERS */
 
-.nav {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  padding: 30px 6%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-}
-
-.brand {
-  font-family: "Playfair Display", serif;
-  font-size: 24px;
-  letter-spacing: .02em;
-}
-
-.nav-label {
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: .2em;
-}
-
-.hero-content {
-  width: min(900px, 88%);
-  margin-left: 8%;
-  padding: 130px 0 100px;
-  animation: appear 1.3s ease both;
-}
-
-.eyebrow {
-  text-transform: uppercase;
-  letter-spacing: .3em;
-  font-size: 12px;
-  margin-bottom: 24px;
-}
-
-h1 {
-  font-family: "Playfair Display", serif;
-  font-weight: 400;
-  font-size: clamp(68px, 10vw, 160px);
-  line-height: .95;
-  letter-spacing: -.055em;
-  margin: 0 0 40px;
-  max-width: 850px;
-}
-
-.hero-content p {
-  max-width: 440px;
-  line-height: 1.8;
-  font-size: 16px;
-  margin-bottom: 35px;
-}
-
-.cta {
-  display: inline-block;
-  padding: 17px 27px;
-  border: 1px solid rgba(255,255,255,.8);
-  color: white;
-  text-decoration: none;
-  font-size: 13px;
-  letter-spacing: .06em;
-  transition: background .3s, color .3s;
-}
-
-.cta:hover {
-  background: white;
-  color: #575050;
-}
-
-.scroll-note {
-  position: absolute;
-  bottom: 32px;
-  right: 6%;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: .2em;
-}
-
-.next-section {
-  min-height: 85vh;
-  padding: 130px 9%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.next-section h2 {
-  font-family: "Playfair Display", serif;
-  font-weight: 400;
-  font-size: clamp(44px, 7vw, 90px);
-  max-width: 800px;
-  line-height: 1.12;
-}
-
-.next-section p {
-  max-width: 540px;
-  line-height: 1.9;
-}
-
-@keyframes appear {
-  from { opacity: 0; transform: translateY(28px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@media (max-width: 767px) {
-  .hero-content {
-    margin-left: 7%;
-    width: 86%;
-  }
-
-  h1 {
-    font-size: clamp(58px, 13vw, 92px);
-  }
-
-  .nav { padding: 24px 7%; }
-  .nav-label { display: none; }
-
-  .hero-image {
-    background-position: 58% center;
-    will-change: auto;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  .hero-content { animation: none; }
-  .hero-image { will-change: auto; }
-}
-  
-/* =====================================
-   NATURE METHOD — LIVING SUNLIGHT
-===================================== */
-
-.hero {
-  isolation: isolate;
-}
-
-/* Animated sunlight behind the content */
 .sunlight {
   position: absolute;
   inset: 0;
-  z-index: -1;
+  z-index: 2;
   overflow: hidden;
   pointer-events: none;
   mix-blend-mode: screen;
 }
 
-/* Soft glowing sunlight */
+/* SUN GLOW */
+
 .sun-glow {
   position: absolute;
-  width: 75%;
-  height: 85%;
-  top: -35%;
-  left: 48%;
-  transform: translateX(-50%);
+
+  width: 70vw;
+  height: 75vh;
+
+  left: 62%;
+  top: -22%;
+
+  border-radius: 50%;
+
   background: radial-gradient(
     ellipse,
-    rgba(255, 207, 118, .26) 0%,
-    rgba(255, 179, 85, .10) 38%,
-    transparent 72%
+    rgba(255, 242, 175, 0.55) 0%,
+    rgba(255, 195, 90, 0.28) 28%,
+    rgba(255, 155, 55, 0.10) 50%,
+    transparent 75%
   );
-  filter: blur(38px);
-  animation: sunlightPulse 7s ease-in-out infinite alternate;
+
+  filter: blur(35px);
+
+  animation: glowPulse 5s ease-in-out infinite alternate;
 }
 
-/* Rays spreading down from the sun */
+/* ANIMATED SUN RAYS */
+
 .sun-rays {
   position: absolute;
-  width: 110%;
-  height: 145%;
-  top: -45%;
-  left: 51%;
-  transform-origin: 50% 12%;
+  inset: -35% -30%;
 
   background: repeating-conic-gradient(
-    from 165deg at 50% 12%,
-    transparent 0deg,
-    rgba(255, 210, 125, .08) 5deg,
-    rgba(255, 225, 160, .17) 8deg,
-    transparent 13deg,
-    transparent 24deg
+    from 160deg at 62% 18%,
+    transparent 0deg 8deg,
+    rgba(255, 225, 155, 0.23) 10deg,
+    rgba(255, 245, 195, 0.36) 13deg,
+    transparent 17deg 27deg
   );
 
-  mask-image: linear-gradient(
-    to bottom,
-    transparent 0%,
-    black 24%,
-    black 72%,
-    transparent 100%
+  mask-image: radial-gradient(
+    ellipse at 62% 18%,
+    black 5%,
+    rgba(0,0,0,.75) 35%,
+    transparent 78%
   );
 
-  filter: blur(17px);
-  opacity: .5;
-  animation: raysMove 12s ease-in-out infinite alternate;
+  filter: blur(13px);
+
+  transform-origin: 62% 18%;
+
+  animation: raysMove 10s ease-in-out infinite alternate;
 }
 
-/* Gentle golden atmosphere */
+/* ATMOSPHERIC HAZE */
+
 .sun-haze {
   position: absolute;
   inset: 0;
+
   background: radial-gradient(
-    ellipse at 62% 17%,
-    rgba(255, 201, 113, .12),
-    transparent 55%
+    ellipse at 62% 20%,
+    rgba(255, 205, 115, 0.23),
+    transparent 62%
   );
-  animation: hazeMove 9s ease-in-out infinite alternate;
+
+  animation: hazePulse 7s ease-in-out infinite alternate;
 }
 
-@keyframes sunlightPulse {
-  from {
-    opacity: .55;
-    transform: translateX(-50%) scale(.95);
+/* ANIMATIONS */
+
+@keyframes glowPulse {
+  0% {
+    opacity: 0.45;
+    transform: scale(0.92);
   }
-  to {
+
+  100% {
     opacity: 1;
-    transform: translateX(-50%) scale(1.12);
+    transform: scale(1.12);
   }
 }
 
 @keyframes raysMove {
-  from {
-    transform: translateX(-50%) rotate(-3deg) scale(1);
-    opacity: .25;
+  0% {
+    opacity: 0.35;
+    transform: rotate(-3deg) scale(0.97);
   }
-  to {
-    transform: translateX(-50%) rotate(3deg) scale(1.08);
-    opacity: .65;
+
+  100% {
+    opacity: 0.95;
+    transform: rotate(3deg) scale(1.06);
   }
 }
 
-@keyframes hazeMove {
-  from { opacity: .35; }
-  to { opacity: .9; }
+@keyframes hazePulse {
+  0% {
+    opacity: 0.35;
+  }
+
+  100% {
+    opacity: 0.95;
+  }
 }
+
+/* SCROLL TEST AREA */
+
+.scroll-space {
+  height: 100vh;
+  background: #17100b;
+}
+
+/* MOBILE */
+
+@media (max-width: 767px) {
+  .hero-image {
+    background-position: 55% center;
+  }
+
+  .sun-glow {
+    width: 120vw;
+    left: 30%;
+  }
+}
+
+/* ACCESSIBILITY */
 
 @media (prefers-reduced-motion: reduce) {
   .sun-glow,
@@ -296,79 +190,59 @@ h1 {
   .sun-haze {
     animation: none;
   }
-}
 
+  .hero-image {
+    will-change: auto;
+  }
+}
 </style>
 </head>
 
 <body>
 
 <section class="hero" id="hero">
+
   <div class="hero-image"></div>
-  <div class="hero-overlay"></div>
-  
-<!-- LIVING SUNLIGHT EFFECT -->
-<div class="sunlight" aria-hidden="true">
-  <div class="sun-glow"></div>
-  <div class="sun-rays"></div>
-  <div class="sun-haze"></div>
-</div>
 
-
-  <nav class="nav">
-    <div class="brand">Nature Method</div>
-    <div class="nav-label">A journey back to yourself</div>
-  </nav>
-
-  <div class="hero-content">
-    <div class="eyebrow">Wellness • Balance • Transformation</div>
-    <h1>Become<br>limitless.</h1>
-    <p>
-      Reconnect with your body, restore your energy,
-      and discover a more intentional way of living.
-    </p>
-    <a class="cta" href="#discover">Start your journey ↗</a>
+  <div class="sunlight" aria-hidden="true">
+    <div class="sun-glow"></div>
+    <div class="sun-rays"></div>
+    <div class="sun-haze"></div>
   </div>
 
-  <div class="scroll-note">Scroll to explore ↓</div>
 </section>
 
-<section class="next-section" id="discover">
-  <div class="eyebrow">The Nature Method</div>
-  <h2>Your next chapter begins within.</h2>
-  <p>
-    This is a visual demonstration of the Nature Method
-    hero experience. Scroll upward and downward to see
-    the background move at a different speed from the content.
-  </p>
-</section>
+<!-- Empty area to test scrolling -->
+<div class="scroll-space"></div>
 
 <script>
 (function () {
+
   const hero = document.getElementById("hero");
-  if (!hero) return;
 
   const reducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
   );
-  const mobile = window.matchMedia("(max-width: 767px)");
+
   let ticking = false;
 
   function update() {
     ticking = false;
 
-    if (reducedMotion.matches || mobile.matches) {
+    if (reducedMotion.matches) {
       hero.style.setProperty("--shift", "0px");
       return;
     }
 
     const rect = hero.getBoundingClientRect();
 
-    if (rect.bottom < 0 || rect.top > innerHeight) return;
+    if (rect.bottom < 0 || rect.top > innerHeight) {
+      return;
+    }
 
     const shift = Math.max(
-      -65,
-      Math.min(65, -rect.top * 0.15)
+      -70,
+      Math.min(70, -rect.top * 0.15)
     );
 
     hero.style.setProperty(
@@ -379,16 +253,19 @@ h1 {
 
   function requestUpdate() {
     if (ticking) return;
+
     ticking = true;
     requestAnimationFrame(update);
   }
 
-  addEventListener("scroll", requestUpdate, { passive: true });
+  addEventListener("scroll", requestUpdate, {
+    passive: true
+  });
+
   addEventListener("resize", requestUpdate);
-  reducedMotion.addEventListener("change", requestUpdate);
-  mobile.addEventListener("change", requestUpdate);
 
   update();
+
 })();
 </script>
 
