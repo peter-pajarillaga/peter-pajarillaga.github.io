@@ -195,6 +195,39 @@ html, body {
     will-change: auto;
   }
 }
+  
+/* 3D CINEMATIC IMAGE EFFECT */
+
+.hero {
+  perspective: 1100px;
+  transform-style: preserve-3d;
+}
+
+.hero-image {
+  inset: -130px;
+  transform-origin: center;
+  transform:
+    translate3d(
+      var(--move-x, 0px),
+      calc(var(--shift, 0px) + var(--move-y, 0px)),
+      0
+    )
+    rotateX(var(--rotate-x, 0deg))
+    rotateY(var(--rotate-y, 0deg))
+    scale(1.12);
+
+  transition: transform 0.18s ease-out;
+}
+
+@media (max-width: 767px),
+       (prefers-reduced-motion: reduce) {
+  .hero-image {
+    transform:
+      translate3d(0, var(--shift, 0px), 0)
+      scale(1.12);
+  }
+}
+
 </style>
 </head>
 
@@ -266,6 +299,68 @@ html, body {
 
   update();
 
+})();
+</script>
+
+<script>
+(function () {
+  const hero = document.querySelector(".hero");
+  if (!hero) return;
+
+  const reducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  );
+
+  const finePointer = window.matchMedia(
+    "(hover: hover) and (pointer: fine)"
+  );
+
+  function moveImage(event) {
+    if (reducedMotion.matches || !finePointer.matches) {
+      return;
+    }
+
+    const rect = hero.getBoundingClientRect();
+
+    const x = (
+      (event.clientX - rect.left) / rect.width - 0.5
+    ) * 2;
+
+    const y = (
+      (event.clientY - rect.top) / rect.height - 0.5
+    ) * 2;
+
+    hero.style.setProperty(
+      "--rotate-y",
+      (x * 3).toFixed(2) + "deg"
+    );
+
+    hero.style.setProperty(
+      "--rotate-x",
+      (-y * 2).toFixed(2) + "deg"
+    );
+
+    hero.style.setProperty(
+      "--move-x",
+      (x * -14).toFixed(1) + "px"
+    );
+
+    hero.style.setProperty(
+      "--move-y",
+      (y * -10).toFixed(1) + "px"
+    );
+  }
+
+  function resetImage() {
+    hero.style.setProperty("--rotate-x", "0deg");
+    hero.style.setProperty("--rotate-y", "0deg");
+    hero.style.setProperty("--move-x", "0px");
+    hero.style.setProperty("--move-y", "0px");
+  }
+
+  hero.addEventListener("pointermove", moveImage);
+  hero.addEventListener("pointerleave", resetImage);
+  reducedMotion.addEventListener("change", resetImage);
 })();
 </script>
 
