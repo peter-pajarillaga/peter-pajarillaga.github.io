@@ -195,38 +195,6 @@ html, body {
     will-change: auto;
   }
 }
-  
-/* 3D CINEMATIC IMAGE EFFECT */
-
-.hero {
-  perspective: 1100px;
-  transform-style: preserve-3d;
-}
-
-.hero-image {
-  inset: -130px;
-  transform-origin: center;
-  transform:
-    translate3d(
-      var(--move-x, 0px),
-      calc(var(--shift, 0px) + var(--move-y, 0px)),
-      0
-    )
-    rotateX(var(--rotate-x, 0deg))
-    rotateY(var(--rotate-y, 0deg))
-    scale(1.12);
-
-  transition: transform 0.18s ease-out;
-}
-
-@media (max-width: 767px),
-       (prefers-reduced-motion: reduce) {
-  .hero-image {
-    transform:
-      translate3d(0, var(--shift, 0px), 0)
-      scale(1.12);
-  }
-}
 
 </style>
 </head>
