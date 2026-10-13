@@ -4,165 +4,197 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nature Method — Sunlight Test</title>
+<title>Nature Method | Layered 3D Test</title>
 
 <style>
+/* ==========================================
+   NATURE METHOD — LAYERED 2.5D PARALLAX
+========================================== */
+
 * {
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   background: #17100b;
 }
 
-/* FULL SCREEN IMAGE */
-
 .hero {
   position: relative;
+  width: 100%;
   height: 100svh;
   min-height: 500px;
   overflow: hidden;
   isolation: isolate;
   background: #17100b;
+
+  --bg-x: 0px;
+  --bg-y: 0px;
+  --woman-x: 0px;
+  --woman-y: 0px;
+  --scroll-bg: 0px;
+  --scroll-woman: 0px;
 }
 
-.hero-image {
+/* BACKGROUND SCENERY */
+
+.background-layer {
   position: absolute;
-  inset: -100px 0;
+  inset: -5%;
   z-index: 0;
 
-  background-image:
-    url("./Sunrise%20Meditation%20on%20a%20Wooden%20Deck.png");
-
-  background-size: cover;
+  background-image: url("./background.png");
   background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 
-  transform:
-    translate3d(0, var(--shift, 0px), 0)
-    scale(1.04);
+  transform: translate3d(
+    var(--bg-x),
+    calc(var(--bg-y) + var(--scroll-bg)),
+    0
+  ) scale(1.04);
 
   will-change: transform;
 }
 
-/* LIGHT LAYERS */
+/* ANIMATED LIGHT — BEHIND WOMAN */
 
 .sunlight {
   position: absolute;
   inset: 0;
-  z-index: 2;
-  overflow: hidden;
+  z-index: 1;
   pointer-events: none;
+  overflow: hidden;
   mix-blend-mode: screen;
 }
 
-/* SUN GLOW */
-
 .sun-glow {
   position: absolute;
-
-  width: 70vw;
-  height: 75vh;
-
-  left: 62%;
-  top: -22%;
-
-  border-radius: 50%;
+  width: 65%;
+  height: 85%;
+  left: 52%;
+  top: -28%;
 
   background: radial-gradient(
     ellipse,
-    rgba(255, 242, 175, 0.55) 0%,
-    rgba(255, 195, 90, 0.28) 28%,
-    rgba(255, 155, 55, 0.10) 50%,
-    transparent 75%
+    rgba(255, 233, 164, .48) 0%,
+    rgba(255, 190, 80, .20) 35%,
+    transparent 73%
   );
 
-  filter: blur(35px);
-
+  filter: blur(32px);
   animation: glowPulse 5s ease-in-out infinite alternate;
 }
 
-/* ANIMATED SUN RAYS */
-
 .sun-rays {
   position: absolute;
-  inset: -35% -30%;
+  inset: -35% -25%;
 
   background: repeating-conic-gradient(
-    from 160deg at 62% 18%,
+    from 160deg at 52% 16%,
     transparent 0deg 8deg,
-    rgba(255, 225, 155, 0.23) 10deg,
-    rgba(255, 245, 195, 0.36) 13deg,
+    rgba(255, 224, 151, .19) 10deg,
+    rgba(255, 241, 190, .31) 13deg,
     transparent 17deg 27deg
   );
 
   mask-image: radial-gradient(
-    ellipse at 62% 18%,
+    ellipse at 52% 16%,
     black 5%,
     rgba(0,0,0,.75) 35%,
     transparent 78%
   );
 
   filter: blur(13px);
-
-  transform-origin: 62% 18%;
+  transform-origin: 52% 16%;
 
   animation: raysMove 10s ease-in-out infinite alternate;
 }
 
-/* ATMOSPHERIC HAZE */
+/* FOREGROUND WOMAN */
 
-.sun-haze {
+.woman-layer {
   position: absolute;
   inset: 0;
+  z-index: 2;
+  pointer-events: none;
 
-  background: radial-gradient(
-    ellipse at 62% 20%,
-    rgba(255, 205, 115, 0.23),
-    transparent 62%
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+
+  transform: translate3d(
+    var(--woman-x),
+    calc(var(--woman-y) + var(--scroll-woman)),
+    0
   );
 
-  animation: hazePulse 7s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.woman-layer img {
+  display: block;
+  width: auto;
+  height: 100%;
+  max-width: none;
+  object-fit: contain;
+  object-position: bottom center;
+
+  filter: drop-shadow(
+    0 8px 18px rgba(32, 15, 6, .15)
+  );
+}
+
+/* SOFT ATMOSPHERE */
+
+.atmosphere {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+
+  background: radial-gradient(
+    ellipse at 56% 12%,
+    rgba(255, 205, 110, .09),
+    transparent 65%
+  );
+
+  animation: hazePulse 8s ease-in-out infinite alternate;
 }
 
 /* ANIMATIONS */
 
 @keyframes glowPulse {
-  0% {
-    opacity: 0.45;
-    transform: scale(0.92);
+  from {
+    opacity: .45;
+    transform: scale(.94);
   }
-
-  100% {
+  to {
     opacity: 1;
-    transform: scale(1.12);
+    transform: scale(1.1);
   }
 }
 
 @keyframes raysMove {
-  0% {
-    opacity: 0.35;
-    transform: rotate(-3deg) scale(0.97);
+  from {
+    opacity: .3;
+    transform: rotate(-3deg) scale(.98);
   }
-
-  100% {
-    opacity: 0.95;
+  to {
+    opacity: .9;
     transform: rotate(3deg) scale(1.06);
   }
 }
 
 @keyframes hazePulse {
-  0% {
-    opacity: 0.35;
-  }
-
-  100% {
-    opacity: 0.95;
-  }
+  from { opacity: .4; }
+  to { opacity: 1; }
 }
 
-/* SCROLL TEST AREA */
+/* SCROLL TEST SPACE */
 
 .scroll-space {
   height: 100vh;
@@ -172,30 +204,34 @@ html, body {
 /* MOBILE */
 
 @media (max-width: 767px) {
-  .hero-image {
-    background-position: 55% center;
+  .background-layer {
+    background-position: center;
+  }
+
+  .woman-layer img {
+    height: 85%;
   }
 
   .sun-glow {
-    width: 120vw;
-    left: 30%;
+    width: 120%;
+    left: 20%;
   }
 }
 
-/* ACCESSIBILITY */
+/* REDUCED MOTION */
 
 @media (prefers-reduced-motion: reduce) {
-  .sun-glow,
-  .sun-rays,
-  .sun-haze {
-    animation: none;
-  }
-
-  .hero-image {
+  .background-layer,
+  .woman-layer {
     will-change: auto;
   }
-}
 
+  .sun-glow,
+  .sun-rays,
+  .atmosphere {
+    animation: none;
+  }
+}
 </style>
 </head>
 
@@ -203,70 +239,148 @@ html, body {
 
 <section class="hero" id="hero">
 
-  <div class="hero-image"></div>
+  <!-- BACKGROUND WITHOUT WOMAN -->
+  <div class="background-layer"></div>
 
+  <!-- MOVING SUNLIGHT -->
   <div class="sunlight" aria-hidden="true">
     <div class="sun-glow"></div>
     <div class="sun-rays"></div>
-    <div class="sun-haze"></div>
   </div>
+
+  <!-- TRANSPARENT WOMAN FOREGROUND -->
+  <div class="woman-layer">
+    <img
+      src="./woman-foreground.png"
+      alt=""
+      draggable="false"
+    >
+  </div>
+
+  <!-- WARM ATMOSPHERE -->
+  <div class="atmosphere"></div>
 
 </section>
 
-<!-- Empty area to test scrolling -->
 <div class="scroll-space"></div>
 
 <script>
 (function () {
-
   const hero = document.getElementById("hero");
+  if (!hero) return;
 
   const reducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
   );
 
+  const finePointer = window.matchMedia(
+    "(hover: hover) and (pointer: fine)"
+  );
+
+  let pointerX = 0;
+  let pointerY = 0;
   let ticking = false;
+
+  function clamp(value, min, max) {
+    return Math.max(min, Math.min(max, value));
+  }
 
   function update() {
     ticking = false;
 
     if (reducedMotion.matches) {
-      hero.style.setProperty("--shift", "0px");
+      hero.style.setProperty("--bg-x", "0px");
+      hero.style.setProperty("--bg-y", "0px");
+      hero.style.setProperty("--woman-x", "0px");
+      hero.style.setProperty("--woman-y", "0px");
+      hero.style.setProperty("--scroll-bg", "0px");
+      hero.style.setProperty("--scroll-woman", "0px");
       return;
     }
 
     const rect = hero.getBoundingClientRect();
 
-    if (rect.bottom < 0 || rect.top > innerHeight) {
-      return;
-    }
-
-    const shift = Math.max(
-      -70,
-      Math.min(70, -rect.top * 0.15)
+    /* Background moves more than foreground */
+    hero.style.setProperty(
+      "--bg-x",
+      (-pointerX * 22).toFixed(1) + "px"
     );
 
     hero.style.setProperty(
-      "--shift",
-      shift.toFixed(1) + "px"
+      "--bg-y",
+      (-pointerY * 15).toFixed(1) + "px"
+    );
+
+    /* Woman moves less than background */
+    hero.style.setProperty(
+      "--woman-x",
+      (pointerX * 7).toFixed(1) + "px"
+    );
+
+    hero.style.setProperty(
+      "--woman-y",
+      (pointerY * 4).toFixed(1) + "px"
+    );
+
+    /* Independent scroll depth */
+    const scrollDistance = clamp(
+      -rect.top,
+      0,
+      rect.height
+    );
+
+    hero.style.setProperty(
+      "--scroll-bg",
+      (-scrollDistance * .10).toFixed(1) + "px"
+    );
+
+    hero.style.setProperty(
+      "--scroll-woman",
+      (scrollDistance * .035).toFixed(1) + "px"
     );
   }
 
   function requestUpdate() {
     if (ticking) return;
-
     ticking = true;
     requestAnimationFrame(update);
   }
 
-  addEventListener("scroll", requestUpdate, {
+  hero.addEventListener("pointermove", function (event) {
+    if (!finePointer.matches) return;
+
+    const rect = hero.getBoundingClientRect();
+
+    pointerX = clamp(
+      ((event.clientX - rect.left) / rect.width - .5) * 2,
+      -1,
+      1
+    );
+
+    pointerY = clamp(
+      ((event.clientY - rect.top) / rect.height - .5) * 2,
+      -1,
+      1
+    );
+
+    requestUpdate();
+  });
+
+  hero.addEventListener("pointerleave", function () {
+    pointerX = 0;
+    pointerY = 0;
+    requestUpdate();
+  });
+
+  window.addEventListener("scroll", requestUpdate, {
     passive: true
   });
 
-  addEventListener("resize", requestUpdate);
+  window.addEventListener("resize", requestUpdate);
+
+  reducedMotion.addEventListener("change", requestUpdate);
 
   update();
-
 })();
 </script>
 
