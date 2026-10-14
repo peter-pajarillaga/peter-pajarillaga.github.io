@@ -5,12 +5,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Nature Method | 2.5D Parallax Test</title>
+<title>Nature Method | Cinematic Sunlight</title>
 
 <style>
-/* ==========================================
-   NATURE METHOD — 2.5D PARALLAX TEST
-========================================== */
+/* =========================================
+   NATURE METHOD — CINEMATIC SUNLIGHT TEST
+========================================= */
 
 * {
   box-sizing: border-box;
@@ -23,6 +23,8 @@ body {
   background: #17100b;
 }
 
+/* ORIGINAL PHOTOGRAPH */
+
 .hero {
   position: relative;
   width: 100%;
@@ -31,38 +33,25 @@ body {
   overflow: hidden;
   isolation: isolate;
   background: #17100b;
-
-  --bg-x: 0px;
-  --bg-y: 0px;
-  --scroll-bg: 0px;
 }
 
-/* ==========================================
-   BACKGROUND SCENERY
-========================================== */
-
-.background-layer {
+.hero-image {
   position: absolute;
-  inset: -12%;
+  inset: 0;
   z-index: 0;
 
-  background-image: url("./background.png");
-  background-position: center;
+  background-image: url(
+    "./Sunrise%20Meditation%20on%20a%20Wooden%20Deck.png"
+  );
+
   background-size: cover;
+  background-position: center;
   background-repeat: no-repeat;
-
-  transform: translate3d(
-    var(--bg-x),
-    calc(var(--bg-y) + var(--scroll-bg)),
-    0
-  ) scale(1.04);
-
-  will-change: transform;
 }
 
-/* ==========================================
-   ANIMATED SUNLIGHT
-========================================== */
+/* =========================================
+   SUNLIGHT OVERLAY
+========================================= */
 
 .sunlight {
   position: absolute;
@@ -73,20 +62,23 @@ body {
   mix-blend-mode: screen;
 }
 
-/* SOFT GOLDEN GLOW */
+/* SUN GLOW */
 
 .sun-glow {
   position: absolute;
-  width: 65%;
-  height: 85%;
-  left: 52%;
-  top: -28%;
+  width: 85vw;
+  height: 90vh;
+  left: 45%;
+  top: -34%;
+
+  border-radius: 50%;
 
   background: radial-gradient(
     ellipse,
-    rgba(255, 233, 164, .48) 0%,
-    rgba(255, 190, 80, .20) 35%,
-    transparent 73%
+    rgba(255, 246, 191, .50) 0%,
+    rgba(255, 214, 117, .28) 22%,
+    rgba(255, 173, 70, .12) 47%,
+    transparent 72%
   );
 
   filter: blur(32px);
@@ -95,118 +87,144 @@ body {
     5s ease-in-out infinite alternate;
 }
 
-/* MOVING SUN RAYS */
+/* MOVING GOLDEN SUNBEAMS */
 
 .sun-rays {
   position: absolute;
-  inset: -35% -25%;
+  inset: -35%;
 
   background: repeating-conic-gradient(
-    from 160deg at 52% 16%,
-    transparent 0deg 8deg,
-    rgba(255, 224, 151, .19) 10deg,
-    rgba(255, 241, 190, .31) 13deg,
-    transparent 17deg 27deg
+    from 152deg at 62% 20%,
+    transparent 0deg 7deg,
+    rgba(255, 225, 150, .05) 8deg,
+    rgba(255, 235, 175, .42) 11deg,
+    rgba(255, 246, 207, .60) 13deg,
+    rgba(255, 225, 150, .08) 16deg,
+    transparent 21deg 29deg
   );
 
-  mask-image: radial-gradient(
-    ellipse at 52% 16%,
-    black 5%,
-    rgba(0, 0, 0, .75) 35%,
+  -webkit-mask-image: radial-gradient(
+    ellipse at 62% 20%,
+    black 0%,
+    rgba(0,0,0,.95) 25%,
+    rgba(0,0,0,.50) 53%,
     transparent 78%
   );
 
-  filter: blur(13px);
-  transform-origin: 52% 16%;
-
-  animation: raysMove
-    10s ease-in-out infinite alternate;
-}
-
-/* ==========================================
-   FOREGROUND WOMAN
-   FIXED POSITION — NO FLOATING
-========================================== */
-
-.woman-layer {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-
-  /* Keep the woman stationary */
-  transform: translate3d(0, 0, 0);
-}
-
-.woman-layer img {
-  display: block;
-  width: auto;
-  height: 100%;
-  max-width: none;
-
-  object-fit: contain;
-  object-position: bottom center;
-
-  filter: drop-shadow(
-    0 8px 18px rgba(32, 15, 6, .15)
+  mask-image: radial-gradient(
+    ellipse at 62% 20%,
+    black 0%,
+    rgba(0,0,0,.95) 25%,
+    rgba(0,0,0,.50) 53%,
+    transparent 78%
   );
+
+  filter: blur(8px);
+
+  transform-origin: 62% 20%;
+
+  animation: sunbeamSweep
+    7s ease-in-out infinite alternate;
 }
 
-/* ==========================================
-   ATMOSPHERIC LIGHT
-========================================== */
+/* SECOND LIGHT BEAM LAYER */
 
-.atmosphere {
+.sun-rays-secondary {
+  position: absolute;
+  inset: -35%;
+
+  background: repeating-conic-gradient(
+    from 165deg at 62% 20%,
+    transparent 0deg 16deg,
+    rgba(255, 233, 174, .30) 19deg,
+    rgba(255, 248, 211, .46) 21deg,
+    transparent 25deg 39deg
+  );
+
+  -webkit-mask-image: radial-gradient(
+    ellipse at 62% 20%,
+    black 0%,
+    rgba(0,0,0,.70) 38%,
+    transparent 76%
+  );
+
+  mask-image: radial-gradient(
+    ellipse at 62% 20%,
+    black 0%,
+    rgba(0,0,0,.70) 38%,
+    transparent 76%
+  );
+
+  filter: blur(16px);
+  transform-origin: 62% 20%;
+
+  animation: secondarySweep
+    11s ease-in-out infinite alternate;
+}
+
+/* WARM ATMOSPHERE */
+
+.sun-haze {
   position: absolute;
   inset: 0;
-  z-index: 3;
-  pointer-events: none;
 
   background: radial-gradient(
-    ellipse at 56% 12%,
-    rgba(255, 205, 110, .09),
-    transparent 65%
+    ellipse at 62% 22%,
+    rgba(255, 209, 115, .20),
+    transparent 67%
   );
 
   animation: hazePulse
-    8s ease-in-out infinite alternate;
+    6s ease-in-out infinite alternate;
 }
 
-/* ==========================================
+/* =========================================
    ANIMATIONS
-========================================== */
+========================================= */
 
 @keyframes glowPulse {
-  from {
-    opacity: .45;
-    transform: scale(.94);
+  0% {
+    opacity: .50;
+    transform: scale(.92);
   }
 
-  to {
+  100% {
     opacity: 1;
-    transform: scale(1.1);
+    transform: scale(1.13);
   }
 }
 
-@keyframes raysMove {
-  from {
-    opacity: .3;
-    transform: rotate(-3deg) scale(.98);
+@keyframes sunbeamSweep {
+  0% {
+    opacity: .32;
+    transform: rotate(-8deg) scale(.96);
   }
 
-  to {
-    opacity: .9;
-    transform: rotate(3deg) scale(1.06);
+  50% {
+    opacity: .95;
+  }
+
+  100% {
+    opacity: .85;
+    transform: rotate(8deg) scale(1.08);
+  }
+}
+
+@keyframes secondarySweep {
+  0% {
+    opacity: .25;
+    transform: rotate(6deg) scale(1.02);
+  }
+
+  100% {
+    opacity: .75;
+    transform: rotate(-6deg) scale(1.1);
   }
 }
 
 @keyframes hazePulse {
   from {
-    opacity: .4;
+    opacity: .35;
   }
 
   to {
@@ -214,50 +232,47 @@ body {
   }
 }
 
-/* ==========================================
+/* =========================================
    SCROLL TEST AREA
-========================================== */
+========================================= */
 
 .scroll-space {
   height: 100vh;
   background: #17100b;
 }
 
-/* ==========================================
+/* =========================================
    MOBILE
-========================================== */
+========================================= */
 
 @media (max-width: 767px) {
-  .background-layer {
-    background-position: center;
-  }
-
-  .woman-layer img {
-    height: 85%;
+  .hero-image {
+    background-position: 55% center;
   }
 
   .sun-glow {
-    width: 120%;
-    left: 20%;
+    width: 140vw;
+    left: 22%;
+  }
+
+  .sun-rays,
+  .sun-rays-secondary {
+    transform-origin: 62% 20%;
   }
 }
 
-/* ==========================================
-   REDUCED MOTION
-========================================== */
+/* =========================================
+   ACCESSIBILITY
+========================================= */
 
 @media (prefers-reduced-motion: reduce) {
-  .background-layer {
-    will-change: auto;
-  }
-
   .sun-glow,
   .sun-rays,
-  .atmosphere {
+  .sun-rays-secondary,
+  .sun-haze {
     animation: none;
   }
 }
-
 </style>
 </head>
 
@@ -265,162 +280,21 @@ body {
 
 <section class="hero" id="hero">
 
-  <!-- BACKGROUND SCENERY -->
-  <div class="background-layer"></div>
+  <!-- ORIGINAL IMAGE -->
+  <div class="hero-image"></div>
 
   <!-- ANIMATED SUNLIGHT -->
   <div class="sunlight" aria-hidden="true">
     <div class="sun-glow"></div>
     <div class="sun-rays"></div>
+    <div class="sun-rays-secondary"></div>
+    <div class="sun-haze"></div>
   </div>
-
-  <!-- STATIONARY WOMAN -->
-  <div class="woman-layer">
-    <img
-      src="./woman-foreground.png"
-      alt=""
-      draggable="false"
-    >
-  </div>
-
-  <!-- ATMOSPHERIC LIGHT -->
-  <div class="atmosphere"></div>
 
 </section>
 
-<!-- EMPTY SPACE FOR SCROLL TESTING -->
+<!-- SCROLL TEST AREA -->
 <div class="scroll-space"></div>
-
-<script>
-(function () {
-
-  const hero = document.getElementById("hero");
-
-  if (!hero) return;
-
-  const reducedMotion = window.matchMedia(
-    "(prefers-reduced-motion: reduce)"
-  );
-
-  const finePointer = window.matchMedia(
-    "(hover: hover) and (pointer: fine)"
-  );
-
-  let pointerX = 0;
-  let pointerY = 0;
-  let ticking = false;
-
-  function clamp(value, min, max) {
-    return Math.max(
-      min,
-      Math.min(max, value)
-    );
-  }
-
-  function update() {
-    ticking = false;
-
-    if (reducedMotion.matches) {
-      hero.style.setProperty("--bg-x", "0px");
-      hero.style.setProperty("--bg-y", "0px");
-      hero.style.setProperty("--scroll-bg", "0px");
-      return;
-    }
-
-    const rect = hero.getBoundingClientRect();
-
-    /* Mouse-based background depth */
-
-    hero.style.setProperty(
-      "--bg-x",
-      (-pointerX * 18).toFixed(1) + "px"
-    );
-
-    hero.style.setProperty(
-      "--bg-y",
-      (-pointerY * 12).toFixed(1) + "px"
-    );
-
-    /* Scroll-based background movement */
-
-    const scrollDistance = clamp(
-      -rect.top,
-      0,
-      rect.height
-    );
-
-    hero.style.setProperty(
-      "--scroll-bg",
-      (-scrollDistance * .08).toFixed(1) + "px"
-    );
-  }
-
-  function requestUpdate() {
-    if (ticking) return;
-
-    ticking = true;
-    requestAnimationFrame(update);
-  }
-
-  hero.addEventListener(
-    "pointermove",
-    function (event) {
-
-      if (!finePointer.matches) return;
-
-      const rect = hero.getBoundingClientRect();
-
-      pointerX = clamp(
-        (
-          (event.clientX - rect.left)
-          / rect.width - .5
-        ) * 2,
-        -1,
-        1
-      );
-
-      pointerY = clamp(
-        (
-          (event.clientY - rect.top)
-          / rect.height - .5
-        ) * 2,
-        -1,
-        1
-      );
-
-      requestUpdate();
-    }
-  );
-
-  hero.addEventListener(
-    "pointerleave",
-    function () {
-      pointerX = 0;
-      pointerY = 0;
-      requestUpdate();
-    }
-  );
-
-  window.addEventListener(
-    "scroll",
-    requestUpdate,
-    { passive: true }
-  );
-
-  window.addEventListener(
-    "resize",
-    requestUpdate
-  );
-
-  reducedMotion.addEventListener(
-    "change",
-    requestUpdate
-  );
-
-  update();
-
-})();
-</script>
 
 </body>
 </html>
