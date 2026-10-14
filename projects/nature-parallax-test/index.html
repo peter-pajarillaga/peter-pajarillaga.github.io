@@ -4,11 +4,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nature Method | Layered 3D Test</title>
+
+<title>Nature Method | 2.5D Parallax Test</title>
 
 <style>
 /* ==========================================
-   NATURE METHOD — LAYERED 2.5D PARALLAX
+   NATURE METHOD — 2.5D PARALLAX TEST
 ========================================== */
 
 * {
@@ -33,17 +34,16 @@ body {
 
   --bg-x: 0px;
   --bg-y: 0px;
-  --woman-x: 0px;
-  --woman-y: 0px;
   --scroll-bg: 0px;
-  --scroll-woman: 0px;
 }
 
-/* BACKGROUND SCENERY */
+/* ==========================================
+   BACKGROUND SCENERY
+========================================== */
 
 .background-layer {
   position: absolute;
-  inset: -5%;
+  inset: -12%;
   z-index: 0;
 
   background-image: url("./background.png");
@@ -60,16 +60,20 @@ body {
   will-change: transform;
 }
 
-/* ANIMATED LIGHT — BEHIND WOMAN */
+/* ==========================================
+   ANIMATED SUNLIGHT
+========================================== */
 
 .sunlight {
   position: absolute;
   inset: 0;
   z-index: 1;
-  pointer-events: none;
   overflow: hidden;
+  pointer-events: none;
   mix-blend-mode: screen;
 }
+
+/* SOFT GOLDEN GLOW */
 
 .sun-glow {
   position: absolute;
@@ -86,8 +90,12 @@ body {
   );
 
   filter: blur(32px);
-  animation: glowPulse 5s ease-in-out infinite alternate;
+
+  animation: glowPulse
+    5s ease-in-out infinite alternate;
 }
+
+/* MOVING SUN RAYS */
 
 .sun-rays {
   position: absolute;
@@ -104,35 +112,34 @@ body {
   mask-image: radial-gradient(
     ellipse at 52% 16%,
     black 5%,
-    rgba(0,0,0,.75) 35%,
+    rgba(0, 0, 0, .75) 35%,
     transparent 78%
   );
 
   filter: blur(13px);
   transform-origin: 52% 16%;
 
-  animation: raysMove 10s ease-in-out infinite alternate;
+  animation: raysMove
+    10s ease-in-out infinite alternate;
 }
 
-/* FOREGROUND WOMAN */
+/* ==========================================
+   FOREGROUND WOMAN
+   FIXED POSITION — NO FLOATING
+========================================== */
 
-transform: translate3d(
-  var(--woman-x),
-  0px,
-  0
-);
+.woman-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
 
   display: flex;
   align-items: flex-end;
   justify-content: center;
 
-  transform: translate3d(
-    var(--woman-x),
-    calc(var(--woman-y) + var(--scroll-woman)),
-    0
-  );
-
-  will-change: transform;
+  /* Keep the woman stationary */
+  transform: translate3d(0, 0, 0);
 }
 
 .woman-layer img {
@@ -140,6 +147,7 @@ transform: translate3d(
   width: auto;
   height: 100%;
   max-width: none;
+
   object-fit: contain;
   object-position: bottom center;
 
@@ -148,7 +156,9 @@ transform: translate3d(
   );
 }
 
-/* SOFT ATMOSPHERE */
+/* ==========================================
+   ATMOSPHERIC LIGHT
+========================================== */
 
 .atmosphere {
   position: absolute;
@@ -162,16 +172,20 @@ transform: translate3d(
     transparent 65%
   );
 
-  animation: hazePulse 8s ease-in-out infinite alternate;
+  animation: hazePulse
+    8s ease-in-out infinite alternate;
 }
 
-/* ANIMATIONS */
+/* ==========================================
+   ANIMATIONS
+========================================== */
 
 @keyframes glowPulse {
   from {
     opacity: .45;
     transform: scale(.94);
   }
+
   to {
     opacity: 1;
     transform: scale(1.1);
@@ -183,6 +197,7 @@ transform: translate3d(
     opacity: .3;
     transform: rotate(-3deg) scale(.98);
   }
+
   to {
     opacity: .9;
     transform: rotate(3deg) scale(1.06);
@@ -190,18 +205,27 @@ transform: translate3d(
 }
 
 @keyframes hazePulse {
-  from { opacity: .4; }
-  to { opacity: 1; }
+  from {
+    opacity: .4;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
-/* SCROLL TEST SPACE */
+/* ==========================================
+   SCROLL TEST AREA
+========================================== */
 
 .scroll-space {
   height: 100vh;
   background: #17100b;
 }
 
-/* MOBILE */
+/* ==========================================
+   MOBILE
+========================================== */
 
 @media (max-width: 767px) {
   .background-layer {
@@ -218,11 +242,12 @@ transform: translate3d(
   }
 }
 
-/* REDUCED MOTION */
+/* ==========================================
+   REDUCED MOTION
+========================================== */
 
 @media (prefers-reduced-motion: reduce) {
-  .background-layer,
-  .woman-layer {
+  .background-layer {
     will-change: auto;
   }
 
@@ -232,6 +257,7 @@ transform: translate3d(
     animation: none;
   }
 }
+
 </style>
 </head>
 
@@ -239,16 +265,16 @@ transform: translate3d(
 
 <section class="hero" id="hero">
 
-  <!-- BACKGROUND WITHOUT WOMAN -->
+  <!-- BACKGROUND SCENERY -->
   <div class="background-layer"></div>
 
-  <!-- MOVING SUNLIGHT -->
+  <!-- ANIMATED SUNLIGHT -->
   <div class="sunlight" aria-hidden="true">
     <div class="sun-glow"></div>
     <div class="sun-rays"></div>
   </div>
 
-  <!-- TRANSPARENT WOMAN FOREGROUND -->
+  <!-- STATIONARY WOMAN -->
   <div class="woman-layer">
     <img
       src="./woman-foreground.png"
@@ -257,16 +283,19 @@ transform: translate3d(
     >
   </div>
 
-  <!-- WARM ATMOSPHERE -->
+  <!-- ATMOSPHERIC LIGHT -->
   <div class="atmosphere"></div>
 
 </section>
 
+<!-- EMPTY SPACE FOR SCROLL TESTING -->
 <div class="scroll-space"></div>
 
 <script>
 (function () {
+
   const hero = document.getElementById("hero");
+
   if (!hero) return;
 
   const reducedMotion = window.matchMedia(
@@ -282,7 +311,10 @@ transform: translate3d(
   let ticking = false;
 
   function clamp(value, min, max) {
-    return Math.max(min, Math.min(max, value));
+    return Math.max(
+      min,
+      Math.min(max, value)
+    );
   }
 
   function update() {
@@ -291,35 +323,26 @@ transform: translate3d(
     if (reducedMotion.matches) {
       hero.style.setProperty("--bg-x", "0px");
       hero.style.setProperty("--bg-y", "0px");
-      hero.style.setProperty("--woman-x", "0px");
-      hero.style.setProperty("--woman-y", "0px");
       hero.style.setProperty("--scroll-bg", "0px");
-      hero.style.setProperty("--scroll-woman", "0px");
       return;
     }
 
     const rect = hero.getBoundingClientRect();
 
-    /* Background moves more than foreground */
+    /* Mouse-based background depth */
+
     hero.style.setProperty(
       "--bg-x",
-      (-pointerX * 22).toFixed(1) + "px"
+      (-pointerX * 18).toFixed(1) + "px"
     );
 
     hero.style.setProperty(
       "--bg-y",
-      (-pointerY * 15).toFixed(1) + "px"
+      (-pointerY * 12).toFixed(1) + "px"
     );
 
-    /* Woman moves less than background */
-    hero.style.setProperty(
-      "--woman-x",
-      (pointerX * 7).toFixed(1) + "px"
-    );
+    /* Scroll-based background movement */
 
-    hero.style.setProperty("--woman-y", "0px");
-
-    /* Independent scroll depth */
     const scrollDistance = clamp(
       -rect.top,
       0,
@@ -328,53 +351,74 @@ transform: translate3d(
 
     hero.style.setProperty(
       "--scroll-bg",
-      (-scrollDistance * .10).toFixed(1) + "px"
+      (-scrollDistance * .08).toFixed(1) + "px"
     );
-
-    hero.style.setProperty("--scroll-woman", "0px");
   }
 
   function requestUpdate() {
     if (ticking) return;
+
     ticking = true;
     requestAnimationFrame(update);
   }
 
-  hero.addEventListener("pointermove", function (event) {
-    if (!finePointer.matches) return;
+  hero.addEventListener(
+    "pointermove",
+    function (event) {
 
-    const rect = hero.getBoundingClientRect();
+      if (!finePointer.matches) return;
 
-    pointerX = clamp(
-      ((event.clientX - rect.left) / rect.width - .5) * 2,
-      -1,
-      1
-    );
+      const rect = hero.getBoundingClientRect();
 
-    pointerY = clamp(
-      ((event.clientY - rect.top) / rect.height - .5) * 2,
-      -1,
-      1
-    );
+      pointerX = clamp(
+        (
+          (event.clientX - rect.left)
+          / rect.width - .5
+        ) * 2,
+        -1,
+        1
+      );
 
-    requestUpdate();
-  });
+      pointerY = clamp(
+        (
+          (event.clientY - rect.top)
+          / rect.height - .5
+        ) * 2,
+        -1,
+        1
+      );
 
-  hero.addEventListener("pointerleave", function () {
-    pointerX = 0;
-    pointerY = 0;
-    requestUpdate();
-  });
+      requestUpdate();
+    }
+  );
 
-  window.addEventListener("scroll", requestUpdate, {
-    passive: true
-  });
+  hero.addEventListener(
+    "pointerleave",
+    function () {
+      pointerX = 0;
+      pointerY = 0;
+      requestUpdate();
+    }
+  );
 
-  window.addEventListener("resize", requestUpdate);
+  window.addEventListener(
+    "scroll",
+    requestUpdate,
+    { passive: true }
+  );
 
-  reducedMotion.addEventListener("change", requestUpdate);
+  window.addEventListener(
+    "resize",
+    requestUpdate
+  );
+
+  reducedMotion.addEventListener(
+    "change",
+    requestUpdate
+  );
 
   update();
+
 })();
 </script>
 
