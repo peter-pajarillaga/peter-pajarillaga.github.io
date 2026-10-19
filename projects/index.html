@@ -1,30 +1,210 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>FunnelFlow Assist | Crystal Portfolio</title>
-<meta name="description" content="FunnelFlow Assist builds sales funnels, websites and connected CRM automations with GoHighLevel, ClickFunnels, Keap and n8n.">
-<meta name="theme-color" content="#050507">
-<style>
-:root{color-scheme:dark;--red:#f5253c;--muted:#a8a6ae;--line:#ffffff20}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#050507;color:#f5f3f5;font-family:Inter,Arial,Helvetica,sans-serif}a{color:inherit;text-decoration:none}button{font:inherit}::selection{background:#d92139;color:white}.wrap{max-width:1250px;margin:auto;padding:0 28px}header{position:sticky;top:0;z-index:50;background:#08080bdc;backdrop-filter:blur(20px);border-bottom:1px solid #ffffff16}.top{display:flex;align-items:center;justify-content:space-between;gap:22px;height:80px}.brand{font-weight:850;font-size:14px;letter-spacing:.14em;white-space:nowrap}.brand b{color:var(--red)}.nav{display:flex;gap:28px;align-items:center}.nav a{font-size:11px;letter-spacing:.13em;color:#c9c4cb;font-weight:700}.nav a:hover{color:white}.contact-link,.action{border:1px solid #ff5966;padding:14px 20px;border-radius:100px;background:linear-gradient(135deg,#ae1228,#f12d40);font-size:11px;font-weight:800;letter-spacing:.09em;box-shadow:0 0 30px #e300272c;white-space:nowrap}.eyebrow{color:#ff5265;font-weight:800;font-size:11px;letter-spacing:.25em;text-transform:uppercase}.hero{position:relative;overflow:hidden;background:radial-gradient(ellipse at 50% 54%,#23070c 0%,#0b090d 44%,#050507 78%);padding:110px 0 35px}.hero:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 49.9%,#ff536608 50%,transparent 50.1%);background-size:110px 110px;pointer-events:none}.hero-inner{position:relative;text-align:center}.hero h1{font-size:clamp(48px,8.5vw,126px);line-height:.92;letter-spacing:-.075em;margin:24px auto;max-width:1120px;font-weight:900}.hero h1 em{font-style:normal;color:transparent;-webkit-text-stroke:1px #f66c7b;text-shadow:0 0 50px #fb15331e}.hero p{max-width:620px;margin:0 auto 35px;color:#b8b2b9;line-height:1.75;font-size:15px}.hero-actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}.action.secondary{background:#111015;border-color:#6a3b43;box-shadow:none}.console-shell{margin-top:68px;position:relative;border:1px solid #7c1b2b;border-radius:24px;overflow:hidden;background:#060507;box-shadow:0 0 80px #c509251d,0 35px 90px #000}.console-shell:before{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;box-shadow:inset 0 0 28px #e52a3b18;z-index:1}.console-shell iframe{width:100%;height:570px;display:block;border:0;background:#060507}.console-fallback{display:flex;justify-content:center;gap:15px;flex-wrap:wrap;padding:0 20px 28px}.console-fallback a{border:1px solid #71343d;background:#1a0b11;border-radius:99px;padding:12px 22px;font-size:11px;font-weight:800;letter-spacing:.14em}.console-fallback a:hover{border-color:#fa5369}.section{padding:112px 0;border-top:1px solid #ffffff0c}.section-heading{display:flex;justify-content:space-between;gap:30px;align-items:end;margin-bottom:36px}.section h2{font-size:clamp(36px,5.5vw,76px);line-height:1;letter-spacing:-.065em;margin:14px 0 0}.section-intro{max-width:390px;color:var(--muted);font-size:14px;line-height:1.8}.work-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.project{border:1px solid #ffffff25;border-radius:18px;overflow:hidden;background:linear-gradient(145deg,#1a1519,#09090b);transition:transform .25s,border-color .25s}.project:hover{transform:translateY(-6px);border-color:#fa4b60}.project-preview{height:260px;overflow:hidden;position:relative;background:radial-gradient(circle,#31131d,#09090a)}.project-preview img{display:block;width:100%;height:100%;object-fit:cover;object-position:top}.project-preview:after{content:"";position:absolute;inset:50% 0 0;background:linear-gradient(transparent,#080609)}.project-content{padding:23px}.project-content small{color:#f35a6b;letter-spacing:.15em;font-size:10px;font-weight:800}.project h3{font-size:23px;margin:12px 0}.project p{color:#bbb4bc;line-height:1.7;font-size:13px;min-height:90px}.tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:22px}.tags span{font-size:9px;font-weight:800;letter-spacing:.08em;border:1px solid #ffffff29;border-radius:50px;padding:8px 10px}.details-toggle{display:block;width:100%;background:transparent;color:white;border:0;border-top:1px solid #ffffff20;padding:16px 0 0;text-align:left;cursor:pointer;font-size:11px;letter-spacing:.12em;font-weight:800}.project-details{margin-top:14px;padding:14px;background:#08080b;border:1px solid #ffffff1d;border-radius:10px;color:#bcb7bd;font-size:12px;line-height:1.7}.systems{background:radial-gradient(ellipse at 80% 30%,#27070f 0%,transparent 60%)}.systems-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}.system-stack{display:grid;gap:12px}.system-row{border:1px solid #ffffff26;border-radius:13px;background:linear-gradient(100deg,#171217,#09090b);padding:21px 24px;display:flex;justify-content:space-between;align-items:center;gap:20px}.system-row strong{font-size:18px}.system-row span{color:#f46070;font-size:10px;letter-spacing:.14em}.tools-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:36px}.tool{padding:26px 20px;background:linear-gradient(130deg,#171418,#09090c);border:1px solid #ffffff22;border-radius:12px}.tool small{display:block;color:#f36375;letter-spacing:.15em;font-size:9px;margin-bottom:10px}.tool strong{font-size:16px}.about-grid{display:grid;grid-template-columns:.75fr 1.25fr;gap:70px;align-items:center}.portrait{min-height:420px;border:1px solid #a0283b;border-radius:20px;overflow:hidden;background:#140d11;box-shadow:0 0 65px #ad132320}.portrait img{width:100%;height:100%;min-height:420px;object-fit:cover}.about p{color:#bdb6be;line-height:1.85}.contact{padding:110px 0 130px;text-align:center;background:radial-gradient(ellipse at 50% 70%,#350911,#070709 70%)}.contact h2{font-size:clamp(44px,7vw,96px);letter-spacing:-.07em;line-height:.98;margin:18px 0 25px}.contact p{color:#bdb6be;margin-bottom:35px}footer{padding:25px 0;border-top:1px solid #ffffff22;color:#8c858d;font-size:11px}.footer-inner{display:flex;justify-content:space-between;gap:15px}a:focus-visible,button:focus-visible{outline:2px solid #ff6476;outline-offset:3px}@media(max-width:900px){.nav{gap:13px}.nav a{font-size:10px}.work-grid{grid-template-columns:1fr 1fr}.tools-grid{grid-template-columns:repeat(3,1fr)}.console-shell iframe{height:470px}}@media(max-width:650px){.wrap{padding:0 18px}.top{height:68px}.nav{display:none}.contact-link{padding:12px 14px}.hero{padding-top:78px}.hero h1{font-size:clamp(44px,12vw,72px)}.console-shell{margin-top:42px}.console-shell iframe{height:390px}.section{padding:75px 0}.section-heading{display:block}.work-grid,.systems-grid,.about-grid{grid-template-columns:1fr}.tools-grid{grid-template-columns:1fr 1fr}.project-preview{height:290px}.project p{min-height:0}.footer-inner{flex-direction:column}}
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FunnelFlow Crystal Console</title><style>html,body{margin:0;background:#050507;min-height:100%;overflow:hidden}</style></head><body>
+<!-- FunnelFlow crystal console — ClickFunnels Custom HTML/JS element -->
+<style>*{box-sizing:border-box}#ff-crystal-console{color:#f4f4f5;font:14px system-ui,sans-serif}#ff-crystal-console .ff-stage{height:100%;min-height:560px;position:relative;overflow:hidden;background:radial-gradient(ellipse at 54% 48%,#1c1d21 0%,#0b0b0e 55%,#020204 100%)}#ff-crystal-console canvas{display:block;width:100%;height:100%;touch-action:pan-y}#ff-crystal-console .ui{position:absolute;left:clamp(16px,4vw,48px);top:30px;pointer-events:none}#ff-crystal-console .ui small{letter-spacing:.22em;color:#a1a2aa}#ff-crystal-console .ui h1{font-size:clamp(22px,3vw,34px);margin:10px 0 4px;letter-spacing:-.04em}#ff-crystal-console .ui p{color:#9c9ca4;font-size:12px}#ff-crystal-console .controls{position:absolute;bottom:25px;left:50%;transform:translateX(-50%);display:flex;gap:12px;background:#111216e8;border:1px solid #34343a;border-radius:40px;padding:9px 14px;align-items:center;white-space:nowrap}#ff-crystal-console button{background:#24252a;color:white;border:1px solid #505158;border-radius:22px;padding:10px 18px;cursor:pointer}#ff-crystal-console button[aria-pressed=true]{background:#85101a;border-color:#ff5360}#ff-crystal-console label{color:#bbb;font-size:12px}#ff-crystal-console input{accent-color:#e11a2a;width:95px}@media(max-width:530px){#ff-crystal-console .controls{width:calc(100% - 20px);justify-content:center;flex-wrap:wrap;bottom:15px}#ff-crystal-console .ui{top:15px}#ff-crystal-console .ui p{max-width:250px}}
+#ff-crystal-console{width:100%;isolation:isolate}#ff-crystal-console .ff-stage{height:640px;min-height:520px}#ff-crystal-console canvas{touch-action:none}
 </style>
-</head>
-<body>
-<header><div class="wrap top"><a class="brand" href="#home"><b>◆</b> FUNNELFLOW ASSIST</a><nav class="nav" aria-label="Main navigation"><a href="#home">HOME</a><a href="#work">WORK</a><a href="#systems">SYSTEMS</a><a href="#tools">TOOLS</a><a href="#about">ABOUT</a></nav><a class="contact-link" href="#contact">LET'S BUILD ↗</a></div></header>
-<main>
-<section class="hero" id="home"><div class="wrap hero-inner"><div class="eyebrow">FUNNEL BUILDER & AUTOMATION SPECIALIST</div><h1>I BUILD<br>THE FUNNEL.<br><em>AND EVERYTHING<br>BEHIND IT.</em></h1><p>I build conversion-focused funnels and the systems that make them work. Responsive front-end experiences, checkout flows, CRM workflows, and automation—connected from first click to follow-up.</p><div class="hero-actions"><a class="action" href="#work">EXPLORE MY WORK ↗</a><a class="action secondary" href="#systems">BEHIND THE BUILD →</a></div><div class="console-shell"><iframe id="crystalConsole" src="console/index.html" title="Interactive 3D crystal navigation: Funnels, Automations, Web Design" loading="eager"></iframe><nav class="console-fallback" aria-label="Explore services"><a href="#work">FUNNELS ↗</a><a href="#systems">AUTOMATIONS ↗</a><a href="#tools">WEB DESIGN ↗</a></nav></div></div></section>
-<section class="section" id="work"><div class="wrap"><div class="section-heading"><div><div class="eyebrow">01 / SELECTED WORK</div><h2>REAL BUILDS.<br>REAL SYSTEMS.</h2></div><p class="section-intro">Selected funnel experiences and conversion paths. Screenshots preserve projects whose original live pages may no longer be accessible.</p></div><div class="work-grid">
-<article class="project"><div class="project-preview"><img src="../../assets/first-circle-sales.png" alt="First Circle funnel preview" loading="lazy"></div><div class="project-content"><small>PROJECT 01</small><h3>First Circle</h3><p>A GoHighLevel program funnel for Donna Zerger, from sales page through checkout and post-purchase experience.</p><div class="tags"><span>GOHIGHLEVEL</span><span>SALES FUNNEL</span><span>CUSTOM CSS / JS</span></div><button class="details-toggle" aria-expanded="false">TECHNICAL DETAILS +</button><div class="project-details" hidden>Program sales page, checkout, thank-you page, responsive design and custom CSS/JavaScript. Post-purchase onboarding emails and program access instructions.</div></div></article>
-<article class="project"><div class="project-preview"><img src="../../assets/cba-live-sales.png" alt="CBA Live 2027 event funnel preview" loading="lazy"></div><div class="project-content"><small>PROJECT 02</small><h3>CBA Live 2027</h3><p>Event ticket sales funnel with full-payment and installment options, BBQ add-on, and purchase-based thank-you routing.</p><div class="tags"><span>CLICKFUNNELS</span><span>EVENT FUNNEL</span><span>CHECKOUT</span></div><button class="details-toggle" aria-expanded="false">TECHNICAL DETAILS +</button><div class="project-details" hidden>Ticket options, checkout, order bump, custom CSS/JavaScript and conditional post-purchase page routing. Workflows and onboarding requirements were developed for the event.</div></div></article>
-<article class="project"><div class="project-preview"><img src="../../assets/cba-book-sales.png" alt="CBA Book Funnel preview" loading="lazy"></div><div class="project-content"><small>PROJECT 03</small><h3>CBA Book Funnel</h3><p>A ClickFunnels book sales experience designed to present the offer and guide visitors toward the next action.</p><div class="tags"><span>CLICKFUNNELS</span><span>BOOK FUNNEL</span><span>RESPONSIVE</span></div><button class="details-toggle" aria-expanded="false">TECHNICAL DETAILS +</button><div class="project-details" hidden>Responsive book sales page, checkout, thank-you page and post-purchase call to action promoting the Let's Talk Dog Business podcast.</div></div></article>
-</div></div></section>
-<section class="section systems" id="systems"><div class="wrap systems-grid"><div><div class="eyebrow">02 / UNDER THE HOOD</div><h2>MORE THAN<br>A PRETTY PAGE.</h2><p class="section-intro">The visible funnel is only one layer. I connect the page, the conversion path, the CRM, and the automation so the experience works as a complete system.</p><a class="action" href="#contact">LET'S BUILD A SYSTEM →</a></div><div class="system-stack"><div class="system-row"><strong>Design & Experience</strong><span>VISUAL SYSTEM</span></div><div class="system-row"><strong>Front-End Build</strong><span>HTML · CSS · JS</span></div><div class="system-row"><strong>Conversion Flow</strong><span>FORMS · CHECKOUT</span></div><div class="system-row"><strong>CRM Workflows</strong><span>LEADS · FOLLOW-UP</span></div><div class="system-row"><strong>Automation & Integration</strong><span>n8n · KEAP · APIs</span></div></div></div></section>
-<section class="section" id="tools"><div class="wrap"><div class="eyebrow">03 / TOOLS & TECHNOLOGIES</div><h2>THE STACK<br>BEHIND THE BUILD.</h2><div class="tools-grid"><div class="tool"><small>FUNNEL PLATFORM</small><strong>GoHighLevel</strong></div><div class="tool"><small>FUNNEL PLATFORM</small><strong>ClickFunnels</strong></div><div class="tool"><small>FRONT END</small><strong>HTML</strong></div><div class="tool"><small>FRONT END</small><strong>CSS</strong></div><div class="tool"><small>FRONT END</small><strong>JavaScript</strong></div><div class="tool"><small>AUTOMATION</small><strong>n8n</strong></div><div class="tool"><small>CRM & EMAIL</small><strong>Keap</strong></div><div class="tool"><small>INTEGRATIONS</small><strong>APIs & Webhooks</strong></div><div class="tool"><small>SEARCH</small><strong>On-Page SEO</strong></div><div class="tool"><small>SEARCH</small><strong>Technical SEO</strong></div><div class="tool"><small>LOCAL VISIBILITY</small><strong>Local SEO</strong></div><div class="tool"><small>WORKFLOW DESIGN</small><strong>Connected Systems</strong></div></div></div></section>
-<section class="section about" id="about"><div class="wrap about-grid"><div class="portrait"><img src="../../assets/peter-profile.png" alt="Peter Pajarillaga at his workstation" loading="lazy"></div><div><div class="eyebrow">04 / THE PERSON BEHIND THE BUILD</div><h2>HI, I'M<br>PETER.</h2><p>I'm a <strong>Funnel Builder & Automation Specialist</strong> based in Davao City, Philippines.</p><p>I work across the full funnel experience, including page structure, responsive design, custom CSS and JavaScript, checkout flows, CRM workflows, and automation.</p><p>My focus is simple: <strong>the page shouldn't just look good. It should work as a complete system.</strong></p></div></div></section>
-<section class="contact" id="contact"><div class="wrap"><div class="eyebrow">05 / LET'S BUILD</div><h2>HAVE A FUNNEL<br>TO <span style="color:#ff4b61">BUILD?</span></h2><p>Let's build the page and everything behind it.</p><a class="action" href="../../inquiry.html">LET'S TALK ↗</a></div></section>
-</main><footer><div class="wrap footer-inner"><span>© 2026 FunnelFlow Assist</span><span>Funnel Builder & Automation Specialist</span></div></footer>
+<div id="ff-crystal-console"><div class="ff-stage" id="stage"><div class="ui"><small>FUNNELFLOW / CRYSTAL CONSOLE</small><h1>CRYSTAL CONTROL PANEL</h1><p>Select a crystal · drag to inspect · V14 glass</p></div><div class="controls"><button id="toggle" aria-pressed="true">Ruby light: ON</button><label for="power">Intensity</label><input id="power" type="range" min="0" max="100" value="80"></div></div><div class="ff-error" hidden style="background:#41131b;color:#fff;padding:12px"></div></div>
 <script>
-document.querySelectorAll('.details-toggle').forEach(button=>button.addEventListener('click',()=>{const panel=button.nextElementSibling;const open=panel.hidden;panel.hidden=!open;button.setAttribute('aria-expanded',String(open));button.textContent=open?'TECHNICAL DETAILS −':'TECHNICAL DETAILS +';}));
-window.addEventListener('message',event=>{if(event.origin!==location.origin)return;const frame=document.getElementById('crystalConsole');if(event.source!==frame.contentWindow)return;if(event.data?.type!=='funnelflow-crystal-select')return;const targets=['work','systems','tools'];const i=event.data.index;if(!Number.isInteger(i)||i<0||i>2)return;document.getElementById(targets[i])?.scrollIntoView({behavior:'smooth'});});
+(function(){
+ const root=document.getElementById('ff-crystal-console');
+ if(!root||root.dataset.ffLoaded)return;root.dataset.ffLoaded='1';
+ (async()=>{
+ try{
+
+const THREE = await import('https://cdn.jsdelivr.net/npm/three@0.164.1/build/three.module.js');
+
+const stage=root.querySelector('#stage');const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.15;stage.prepend(renderer.domElement);
+const scene=new THREE.Scene();const camera=new THREE.PerspectiveCamera(35,1,.1,100);camera.position.set(1.7,9.3,23.5);const controls={update(){camera.lookAt(0,-.1,0)}};
+let orbitTheta=Math.atan2(camera.position.x,camera.position.z),orbitPhi=Math.acos(camera.position.y/camera.position.length());
+let dragging=false,lastX=0,lastY=0;
+renderer.domElement.addEventListener('pointerdown',e=>{dragging=true;lastX=e.clientX;lastY=e.clientY});
+window.addEventListener('pointerup',()=>dragging=false);
+renderer.domElement.addEventListener('pointermove',e=>{if(!dragging)return;const dx=e.clientX-lastX,dy=e.clientY-lastY;lastX=e.clientX;lastY=e.clientY;orbitTheta-=dx*.004;orbitPhi=Math.max(.25,Math.min(1.55,orbitPhi+dy*.004));const r=camera.position.length();camera.position.set(r*Math.sin(orbitPhi)*Math.sin(orbitTheta),r*Math.cos(orbitPhi),r*Math.sin(orbitPhi)*Math.cos(orbitTheta))});
+scene.add(new THREE.AmbientLight(0xffffff,.45));const key=new THREE.DirectionalLight(0xffffff,3);key.position.set(-4,8,6);scene.add(key);const rim=new THREE.DirectionalLight(0xdceaff,2.5);rim.position.set(4,2,-5);scene.add(rim);
+// Procedural studio reflections for physical glass without external HDR files.
+const envScene=new THREE.Scene();envScene.background=new THREE.Color('#101115');function panel(x,y,z,w,h,brightness,rotation=0){const mesh=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({color:brightness,side:THREE.DoubleSide}));mesh.position.set(x,y,z);mesh.rotation.y=rotation;envScene.add(mesh)}panel(-4,5,1,1.1,10,'#ffffff',-.45);panel(3.5,4,-2,2,9,'#3a414d',.5);panel(0,8,0,12,2,'#ffffff',0);panel(-5,1,-1,.5,7,'#343942',.7);const pmrem=new THREE.PMREMGenerator(renderer);const env=pmrem.fromScene(envScene,.04).texture;scene.environment=env;
+// Capsule outline made from 2 straight sides and two semicircles, extruded with rounded bevel.
+function pillShape(w,h){const s=new THREE.Shape();const r=h/2;const a=w/2-r;s.moveTo(-a,-r);s.lineTo(a,-r);s.absarc(a,0,r,-Math.PI/2,Math.PI/2,false);s.lineTo(-a,r);s.absarc(-a,0,r,Math.PI/2,3*Math.PI/2,false);return s}
+function extrude(w,h,depth,bevel){const g=new THREE.ExtrudeGeometry(pillShape(w,h),{depth:depth-2*bevel,steps:1,bevelEnabled:true,bevelThickness:bevel,bevelSize:bevel,bevelSegments:9,curveSegments:48});g.translate(0,0,-(depth-2*bevel)/2);g.computeVertexNormals();return g}
+const assembly=new THREE.Group();assembly.rotation.x=-Math.PI/2;scene.add(assembly);
+const buttons=[];let selected=1;
+// A single glossy, rounded black console below the three V14 crystal buttons.
+const baseShape=pillShape(22.0,4.2);
+// V13: optical clear crystal. Remove the opaque/gray transmitted studio fill.
+// Surface contributes only angle-dependent reflection, allowing the black inset
+// and background to remain visible through the broad flat regions.
+// V14: sharpen crystal facets and specular glints without adding opaque fill.
+const glass=new THREE.ShaderMaterial({
+  vertexShader:`varying vec3 vN; varying vec3 vV; varying vec3 vP; varying vec3 vWorld;
+    void main(){
+      vec4 wp=modelMatrix*vec4(position,1.);
+      vN=normalize(mat3(modelMatrix)*normal);
+      vV=normalize(cameraPosition-wp.xyz);
+      vP=position;vWorld=wp.xyz;
+      gl_Position=projectionMatrix*viewMatrix*wp;
+    }`,
+  fragmentShader:`varying vec3 vN; varying vec3 vV; varying vec3 vP; varying vec3 vWorld;
+    void main(){
+      vec3 n=normalize(vN),v=normalize(vV);
+      float facing=abs(dot(n,v));
+      float edge=pow(1.-facing,2.2);
+      float rim=pow(1.-facing,7.);
+      vec3 reflected=reflect(-v,n);
+      float streak=pow(max(dot(reflected,normalize(vec3(-.38,.85,.42))),0.),48.);
+      float thin=pow(max(dot(reflected,normalize(vec3(.63,.53,-.56))),0.),85.);
+      // Tiny, sharp studio light glints — not a fuzzy or gray overlay.
+      float glintA=pow(max(dot(reflected,normalize(vec3(-.17,.92,.35))),0.),220.);
+      float glintB=pow(max(dot(reflected,normalize(vec3(.84,.30,-.45))),0.),270.);
+      // Transparent in broad front-facing areas, visibly crystalline at bevels.
+      float alpha=clamp(.012+edge*.23+rim*.42+streak*.55+thin*.43
+                        +glintA*.78+glintB*.72,0.,.91);
+      vec3 silver=vec3(.91,.96,1.);
+      float highlight=clamp(rim*.68+streak+thin+glintA*1.8+glintB*1.8,0.,1.);
+      vec3 col=mix(vec3(.055,.075,.10),silver,highlight);
+      gl_FragColor=vec4(col,alpha);
+    }`,
+  transparent:true,depthWrite:false,side:THREE.FrontSide,
+  blending:THREE.NormalBlending
+});
+// Extruded solid base with softly beveled perimeter.
+const baseMaterial=new THREE.MeshPhysicalMaterial({
+ color:0x08080b,metalness:.68,roughness:.17,clearcoat:1,clearcoatRoughness:.075,
+ envMapIntensity:1.1
+});
+const base=new THREE.Mesh(extrude(22,4.2,.43,.19),baseMaterial);
+base.position.z=-.58;base.renderOrder=0;assembly.add(base);
+// Red light runs along the real perimeter of the base, not across its top.
+function outline(w,h,z,radius,color,opacity){
+ const points=pillShape(w,h).getPoints(170).map(p=>new THREE.Vector3(p.x,p.y,z));
+ const curve=new THREE.CatmullRomCurve3(points,true,'centripetal');
+ const tube=new THREE.Mesh(new THREE.TubeGeometry(curve,380,radius,5,true),
+ new THREE.MeshBasicMaterial({color,transparent:true,opacity,depthWrite:false,blending:THREE.AdditiveBlending}));
+ tube.renderOrder=3;assembly.add(tube);return tube;
+}
+outline(21.9,4.1,-.36,.021,0xff3445,.9);
+outline(21.9,4.1,-.38,.095,0xff071a,.16);
+outline(21.8,4.0,-.74,.033,0xe60015,.85);
+// Dark mirror-black floor directly under the base, with ruby contact glow.
+const floor=new THREE.Mesh(new THREE.PlaneGeometry(70,34),new THREE.MeshPhysicalMaterial({
+ color:0x09090d,metalness:.5,roughness:.26,transparent:true,opacity:.9
+}));
+floor.position.z=-.88;floor.renderOrder=-2;assembly.add(floor);
+function redHalo(x,y,w,h,opacity){
+ const cv=document.createElement('canvas');cv.width=128;cv.height=128;
+ const c=cv.getContext('2d'),g=c.createRadialGradient(64,64,0,64,64,64);
+ g.addColorStop(0,'rgba(255,17,28,.95)');g.addColorStop(.26,'rgba(255,7,22,.48)');g.addColorStop(1,'rgba(255,0,0,0)');
+ c.fillStyle=g;c.fillRect(0,0,128,128);
+ const m=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({
+ map:new THREE.CanvasTexture(cv),transparent:true,opacity,depthWrite:false,blending:THREE.AdditiveBlending
+ }));m.position.set(x,y,-.85);m.renderOrder=1;assembly.add(m);
+}
+redHalo(0,0,24,7,.34);
+redHalo(-7.5,-2.05,8,3,.55);redHalo(7.7,-2.05,8,3,.55);
+// Build three buttons using the exact approved V14 material.
+const sharedBodyGeometry=extrude(5.9,1.65,.56,.20);
+const sharedFaceGeometry=extrude(5.25,1.06,.07,.055);
+const faceMaterial=new THREE.MeshPhysicalMaterial({color:0x030305,roughness:.11,metalness:.14,clearcoat:1,clearcoatRoughness:.03});
+const names=['FUNNELS','AUTOMATIONS','WEB DESIGN'];
+for(let i=0;i<3;i++){
+ const group=new THREE.Group();group.position.x=(i-1)*7.0;group.position.y=0;group.position.z=.12;assembly.add(group);
+ group.scale.set(.96,.96,.96);
+ const body=new THREE.Mesh(sharedBodyGeometry,glass);
+ body.renderOrder=5;group.add(body);
+ const face=new THREE.Mesh(sharedFaceGeometry,faceMaterial);
+ face.position.z=.33;face.renderOrder=2;group.add(face);
+ buttons.push({group,body,face,name:names[i]});
+}
+// No inner red object, red strips, or outline geometry. Red appears only where
+// light catches the existing curved glass surface, using a view-dependent Fresnel reflection.
+const rubyReflection=new THREE.ShaderMaterial({
+ uniforms:{uPower:{value:.8},uTime:{value:0}},
+ vertexShader:`varying vec3 vNormal; varying vec3 vView; varying vec3 vPosition;
+ void main(){vec4 worldPos=modelMatrix*vec4(position,1.0);vPosition=position;
+ vNormal=normalize(mat3(modelMatrix)*normal);vView=normalize(cameraPosition-worldPos.xyz);
+ gl_Position=projectionMatrix*viewMatrix*worldPos;}`,
+ fragmentShader:`uniform float uPower; varying vec3 vNormal; varying vec3 vView; varying vec3 vPosition;
+ void main(){float fresnel=pow(1.0-abs(dot(normalize(vNormal),normalize(vView))),3.2);
+ // Spatially varying studio-style ruby reflection, no rings or solid inner volume.
+ float pools=.48+.27*sin(vPosition.x*1.7+1.2)+.19*sin(vPosition.x*4.3-1.0);
+ float side=0.55+0.45*smoothstep(.30,.75,abs(vPosition.y));
+ float strength=clamp(fresnel*(.68+pools)*side*uPower*1.85,0.0,.86);
+ vec3 ruby=mix(vec3(.48,.001,.012),vec3(1.0,.10,.055),clamp(pools,0.0,1.0));
+ gl_FragColor=vec4(ruby,strength);}`,
+ transparent:true,depthWrite:false,depthTest:true,side:THREE.DoubleSide,
+ blending:THREE.AdditiveBlending
+});
+for(let i=0;i<3;i++){
+ const item=buttons[i];
+ const material=rubyReflection.clone();
+ material.uniforms.uPower.value=i===selected?.8:0;
+ const reflectedLight=new THREE.Mesh(sharedBodyGeometry,material);
+ reflectedLight.renderOrder=7;item.group.add(reflectedLight);
+ item.reflection=reflectedLight;item.rubyMaterial=material;
+ const textCanvas=document.createElement('canvas');
+ textCanvas.width=1024;textCanvas.height=256;
+ const ctx=textCanvas.getContext('2d');
+ ctx.strokeStyle='#ffffff';ctx.fillStyle='#ffffff';ctx.lineWidth=8;
+ ctx.lineCap='round';ctx.lineJoin='round';
+ // Vector icons are painted onto the texture, so they rotate with each 3D button.
+ const x=512,y=68;
+ if(i===0){ // funnel
+   ctx.beginPath();ctx.moveTo(x-37,y-21);ctx.lineTo(x+37,y-21);
+   ctx.lineTo(x+10,y+9);ctx.lineTo(x+10,y+30);ctx.lineTo(x-10,y+39);
+   ctx.lineTo(x-10,y+9);ctx.closePath();ctx.stroke();
+ }else if(i===1){ // automation gear
+   ctx.beginPath();for(let j=0;j<24;j++){
+     const a=j*Math.PI/12,rad=(j%3===0||j%3===1)?34:25;
+     const px=x+Math.cos(a)*rad,py=y+Math.sin(a)*rad;
+     if(j===0)ctx.moveTo(px,py);else ctx.lineTo(px,py);
+   }ctx.closePath();ctx.stroke();ctx.beginPath();ctx.arc(x,y,12,0,Math.PI*2);ctx.stroke();
+ }else{ // desktop monitor
+   ctx.strokeRect(x-42,y-27,84,51);ctx.beginPath();ctx.moveTo(x,y+24);
+   ctx.lineTo(x,y+42);ctx.moveTo(x-22,y+42);ctx.lineTo(x+22,y+42);ctx.stroke();
+ }
+ ctx.font='600 56px Arial';ctx.textAlign='center';ctx.textBaseline='middle';
+ ctx.fillText(item.name,512,179);
+ const texture=new THREE.CanvasTexture(textCanvas);
+ texture.colorSpace=THREE.SRGBColorSpace;
+ const textPlane=new THREE.Mesh(new THREE.PlaneGeometry(4.6,1.15),
+ new THREE.MeshBasicMaterial({map:texture,transparent:true,depthWrite:false}));
+ textPlane.position.z=.44;textPlane.renderOrder=10;item.group.add(textPlane);
+ item.textPlane=textPlane;
+}
+const raycaster=new THREE.Raycaster(),pointer=new THREE.Vector2();
+let downX=0,downY=0;
+renderer.domElement.addEventListener('pointerdown',e=>{downX=e.clientX;downY=e.clientY});
+renderer.domElement.addEventListener('pointerup',e=>{
+ if(Math.hypot(e.clientX-downX,e.clientY-downY)>7)return;
+ const rect=renderer.domElement.getBoundingClientRect();
+ pointer.x=((e.clientX-rect.left)/rect.width)*2-1;
+ pointer.y=-((e.clientY-rect.top)/rect.height)*2+1;
+ raycaster.setFromCamera(pointer,camera);
+ const hits=raycaster.intersectObjects(buttons.map(b=>b.face),false);
+ if(hits.length){
+   selected=buttons.findIndex(b=>b.face===hits[0].object);
+   update();
+   if(window.parent!==window) window.parent.postMessage({type:'funnelflow-crystal-select',index:selected},window.location.origin);
+ }
+});
+let on=true;const toggle=root.querySelector('#toggle'),power=root.querySelector('#power');
+function update(){
+ const p=on?Number(power.value)/100:0;
+ buttons.forEach((b,i)=>b.target=(i===selected?p:Math.min(.22,p*.25)));
+ toggle.textContent='Ruby reflections: '+(on?'ON':'OFF');
+ toggle.setAttribute('aria-pressed',String(on));
+}
+toggle.onclick=()=>{on=!on;update()};
+power.oninput=update;update();
+function resize(){const w=stage.clientWidth,h=stage.clientHeight;camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h,false);if(w<550){camera.position.set(0,15,33)} }window.addEventListener('resize',resize);resize();function animate(){requestAnimationFrame(animate);controls.update();
+ buttons.forEach(b=>{const u=b.rubyMaterial.uniforms.uPower;
+ u.value+=(b.target-u.value)*.085;});
+ renderer.render(scene,camera)}animate();
+
+ }catch(err){console.error('FunnelFlow crystal:',err);const e=root.querySelector('.ff-error');e.hidden=false;e.textContent='3D rendering failed: '+err.message;}
+ })();
+})();
 </script>
+
 </body></html>
