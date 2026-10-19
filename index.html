@@ -382,6 +382,17 @@
 
           </button>
 
+
+          <!-- RISE MAUI 2027 -->
+          <button class="explorer-card" data-project="rise-maui" type="button">
+            <img src="assets/rise-maui-2027.png" alt="RISE Maui 2027 retreat registration funnel for Lotus Roots Functional Healing">
+            <div class="explorer-card-overlay">
+              <small>PROJECT 04</small>
+              <strong>RISE Maui 2027</strong>
+              <p class="project-seo-description">Retreat registration funnel with custom HTML, CSS and JavaScript, connected to Keap for contact management and planned email automation.</p>
+            </div>
+          </button>
+
         </div>
 
       </div>
@@ -806,6 +817,15 @@ document.addEventListener("DOMContentLoaded", () => {
         checkout: "assets/cba-book-checkout.png",
         thankyou: "assets/cba-book-thank-you.png"
       }
+    },
+    "rise-maui": {
+      number: "PROJECT 04",
+      title: "RISE Maui 2027",
+      description: "A ClickFunnels retreat registration experience for Lotus Roots Functional Healing, featuring responsive layouts, a venue gallery, retreat agenda and registration options with custom HTML, CSS and JavaScript. Registration contact details are passed from ClickFunnels to Keap, where email follow-up automation is planned.",
+      tags: ["CLICKFUNNELS", "RETREAT REGISTRATION", "HTML / CSS / JS", "KEAP INTEGRATION", "EMAIL AUTOMATION"],
+      pages: {
+        sales: "assets/rise-maui-2027.png"
+      }
     }
   };
 
@@ -826,7 +846,7 @@ document.addEventListener("DOMContentLoaded", () => {
       viewerTags.appendChild(span);
     });
 
-    const requestedPage = project.pages[currentPage];
+    const requestedPage = project.pages[currentPage] || project.pages.sales;
     viewerImage.onerror = () => {
       viewerImage.onerror = null;
       // Do not silently display a different page when a screenshot is missing.
@@ -1081,6 +1101,11 @@ const details = {
     platform: "ClickFunnels",
     features: "Responsive book sales page, checkout, thank-you page, and a post-purchase CTA promoting the Let's Talk Dog Business podcast.",
     automation: "Automated book order confirmation emails."
+  },
+  "rise-maui": {
+    platform: "ClickFunnels",
+    features: "Retreat landing page, responsive sections, custom image gallery, experience agenda, pricing and registration options built with HTML, CSS and JavaScript.",
+    automation: "ClickFunnels registration contact details are sent to Keap. Automated email follow-up is planned in Keap; live execution has not yet been verified."
   }
 };
 
@@ -1147,4 +1172,3 @@ function updateDetails(projectId) {
 
 </body>
 </html>
-
