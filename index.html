@@ -52,19 +52,6 @@
   <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="grid-lights.css">
   <link rel="stylesheet" href="cursors.css">
-<style>
-/* FunnelFlow V14 crystal console integration — scoped, does not alter other sections */
-.ff-console-section{padding:clamp(70px,9vw,125px) 0;background:#06070a;position:relative;overflow:hidden}
-.ff-console-section .section-title{margin-bottom:16px}
-.ff-console-section .section-copy{max-width:720px;margin-bottom:32px}
-.ff-console-frame{border:1px solid #29252a;border-radius:20px;overflow:hidden;background:#050507;box-shadow:0 30px 100px #0009,0 0 70px #7200121c}
-.ff-console-frame iframe{display:block;width:100%;height:clamp(410px,49vw,660px);border:0;background:#050507}
-.ff-console-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:18px}
-.ff-console-links a{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:17px 20px;text-decoration:none;color:#e7e7e9;border:1px solid #343036;background:#0d0d11;border-radius:9px;font-size:12px;letter-spacing:.11em;transition:border-color .2s,background .2s}
-.ff-console-links a:hover,.ff-console-links a:focus-visible{border-color:#e72b43;background:#190b10}
-.ff-console-links a span{color:#ff4057;font-size:18px}
-@media(max-width:650px){.ff-console-frame iframe{height:410px}.ff-console-links{grid-template-columns:1fr}.ff-console-section{padding:60px 0}}
-</style>
 </head>
 
 <body>
@@ -185,27 +172,7 @@
       </div>
     </section>
 
-
-
-    <!-- FUNNELFLOW V14 CRYSTAL CONSOLE — isolated iframe to preserve existing portfolio scripts -->
-    <section class="ff-console-section" id="crystal-console" aria-label="Explore FunnelFlow services">
-      <div class="container">
-        <div class="section-label">Explore What I Build</div>
-        <h2 class="section-title">BUILT TO LOOK GOOD.<br>ENGINEERED TO WORK.</h2>
-        <p class="section-copy">Explore funnels, automations, and front-end experiences through the interactive crystal console.</p>
-        <div class="ff-console-frame">
-          <iframe id="ffConsoleFrame" title="Interactive 3D crystal service navigation"
-            src="projects/crystal-console/index.html" loading="lazy" allow="webgl" referrerpolicy="same-origin"></iframe>
-        </div>
-        <nav class="ff-console-links" aria-label="Crystal console navigation">
-          <a href="#work">FUNNELS <span>↗</span></a>
-          <a href="#systems">AUTOMATIONS <span>↗</span></a>
-          <a href="#tools">WEB DESIGN <span>↗</span></a>
-        </nav>
-      </div>
-    </section>
-
-        <!-- ================= CAPABILITIES ================= -->
+    <!-- ================= CAPABILITIES ================= -->
 
     <section class="capability-strip" aria-label="Core capabilities">
       <div class="container">
@@ -1178,18 +1145,6 @@ function updateDetails(projectId) {
 });
 </script>
 
-<script>
-/* Only accept messages from this site's own crystal-console iframe. */
-window.addEventListener('message',function(event){
-  if(event.origin!==window.location.origin) return;
-  const frame=document.getElementById('ffConsoleFrame');
-  if(!frame||event.source!==frame.contentWindow) return;
-  const data=event.data;
-  if(!data||data.type!=='funnelflow-crystal-select')return;
-  const targets=['work','systems','tools'];
-  if(!Number.isInteger(data.index)||data.index<0||data.index>=targets.length)return;
-  document.getElementById(targets[data.index])?.scrollIntoView({behavior:'smooth',block:'start'});
-});
-</script>
 </body>
 </html>
+
