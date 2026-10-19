@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FunnelFlow Crystal Console</title><style>html,body{margin:0;background:#050507;min-height:100%;overflow:hidden}</style></head><body>
+<!-- FunnelFlow crystal console — ClickFunnels Custom HTML/JS element -->
+<style>*{box-sizing:border-box}#ff-crystal-console{color:#f4f4f5;font:14px system-ui,sans-serif}#ff-crystal-console .ff-stage{height:100%;min-height:560px;position:relative;overflow:hidden;background:radial-gradient(ellipse at 54% 48%,#1c1d21 0%,#0b0b0e 55%,#020204 100%)}#ff-crystal-console canvas{display:block;width:100%;height:100%;touch-action:pan-y}#ff-crystal-console .ui{position:absolute;left:clamp(16px,4vw,48px);top:30px;pointer-events:none}#ff-crystal-console .ui small{letter-spacing:.22em;color:#a1a2aa}#ff-crystal-console .ui h1{font-size:clamp(22px,3vw,34px);margin:10px 0 4px;letter-spacing:-.04em}#ff-crystal-console .ui p{color:#9c9ca4;font-size:12px}#ff-crystal-console .controls{position:absolute;bottom:25px;left:50%;transform:translateX(-50%);display:flex;gap:12px;background:#111216e8;border:1px solid #34343a;border-radius:40px;padding:9px 14px;align-items:center;white-space:nowrap}#ff-crystal-console button{background:#24252a;color:white;border:1px solid #505158;border-radius:22px;padding:10px 18px;cursor:pointer}#ff-crystal-console button[aria-pressed=true]{background:#85101a;border-color:#ff5360}#ff-crystal-console label{color:#bbb;font-size:12px}#ff-crystal-console input{accent-color:#e11a2a;width:95px}@media(max-width:530px){#ff-crystal-console .controls{width:calc(100% - 20px);justify-content:center;flex-wrap:wrap;bottom:15px}#ff-crystal-console .ui{top:15px}#ff-crystal-console .ui p{max-width:250px}}
+#ff-crystal-console{width:100%;isolation:isolate}#ff-crystal-console .ff-stage{height:640px;min-height:520px}#ff-crystal-console canvas{touch-action:none}
+</style>
+<div id="ff-crystal-console"><div class="ff-stage" id="stage"><div class="ui"><small>FUNNELFLOW / CRYSTAL CONSOLE</small><h1>CRYSTAL CONTROL PANEL</h1><p>Select a crystal · drag to inspect · V14 glass</p></div><div class="controls"><button id="toggle" aria-pressed="true">Ruby light: ON</button><label for="power">Intensity</label><input id="power" type="range" min="0" max="100" value="80"></div></div><div class="ff-error" hidden style="background:#41131b;color:#fff;padding:12px"></div></div>
+<script>
+(function(){
+ const root=document.getElementById('ff-crystal-console');
+ if(!root||root.dataset.ffLoaded)return;root.dataset.ffLoaded='1';
+ (async()=>{
+ try{
+
+const THREE = await import('https://cdn.jsdelivr.net/npm/three@0.164.1/build/three.module.js');
+
+const stage=root.querySelector('#stage');const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.15;stage.prepend(renderer.domElement);
+const scene=new THREE.Scene();const camera=new THREE.PerspectiveCamera(35,1,.1,100);camera.position.set(1.7,9.3,23.5);const controls={update(){camera.lookAt(0,-.1,0)}};
+let orbitTheta=Math.atan2(camera.position.x,camera.position.z),orbitPhi=Math.acos(camera.position.y/camera.position.length());
+let dragging=false,lastX=0,lastY=0;
+renderer.domElement.addEventListener('pointerdown',e=>{dragging=true;lastX=e.clientX;lastY=e.clientY});
+window.addEventListener('pointerup',()=>dragging=false);
+renderer.domElement.addEventListener('pointermove',e=>{if(!dragging)return;const dx=e.clientX-lastX,dy=e.clientY-lastY;lastX=e.clientX;lastY=e.clientY;orbitTheta-=dx*.004;orbitPhi=Math.max(.25,Math.min(1.55,orbitPhi+dy*.004));const r=camera.position.length();camera.position.set(r*Math.sin(orbitPhi)*Math.sin(orbitTheta),r*Math.cos(orbitPhi),r*Math.sin(orbitPhi)*Math.cos(orbitTheta))});
+scene.add(new THREE.AmbientLight(0xffffff,.45));const key=new THREE.DirectionalLight(0xffffff,3);key.position.set(-4,8,6);scene.add(key);const rim=new THREE.DirectionalLight(0xdceaff,2.5);rim.position.set(4,2,-5);scene.add(rim);
+// Procedural studio reflections for physical glass without external HDR files.
+const envScene=new THREE.Scene();envScene.background=new THREE.Color('#101115');function panel(x,y,z,w,h,brightness,rotation=0){const mesh=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({color:brightness,side:THREE.DoubleSide}));mesh.position.set(x,y,z);mesh.rotation.y=rotation;envScene.add(mesh)}panel(-4,5,1,1.1,10,'#ffffff',-.45);panel(3.5,4,-2,2,9,'#3a414d',.5);panel(0,8,0,12,2,'#ffffff',0);panel(-5,1,-1,.5,7,'#343942',.7);const pmrem=new THREE.PMREMGenerator(renderer);const env=pmrem.fromScene(envScene,.04).texture;scene.environment=env;
+// Capsule outline made from 2 straight sides and two semicircles, extruded with rounded bevel.
+function pillShape(w,h){const s=new THREE.Shape();const r=h/2;const a=w/2-r;s.moveTo(-a,-r);s.lineTo(a,-r);s.absarc(a,0,r,-Math.PI/2,Math.PI/2,false);s.lineTo(-a,r);s.absarc(-a,0,r,Math.PI/2,3*Math.PI/2,false);return s}
+function extrude(w,h,depth,bevel){const g=new THREE.ExtrudeGeometry(pillShape(w,h),{depth:depth-2*bevel,steps:1,bevelEnabled:true,bevelThickness:bevel,bevelSize:bevel,bevelSegments:9,curveSegments:48});g.translate(0,0,-(depth-2*bevel)/2);g.computeVertexNormals();return g}
+const assembly=new THREE.Group();assembly.rotation.x=-Math.PI/2;scene.add(assembly);
+const buttons=[];let selected=1;
+// A single glossy, rounded black console below the three V14 crystal buttons.
+const baseShape=pillShape(22.0,4.2);
+// V13: optical clear crystal. Remove the opaque/gray transmitted studio fill.
+// Surface contributes only angle-dependent reflection, allowing the black inset
+// and background to remain visible through the broad flat regions.
+// V14: sharpen crystal facets and specular glints without adding opaque fill.
+const glass=new THREE.ShaderMaterial({
+  vertexShader:`varying vec3 vN; varying vec3 vV; varying vec3 vP; varying vec3 vWorld;
+    void main(){
+      vec4 wp=modelMatrix*vec4(position,1.);
+      vN=normalize(mat3(modelMatrix)*normal);
+      vV=normalize(cameraPosition-wp.xyz);
+      vP=position;vWorld=wp.xyz;
+      gl_Position=projectionMatrix*viewMatrix*wp;
+    }`,
+  fragmentShader:`varying vec3 vN; varying vec3 vV; varying vec3 vP; varying vec3 vWorld;
+    void main(){
+      vec3 n=normalize(vN),v=normalize(vV);
+      float facing=abs(dot(n,v));
+      float edge=pow(1.-facing,2.2);
+      float rim=pow(1.-facing,7.);
+      vec3 reflected=reflect(-v,n);
+      float streak=pow(max(dot(reflected,normalize(vec3(-.38,.85,.42))),0.),48.);
+      float thin=pow(max(dot(reflected,normalize(vec3(.63,.53,-.56))),0.),85.);
+      // Tiny, sharp studio light glints — not a fuzzy or gray overlay.
+      float glintA=pow(max(dot(reflected,normalize(vec3(-.17,.92,.35))),0.),220.);
+      float glintB=pow(max(dot(reflected,normalize(vec3(.84,.30,-.45))),0.),270.);
+      // Transparent in broad front-facing areas, visibly crystalline at bevels.
+      float alpha=clamp(.012+edge*.23+rim*.42+streak*.55+thin*.43
+                        +glintA*.78+glintB*.72,0.,.91);
+      vec3 silver=vec3(.91,.96,1.);
+      float highlight=clamp(rim*.68+streak+thin+glintA*1.8+glintB*1.8,0.,1.);
+      vec3 col=mix(vec3(.055,.075,.10),silver,highlight);
+      gl_FragColor=vec4(col,alpha);
+    }`,
+  transparent:true,depthWrite:false,side:THREE.FrontSide,
+  blending:THREE.NormalBlending
+});
+// Extruded solid base with softly beveled perimeter.
+const baseMaterial=new THREE.MeshPhysicalMaterial({
+ color:0x08080b,metalness:.68,roughness:.17,clearcoat:1,clearcoatRoughness:.075,
+ envMapIntensity:1.1
+});
+const base=new THREE.Mesh(extrude(22,4.2,.43,.19),baseMaterial);
+base.position.z=-.58;base.renderOrder=0;assembly.add(base);
+// Red light runs along the real perimeter of the base, not across its top.
+function outline(w,h,z,radius,color,opacity){
+ const points=pillShape(w,h).getPoints(170).map(p=>new THREE.Vector3(p.x,p.y,z));
+ const curve=new THREE.CatmullRomCurve3(points,true,'centripetal');
+ const tube=new THREE.Mesh(new THREE.TubeGeometry(curve,380,radius,5,true),
+ new THREE.MeshBasicMaterial({color,transparent:true,opacity,depthWrite:false,blending:THREE.AdditiveBlending}));
+ tube.renderOrder=3;assembly.add(tube);return tube;
+}
+outline(21.9,4.1,-.36,.021,0xff3445,.9);
+outline(21.9,4.1,-.38,.095,0xff071a,.16);
+outline(21.8,4.0,-.74,.033,0xe60015,.85);
+// Dark mirror-black floor directly under the base, with ruby contact glow.
+const floor=new THREE.Mesh(new THREE.PlaneGeometry(70,34),new THREE.MeshPhysicalMaterial({
+ color:0x09090d,metalness:.5,roughness:.26,transparent:true,opacity:.9
+}));
+floor.position.z=-.88;floor.renderOrder=-2;assembly.add(floor);
+function redHalo(x,y,w,h,opacity){
+ const cv=document.createElement('canvas');cv.width=128;cv.height=128;
+ const c=cv.getContext('2d'),g=c.createRadialGradient(64,64,0,64,64,64);
+ g.addColorStop(0,'rgba(255,17,28,.95)');g.addColorStop(.26,'rgba(255,7,22,.48)');g.addColorStop(1,'rgba(255,0,0,0)');
+ c.fillStyle=g;c.fillRect(0,0,128,128);
+ const m=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({
+ map:new THREE.CanvasTexture(cv),transparent:true,opacity,depthWrite:false,blending:THREE.AdditiveBlending
+ }));m.position.set(x,y,-.85);m.renderOrder=1;assembly.add(m);
+}
+redHalo(0,0,24,7,.34);
+redHalo(-7.5,-2.05,8,3,.55);redHalo(7.7,-2.05,8,3,.55);
+// Build three buttons using the exact approved V14 material.
+const sharedBodyGeometry=extrude(5.9,1.65,.56,.20);
+const sharedFaceGeometry=extrude(5.25,1.06,.07,.055);
+const faceMaterial=new THREE.MeshPhysicalMaterial({color:0x030305,roughness:.11,metalness:.14,clearcoat:1,clearcoatRoughness:.03});
+const names=['FUNNELS','AUTOMATIONS','WEB DESIGN'];
+for(let i=0;i<3;i++){
+ const group=new THREE.Group();group.position.x=(i-1)*7.0;group.position.y=0;group.position.z=.12;assembly.add(group);
+ group.scale.set(.96,.96,.96);
+ const body=new THREE.Mesh(sharedBodyGeometry,glass);
+ body.renderOrder=5;group.add(body);
+ const face=new THREE.Mesh(sharedFaceGeometry,faceMaterial);
+ face.position.z=.33;face.renderOrder=2;group.add(face);
+ buttons.push({group,body,face,name:names[i]});
+}
+// No inner red object, red strips, or outline geometry. Red appears only where
+// light catches the existing curved glass surface, using a view-dependent Fresnel reflection.
+const rubyReflection=new THREE.ShaderMaterial({
+ uniforms:{uPower:{value:.8},uTime:{value:0}},
+ vertexShader:`varying vec3 vNormal; varying vec3 vView; varying vec3 vPosition;
+ void main(){vec4 worldPos=modelMatrix*vec4(position,1.0);vPosition=position;
+ vNormal=normalize(mat3(modelMatrix)*normal);vView=normalize(cameraPosition-worldPos.xyz);
+ gl_Position=projectionMatrix*viewMatrix*worldPos;}`,
+ fragmentShader:`uniform float uPower; varying vec3 vNormal; varying vec3 vView; varying vec3 vPosition;
+ void main(){float fresnel=pow(1.0-abs(dot(normalize(vNormal),normalize(vView))),3.2);
+ // Spatially varying studio-style ruby reflection, no rings or solid inner volume.
+ float pools=.48+.27*sin(vPosition.x*1.7+1.2)+.19*sin(vPosition.x*4.3-1.0);
+ float side=0.55+0.45*smoothstep(.30,.75,abs(vPosition.y));
+ float strength=clamp(fresnel*(.68+pools)*side*uPower*1.85,0.0,.86);
+ vec3 ruby=mix(vec3(.48,.001,.012),vec3(1.0,.10,.055),clamp(pools,0.0,1.0));
+ gl_FragColor=vec4(ruby,strength);}`,
+ transparent:true,depthWrite:false,depthTest:true,side:THREE.DoubleSide,
+ blending:THREE.AdditiveBlending
+});
+for(let i=0;i<3;i++){
+ const item=buttons[i];
+ const material=rubyReflection.clone();
+ material.uniforms.uPower.value=i===selected?.8:0;
+ const reflectedLight=new THREE.Mesh(sharedBodyGeometry,material);
+ reflectedLight.renderOrder=7;item.group.add(reflectedLight);
+ item.reflection=reflectedLight;item.rubyMaterial=material;
+ const textCanvas=document.createElement('canvas');
+ textCanvas.width=1024;textCanvas.height=256;
+ const ctx=textCanvas.getContext('2d');
+ ctx.strokeStyle='#ffffff';ctx.fillStyle='#ffffff';ctx.lineWidth=8;
+ ctx.lineCap='round';ctx.lineJoin='round';
+ // Vector icons are painted onto the texture, so they rotate with each 3D button.
+ const x=512,y=68;
+ if(i===0){ // funnel
+   ctx.beginPath();ctx.moveTo(x-37,y-21);ctx.lineTo(x+37,y-21);
+   ctx.lineTo(x+10,y+9);ctx.lineTo(x+10,y+30);ctx.lineTo(x-10,y+39);
+   ctx.lineTo(x-10,y+9);ctx.closePath();ctx.stroke();
+ }else if(i===1){ // automation gear
+   ctx.beginPath();for(let j=0;j<24;j++){
+     const a=j*Math.PI/12,rad=(j%3===0||j%3===1)?34:25;
+     const px=x+Math.cos(a)*rad,py=y+Math.sin(a)*rad;
+     if(j===0)ctx.moveTo(px,py);else ctx.lineTo(px,py);
+   }ctx.closePath();ctx.stroke();ctx.beginPath();ctx.arc(x,y,12,0,Math.PI*2);ctx.stroke();
+ }else{ // desktop monitor
+   ctx.strokeRect(x-42,y-27,84,51);ctx.beginPath();ctx.moveTo(x,y+24);
+   ctx.lineTo(x,y+42);ctx.moveTo(x-22,y+42);ctx.lineTo(x+22,y+42);ctx.stroke();
+ }
+ ctx.font='600 56px Arial';ctx.textAlign='center';ctx.textBaseline='middle';
+ ctx.fillText(item.name,512,179);
+ const texture=new THREE.CanvasTexture(textCanvas);
+ texture.colorSpace=THREE.SRGBColorSpace;
+ const textPlane=new THREE.Mesh(new THREE.PlaneGeometry(4.6,1.15),
+ new THREE.MeshBasicMaterial({map:texture,transparent:true,depthWrite:false}));
+ textPlane.position.z=.44;textPlane.renderOrder=10;item.group.add(textPlane);
+ item.textPlane=textPlane;
+}
+const raycaster=new THREE.Raycaster(),pointer=new THREE.Vector2();
+let downX=0,downY=0;
+renderer.domElement.addEventListener('pointerdown',e=>{downX=e.clientX;downY=e.clientY});
+renderer.domElement.addEventListener('pointerup',e=>{
+ if(Math.hypot(e.clientX-downX,e.clientY-downY)>7)return;
+ const rect=renderer.domElement.getBoundingClientRect();
+ pointer.x=((e.clientX-rect.left)/rect.width)*2-1;
+ pointer.y=-((e.clientY-rect.top)/rect.height)*2+1;
+ raycaster.setFromCamera(pointer,camera);
+ const hits=raycaster.intersectObjects(buttons.map(b=>b.face),false);
+ if(hits.length){
+   selected=buttons.findIndex(b=>b.face===hits[0].object);
+   update();
+   if(window.parent!==window) window.parent.postMessage({type:'funnelflow-crystal-select',index:selected},window.location.origin);
+ }
+});
+let on=true;const toggle=root.querySelector('#toggle'),power=root.querySelector('#power');
+function update(){
+ const p=on?Number(power.value)/100:0;
+ buttons.forEach((b,i)=>b.target=(i===selected?p:Math.min(.22,p*.25)));
+ toggle.textContent='Ruby reflections: '+(on?'ON':'OFF');
+ toggle.setAttribute('aria-pressed',String(on));
+}
+toggle.onclick=()=>{on=!on;update()};
+power.oninput=update;update();
+function resize(){const w=stage.clientWidth,h=stage.clientHeight;camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h,false);if(w<550){camera.position.set(0,15,33)} }window.addEventListener('resize',resize);resize();function animate(){requestAnimationFrame(animate);controls.update();
+ buttons.forEach(b=>{const u=b.rubyMaterial.uniforms.uPower;
+ u.value+=(b.target-u.value)*.085;});
+ renderer.render(scene,camera)}animate();
+
+ }catch(err){console.error('FunnelFlow crystal:',err);const e=root.querySelector('.ff-error');e.hidden=false;e.textContent='3D rendering failed: '+err.message;}
+ })();
+})();
+</script>
+
+</body></html>
