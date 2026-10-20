@@ -2498,3 +2498,36 @@ section[id] { scroll-margin-top: 100px; }
   font-size: 12px;
   line-height: 1.6;
 }
+
+/* =========================================================
+   RISE MAUI 2027 — FOURTH FLOATING HERO BROWSER
+   Additive only: existing three browser cards unchanged
+   ========================================================= */
+.hero-system .hero-screen-rise {
+  position: absolute;
+  z-index: 4;
+  width: 43%;
+  height: 225px;
+  left: 58%;
+  top: 59%;
+  right: auto;
+  bottom: auto;
+  transform: rotate(5deg);
+  opacity: 1;
+  animation: safeHeroFloat 9s ease-in-out -3s infinite;
+}
+
+@media (max-width: 700px) {
+  .hero-system .hero-screen-rise {
+    width: 43%;
+    height: 155px;
+    left: 57%;
+    top: 58%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-system .hero-screen-rise {
+    animation: none;
+  }
+}
