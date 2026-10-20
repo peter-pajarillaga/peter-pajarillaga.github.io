@@ -2531,3 +2531,35 @@ section[id] { scroll-margin-top: 100px; }
     animation: none;
   }
 }
+
+
+/* =========================================================
+   FOUR HERO BROWSERS — EQUAL DIMENSIONS
+   Overrides the individual card sizes, preserving animation
+   ========================================================= */
+@media (min-width: 701px) {
+  .hero-system .hero-screen-third,
+  .hero-system .hero-screen-main,
+  .hero-system .hero-screen-secondary,
+  .hero-system .hero-screen-rise {
+    width: 51%;
+    height: 260px;
+  }
+  .hero-system .hero-screen-third { left: 3%; top: 1%; }
+  .hero-system .hero-screen-secondary { left: 49%; top: 15%; }
+  .hero-system .hero-screen-main { left: 13%; top: 42%; }
+  .hero-system .hero-screen-rise { left: 52%; top: 52%; }
+}
+@media (max-width: 700px) {
+  .hero-system .hero-screen-third,
+  .hero-system .hero-screen-main,
+  .hero-system .hero-screen-secondary,
+  .hero-system .hero-screen-rise {
+    width: 53%;
+    height: 175px;
+  }
+  .hero-system .hero-screen-third { left: 0%; top: 2%; }
+  .hero-system .hero-screen-secondary { left: 46%; top: 16%; }
+  .hero-system .hero-screen-main { left: 8%; top: 44%; }
+  .hero-system .hero-screen-rise { left: 47%; top: 53%; }
+}
