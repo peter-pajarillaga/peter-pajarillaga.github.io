@@ -1055,10 +1055,7 @@ footer {
   }
 
 }
-/* =========================================
-   TEMPORARY REVEAL FIX
-   Keep content visible until script.js
-   ========================================= */
+/* Accessibility fallback: keep reveal content visible without a reveal observer. */
 
 .reveal {
   opacity: 1;
@@ -2562,4 +2559,50 @@ section[id] { scroll-margin-top: 100px; }
   .hero-system .hero-screen-secondary { left: 46%; top: 16%; }
   .hero-system .hero-screen-main { left: 8%; top: 44%; }
   .hero-system .hero-screen-rise { left: 47%; top: 53%; }
+}
+/* =========================================================
+   FUNNELFLOW ASSIST — PORTFOLIO STABILITY REFINEMENTS
+   Full stylesheet retains original visual design and effects.
+   ========================================================= */
+
+/* Do not let 3D carousel cards inherit legacy scroll-snap behavior. */
+.project-rail {
+  scroll-snap-type: none;
+  overscroll-behavior-x: contain;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.project-rail .explorer-card {
+  -webkit-tap-highlight-color: transparent;
+}
+.project-rail:focus-visible,
+.carousel-arrow:focus-visible,
+.explorer-card:focus-visible,
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid #a5fff4;
+  outline-offset: 4px;
+}
+
+/* Ensure mobile card movement does not cause horizontal page overflow. */
+@media (max-width: 700px) {
+  .project-rail-wrap {
+    max-width: 100%;
+  }
+  .project-rail .explorer-card {
+    touch-action: pan-y;
+  }
+}
+
+/* Keep every section visible for reduced-motion users. */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .project-rail .explorer-card {
+    transition: none;
+  }
 }
