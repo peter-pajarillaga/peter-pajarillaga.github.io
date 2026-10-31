@@ -1,0 +1,390 @@
+
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Request a Project Quote | FunnelFlow Assist UK</title>
+  
+<link rel="stylesheet" href="../grid-lights.css">
+<script src="../grid-lights.js" defer></script>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+
+  <style>
+    :root {
+      --bg: #07131c;
+      --accent: #40e0d0;
+      --text: #f5fbff;
+      --muted: #a5b6c1;
+    }
+    * { box-sizing: border-box; }
+    html { color-scheme: dark; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 55px 20px;
+      color: var(--text);
+      font-family: Arial, sans-serif;
+      background: #07131c;
+      isolation: isolate;
+    }
+    #aq-grid-lights {
+      position: fixed !important;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0 !important;
+      pointer-events: none;
+      opacity: 1;
+    }
+    .inquiry-wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+      margin: auto;
+    }
+    .back-link {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 13px;
+      letter-spacing: 1px;
+    }
+    h1 {
+      font-size: clamp(44px, 8vw, 78px);
+      line-height: .95;
+      letter-spacing: -3px;
+      margin: 35px 0 20px;
+    }
+    .intro {
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 550px;
+      margin-bottom: 35px;
+    }
+    .inquiry-card {
+      position: relative;
+      padding: clamp(22px, 5vw, 45px);
+      border: 1px solid rgba(64,224,208,.32);
+      border-radius: 24px;
+      background: rgba(8,24,34,.18);
+      -webkit-backdrop-filter: blur(12px) saturate(170%);
+      backdrop-filter: blur(12px) saturate(170%);
+      box-shadow: 0 20px 70px rgba(0,0,0,.18),
+                  inset 0 1px 0 rgba(255,255,255,.08);
+    }
+    .inquiry-card::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      pointer-events: none;
+      box-shadow: 0 0 35px rgba(64,224,208,.06);
+    }
+    .section-title {
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      margin: 25px 0 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255,255,255,.12);
+    }
+    .section-title:first-child { margin-top: 0; }
+    .field { margin-bottom: 20px; }
+    .field-note {
+      margin: 9px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.55;
+    }
+    label {
+      display: block;
+      margin-bottom: 9px;
+      font-size: 13px;
+      font-weight: bold;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 15px;
+      background: rgba(4,16,24,.32);
+      color: white;
+      border: 1px solid rgba(180,220,225,.20);
+      border-radius: 10px;
+      font: inherit;
+      outline: none;
+      -webkit-backdrop-filter: blur(6px);
+      backdrop-filter: blur(6px);
+      transition: border-color .25s ease, box-shadow .25s ease;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(64,224,208,.08),
+                  0 0 20px rgba(64,224,208,.10);
+    }
+    select option { background: #07131c; }
+    textarea { min-height: 130px; resize: vertical; }
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+    /* Compact glossy pill, matching portfolio hero buttons */
+    .submit-btn {
+      display: block;
+      position: relative;
+      width: fit-content;
+      max-width: 100%;
+      min-width: 230px;
+      margin: 28px auto 0;
+      padding: 15px 27px;
+      border: 1px solid #8dfff0;
+      border-radius: 999px;
+      background: linear-gradient(180deg,
+        #a5fff4 0%, #5df2e2 28%, #32d5c8 58%, #10a8a4 100%);
+      color: #03171a;
+      font: inherit;
+      font-size: 13px;
+      font-weight: 800;
+      line-height: 1.2;
+      text-align: center;
+      cursor: pointer;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.7),
+                  inset 0 -2px 0 rgba(0,75,80,.25),
+                  0 4px 0 #086c70,
+                  0 7px 14px rgba(0,0,0,.18);
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.8),
+                  inset 0 -2px 0 rgba(0,75,80,.25),
+                  0 6px 0 #086c70,
+                  0 10px 22px rgba(64,224,208,.22);
+    }
+    .submit-btn:active {
+      transform: translateY(3px);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.6),
+                  0 1px 0 #086c70;
+    }
+    .submit-btn:disabled { cursor: wait; opacity: .7; }
+    .captcha-wrap { display: flex; justify-content: center; margin-top: 24px; min-height: 78px; }
+    .captcha-wrap .g-recaptcha { max-width: 100%; }
+    .form-status { margin-top: 18px; line-height: 1.5; text-align: center; }
+    @media (max-width: 600px) {
+      .two-col { grid-template-columns: 1fr; gap: 0; }
+      h1 { letter-spacing: -2px; }
+    }
+    @media (max-width: 480px) {
+      .submit-btn { width: 100%; min-width: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      input, select, textarea, .submit-btn { transition: none; }
+    }
+  </style>
+  <link rel="stylesheet" href="../cursors.css">
+</head>
+
+<body>
+  <main class="inquiry-wrap">
+    <a class="back-link" href="../index.html">
+      ← BACK TO PORTFOLIO
+    </a>
+
+    <h1>LET’S BUILD<br>SOMETHING.</h1>
+    <p class="intro">
+      Tell me about your business, your project and your goals. I'll review the details and get back to you with the next steps towards a tailored quote.
+    </p>
+
+    <form
+      id="project-inquiry"
+      class="inquiry-card"
+      action="https://formspree.io/f/xjygrvbq"
+      method="POST"
+    >
+      <input type="hidden" name="inquiry_region" value="United Kingdom">
+      <input type="hidden" name="_subject" value="FunnelFlow Assist UK — New Project Quote Request">
+      <div class="section-title">01 / YOUR DETAILS</div>
+
+      <div class="two-col">
+        <div class="field">
+          <label for="name">Full Name *</label>
+          <input id="name" name="name" autocomplete="name" required>
+        </div>
+
+        <div class="field">
+          <label for="email">Email Address *</label>
+          <input id="email" type="email" name="email" autocomplete="email" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="business">Business Name</label>
+        <input id="business" name="business_name" autocomplete="organization">
+      </div>
+
+      <div class="field">
+        <label for="website">Website / Social Media</label>
+        <input id="website" name="website" autocomplete="url" autocomplete="url">
+      </div>
+
+      <div class="section-title">02 / YOUR PROJECT</div>
+
+      <div class="field">
+        <label for="project">What do you need built? *</label>
+        <select id="project" name="project_type" required>
+          <option value="">Select a project type</option>
+          <option>Landing Page</option>
+          <option>Lead Magnet Funnel</option>
+          <option>Sales Funnel</option>
+          <option>Booking Funnel</option>
+          <option>Checkout Funnel</option>
+          <option>CRM / Email Automation</option>
+          <option>Complete Funnel System</option>
+          <option>Other / Not Sure</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="goal">Main Project Goal *</label>
+        <select id="goal" name="project_goal" required>
+          <option value="">Select a goal</option>
+          <option>Generate Leads</option>
+          <option>Book Appointments</option>
+          <option>Sell Products / Services</option>
+          <option>Automate Follow-Ups</option>
+          <option>Other / Not Sure</option>
+        </select>
+      </div>
+
+      <div class="two-col">
+        <div class="field">
+          <label for="platform">Funnel Platform</label>
+          <select id="platform" name="funnel_platform">
+            <option>Not Sure / Need Advice</option>
+            <option>GoHighLevel</option>
+            <option>ClickFunnels</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="crm">CRM / Email Platform</label>
+          <select id="crm" name="crm_platform">
+            <option>Not Sure / None</option>
+            <option>GoHighLevel</option>
+            <option>Keap</option>
+            <option>Other</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="budget">Estimated Project Budget (GBP)</label>
+        <select id="budget" name="project_budget_gbp">
+          <option value="">Select a budget range (optional)</option>
+          <option>Under £500</option>
+          <option>£500–£1,000</option>
+          <option>£1,000–£2,500</option>
+          <option>£2,500+</option>
+          <option>Not Sure Yet</option>
+        </select>
+        <p class="field-note">This is your estimated budget, not a fixed service price. Every project is quoted individually.</p>
+      </div>
+
+      <div class="field">
+        <label for="timeline">Preferred Launch Date</label>
+        <input id="timeline" name="launch_date" type="date">
+      </div>
+
+      <div class="field">
+        <label for="details">Tell me about your project *</label>
+        <textarea
+          id="details"
+          name="project_details"
+          required
+          placeholder="What does your business do? What are you hoping to achieve?"
+        ></textarea>
+      </div>
+
+      <div class="captcha-wrap">
+        <div class="g-recaptcha" data-sitekey="6LfoW-ctAAAAAGgeurxIT2IzQw0LJTdZ_4aiaCLk"></div>
+      </div>
+
+      <button class="submit-btn" type="submit" aria-describedby="form-status">
+        REQUEST A PROJECT QUOTE ↗
+      </button>
+
+      <div
+        id="form-status"
+        class="form-status"
+        role="status"
+        aria-live="polite"
+      ></div>
+    </form>
+  </main>
+
+  <script>
+    (() => {
+      const form = document.getElementById("project-inquiry");
+      const status = document.getElementById("form-status");
+      const button = form.querySelector('button[type="submit"]');
+      const originalLabel = button.textContent.trim();
+      let sending = false;
+
+      function showStatus(message, success) {
+        status.style.color = success ? "#40e0d0" : "#ff9c9c";
+        status.textContent = message;
+      }
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        if (sending) return;
+        if (!form.reportValidity()) return;
+
+        const captchaToken = form.querySelector('[name="g-recaptcha-response"]')?.value?.trim();
+        if (!captchaToken) {
+          showStatus("Please complete the 'I'm not a robot' checkbox before sending.", false);
+          return;
+        }
+
+        sending = true;
+        button.disabled = true;
+        button.textContent = "SENDING...";
+        status.textContent = "";
+
+        try {
+          const response = await fetch(form.action, {
+            method: "POST",
+            body: new FormData(form),
+            headers: { Accept: "application/json" }
+          });
+
+          let result = null;
+          try { result = await response.json(); } catch (_) { /* JSON not guaranteed */ }
+
+          if (!response.ok) {
+            const detail = Array.isArray(result?.errors)
+              ? result.errors.map(item => item.message).filter(Boolean).join(" ")
+              : "";
+            throw new Error(detail || "We couldn't send your inquiry. Please try again.");
+          }
+
+          form.reset();
+          if (window.grecaptcha?.reset) window.grecaptcha.reset();
+          showStatus("Thank you! Your quote request has been sent successfully.", true);
+        } catch (error) {
+          if (window.grecaptcha?.reset) window.grecaptcha.reset();
+          showStatus(error.message === "Failed to fetch"
+            ? "Connection problem. Please check your internet and try again."
+            : (error.message || "Something went wrong. Please try again."), false);
+        } finally {
+          sending = false;
+          button.disabled = false;
+          button.textContent = originalLabel;
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
