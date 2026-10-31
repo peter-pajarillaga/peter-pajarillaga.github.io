@@ -1,85 +1,157 @@
-/* Aquarius grid: four-way turning lights with non-overlapping node/edge reservations. */
+/* FUNNELFLOW ASSIST — AQUARIUS GRID LIGHTS
+   Complete replacement: 52px grid, 16 moving lights, four-way turns,
+   glowing trails. Pauses when hidden, on mobile, or for reduced motion.
+*/
 (() => {
   if (document.getElementById('aq-grid-lights')) return;
+
   const canvas = document.createElement('canvas');
   canvas.id = 'aq-grid-lights';
   canvas.setAttribute('aria-hidden', 'true');
   document.body.prepend(canvas);
   const ctx = canvas.getContext('2d');
-  const spacing = 52, count = 16, safe = 25;
-  const dirs = [[1,0],[-1,0],[0,1],[0,-1]];
-  let w=0,h=0,cols=0,rows=0,dots=[],last=0;
-  const key=(x,y)=>`${x},${y}`;
-  const edge=(a,b)=>[key(a.x,a.y),key(b.x,b.y)].sort().join('|');
-  const rand=n=>Math.floor(Math.random()*n);
-  function resize(){
-    const dpr=Math.min(window.devicePixelRatio||1,2);
-    w=window.innerWidth;h=window.innerHeight;
-    canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);
-    canvas.style.width=w+'px';canvas.style.height=h+'px';
-    ctx.setTransform(dpr,0,0,dpr,0,0);
-    cols=Math.floor(w/spacing);rows=Math.floor(h/spacing);
-    dots=[];
-    const used=new Set();
-    for(let i=0;i<count && used.size<(cols+1)*(rows+1);i++){
-      let p,tries=0;
-      do {p={x:rand(cols+1),y:rand(rows+1)};} while(used.has(key(p.x,p.y)) && ++tries<100);
-      if(used.has(key(p.x,p.y)))break;
-      used.add(key(p.x,p.y));
-      dots.push({from:p,to:null,t:0,speed:22+Math.random()*28,trail:[],dir:null});
+  if (!ctx) return;
+
+  const spacing = 52;
+  const count = 16;
+  const dirs = [[1, 0], [-1, 0], [0, 1], [0, -1]];
+  const mobile = window.matchMedia('(max-width: 700px)');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let width = 0, height = 0, cols = 0, rows = 0;
+  let dots = [], frame = null, last = 0, resizeTimer = null;
+
+  const key = (x, y) => `${x},${y}`;
+  const edge = (a, b) => [key(a.x, a.y), key(b.x, b.y)].sort().join('|');
+  const random = n => Math.floor(Math.random() * n);
+  const enabled = () => !mobile.matches && !reducedMotion.matches && !document.hidden;
+
+  function resize() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = Math.round(width * dpr);
+    canvas.height = Math.round(height * dpr);
+    canvas.style.width = width + 'px';
+    canvas.style.height = height + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    cols = Math.floor(width / spacing);
+    rows = Math.floor(height / spacing);
+    dots = [];
+    const used = new Set();
+    const total = (cols + 1) * (rows + 1);
+    for (let i = 0; i < Math.min(count, total); i++) {
+      let point, tries = 0;
+      do {
+        point = { x: random(cols + 1), y: random(rows + 1) };
+      } while (used.has(key(point.x, point.y)) && ++tries < 100);
+      if (used.has(key(point.x, point.y))) continue;
+      used.add(key(point.x, point.y));
+      dots.push({ from: point, to: null, t: 0, speed: 22 + Math.random() * 28, trail: [], dir: null });
     }
   }
-  function choose(d, occupied, reserved){
-    const options=dirs.map(v=>({x:d.from.x+v[0],y:d.from.y+v[1],v})).filter(p=>
-      p.x>=0&&p.x<=cols&&p.y>=0&&p.y<=rows &&
-      !occupied.has(key(p.x,p.y)) && !reserved.has(edge(d.from,p))
+
+  function choose(dot, occupied, reserved) {
+    const options = dirs.map(v => ({
+      x: dot.from.x + v[0], y: dot.from.y + v[1], v
+    })).filter(p =>
+      p.x >= 0 && p.x <= cols && p.y >= 0 && p.y <= rows &&
+      !occupied.has(key(p.x, p.y)) && !reserved.has(edge(dot.from, p))
     );
-    if(!options.length)return;
-    options.sort((a,b)=>((d.dir && a.v[0]===d.dir[0]&&a.v[1]===d.dir[1])?-0.45:0)+Math.random() -
-      (((d.dir && b.v[0]===d.dir[0]&&b.v[1]===d.dir[1])?-0.45:0)+Math.random()));
-    const p=options[0];d.to={x:p.x,y:p.y};d.dir=p.v;d.t=0;reserved.add(edge(d.from,d.to));occupied.add(key(d.to.x,d.to.y));
+    if (!options.length) return;
+    // Weighted choice: prefer continuing straight, but allow natural turns.
+    const weights = options.map(p => dot.dir && p.v[0] === dot.dir[0] && p.v[1] === dot.dir[1] ? 2.5 : 1);
+    let choice = Math.random() * weights.reduce((a, b) => a + b, 0);
+    let index = 0;
+    while (index < weights.length - 1 && (choice -= weights[index]) >= 0) index++;
+    const selected = options[index];
+    dot.to = { x: selected.x, y: selected.y };
+    dot.dir = selected.v;
+    dot.t = 0;
+    reserved.add(edge(dot.from, dot.to));
+    occupied.add(key(dot.to.x, dot.to.y));
   }
-  function render(now){
-    const dt=Math.min((now-last)/1000||0,.05);last=now;
-    ctx.clearRect(0,0,w,h);
-    ctx.strokeStyle='rgba(64,224,208,.065)';ctx.lineWidth=.65;ctx.beginPath();
-    for(let x=0;x<=cols;x++){ctx.moveTo(x*spacing,0);ctx.lineTo(x*spacing,h)}
-    for(let y=0;y<=rows;y++){ctx.moveTo(0,y*spacing);ctx.lineTo(w,y*spacing)}ctx.stroke();
-    const occupied=new Set(),reserved=new Set();
-    for(const d of dots){
-      occupied.add(key(d.from.x,d.from.y));
-      if(d.to){occupied.add(key(d.to.x,d.to.y));reserved.add(edge(d.from,d.to))}
-    }
-    // Plan movements before drawing, reserving destination nodes and entire edges.
-    for(const d of dots){
-      if(d.to){
-        d.t=Math.min(1,d.t+d.speed*dt/spacing);
-        if(d.t>=1){
-          occupied.delete(key(d.from.x,d.from.y));reserved.delete(edge(d.from,d.to));
-          d.from=d.to;d.to=null;d.t=0;
-        }
+
+  function render(now) {
+    frame = null;
+    if (!enabled()) return;
+    const dt = Math.min((now - last) / 1000 || 0, .05);
+    last = now;
+    ctx.clearRect(0, 0, width, height);
+    ctx.strokeStyle = 'rgba(64,224,208,.065)';
+    ctx.lineWidth = .65;
+    ctx.beginPath();
+    for (let x = 0; x <= cols; x++) { ctx.moveTo(x * spacing, 0); ctx.lineTo(x * spacing, height); }
+    for (let y = 0; y <= rows; y++) { ctx.moveTo(0, y * spacing); ctx.lineTo(width, y * spacing); }
+    ctx.stroke();
+
+    // Advance first, then build fresh occupancy from the updated positions.
+    for (const dot of dots) {
+      if (!dot.to) continue;
+      dot.t = Math.min(1, dot.t + dot.speed * dt / spacing);
+      if (dot.t >= 1) {
+        dot.from = dot.to;
+        dot.to = null;
+        dot.t = 0;
       }
     }
-    for(const d of dots){if(!d.to)choose(d,occupied,reserved)}
-    for(const d of dots){
-      const x=(d.from.x+(d.to?(d.to.x-d.from.x)*d.t:0))*spacing;
-      const y=(d.from.y+(d.to?(d.to.y-d.from.y)*d.t:0))*spacing;
-      const lastPt=d.trail[d.trail.length-1];
-      if(!lastPt||Math.hypot(x-lastPt.x,y-lastPt.y)>2)d.trail.push({x,y});
-      if(d.trail.length>18)d.trail.shift();
-      for(let j=1;j<d.trail.length;j++){
-        ctx.beginPath();ctx.moveTo(d.trail[j-1].x,d.trail[j-1].y);
-        ctx.lineTo(d.trail[j].x,d.trail[j].y);
-        ctx.strokeStyle=`rgba(64,224,208,${(j/d.trail.length)*.52})`;
-        ctx.lineWidth=1.6;ctx.stroke();
+    const occupied = new Set();
+    const reserved = new Set();
+    for (const dot of dots) {
+      occupied.add(key(dot.from.x, dot.from.y));
+      if (dot.to) {
+        occupied.add(key(dot.to.x, dot.to.y));
+        reserved.add(edge(dot.from, dot.to));
       }
-      const glow=ctx.createRadialGradient(x,y,0,x,y,11);
-      glow.addColorStop(0,'rgba(230,255,253,.95)');
-      glow.addColorStop(.18,'rgba(64,224,208,.85)');
-      glow.addColorStop(1,'rgba(64,224,208,0)');
-      ctx.fillStyle=glow;ctx.beginPath();ctx.arc(x,y,11,0,Math.PI*2);ctx.fill();
     }
-    if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches)requestAnimationFrame(render);
+    for (const dot of dots) if (!dot.to) choose(dot, occupied, reserved);
+
+    for (const dot of dots) {
+      const x = (dot.from.x + (dot.to ? (dot.to.x - dot.from.x) * dot.t : 0)) * spacing;
+      const y = (dot.from.y + (dot.to ? (dot.to.y - dot.from.y) * dot.t : 0)) * spacing;
+      const previous = dot.trail[dot.trail.length - 1];
+      if (!previous || Math.hypot(x - previous.x, y - previous.y) > 2) dot.trail.push({ x, y });
+      if (dot.trail.length > 18) dot.trail.shift();
+      for (let j = 1; j < dot.trail.length; j++) {
+        ctx.beginPath();
+        ctx.moveTo(dot.trail[j - 1].x, dot.trail[j - 1].y);
+        ctx.lineTo(dot.trail[j].x, dot.trail[j].y);
+        ctx.strokeStyle = `rgba(64,224,208,${(j / dot.trail.length) * .52})`;
+        ctx.lineWidth = 1.6;
+        ctx.stroke();
+      }
+      const glow = ctx.createRadialGradient(x, y, 0, x, y, 11);
+      glow.addColorStop(0, 'rgba(230,255,253,.95)');
+      glow.addColorStop(.18, 'rgba(64,224,208,.85)');
+      glow.addColorStop(1, 'rgba(64,224,208,0)');
+      ctx.fillStyle = glow;
+      ctx.beginPath();
+      ctx.arc(x, y, 11, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    frame = window.requestAnimationFrame(render);
   }
-  window.addEventListener('resize',resize,{passive:true});resize();requestAnimationFrame(render);
+
+  function sync() {
+    if (!enabled()) {
+      if (frame !== null) window.cancelAnimationFrame(frame);
+      frame = null;
+      last = 0;
+      ctx.clearRect(0, 0, width, height);
+      return;
+    }
+    if (frame === null) {
+      last = 0;
+      frame = window.requestAnimationFrame(render);
+    }
+  }
+
+  window.addEventListener('resize', () => {
+    window.clearTimeout(resizeTimer);
+    resizeTimer = window.setTimeout(() => { resize(); sync(); }, 140);
+  }, { passive: true });
+  document.addEventListener('visibilitychange', sync);
+  mobile.addEventListener?.('change', sync);
+  reducedMotion.addEventListener?.('change', sync);
+  resize();
+  sync();
 })();
