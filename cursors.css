@@ -1,24 +1,29 @@
-/* Shared glossy brand turquoise cursors: portfolio + inquiry page */
+/* FunnelFlow Assist — shared turquoise cursors, complete replacement */
 @media (hover: hover) and (pointer: fine) {
   html, body, body * {
     cursor: url("cursor-arrow.png") 5 3, auto;
   }
 
-  /* Interactive controls and their nested text/icons */
-  a, a *, button, button *,
+  a, a *, button:not(:disabled), button:not(:disabled) *,
   [role="button"], [role="button"] *,
   [role="link"], [role="link"] *,
   [role="tab"], [role="tab"] *,
   [role="menuitem"], [role="menuitem"] *,
   summary, summary *, label[for], label[for] *,
-  input[type="submit"], input[type="button"], input[type="reset"],
-  input[type="checkbox"], input[type="radio"],
-  select, option,
+  input[type="submit"]:not(:disabled),
+  input[type="button"]:not(:disabled),
+  input[type="reset"]:not(:disabled),
+  input[type="checkbox"]:not(:disabled),
+  input[type="radio"]:not(:disabled),
+  select:not(:disabled), select:not(:disabled) option,
   [onclick], [onclick] *,
   [tabindex="0"]:not(input):not(textarea),
   [tabindex="0"]:not(input):not(textarea) *,
-  .clickable, .clickable *, .project-card, .project-card *,
-  .portfolio-card, .portfolio-card *, .card-link, .card-link * {
+  .clickable, .clickable *,
+  .project-card, .project-card *,
+  .portfolio-card, .portfolio-card *,
+  .card-link, .card-link *,
+  .explorer-card, .explorer-card * {
     cursor: url("cursor-hand.png") 12 4, pointer !important;
   }
 
@@ -26,15 +31,12 @@
   textarea, [contenteditable="true"] {
     cursor: text !important;
   }
+
   :disabled, :disabled * { cursor: not-allowed !important; }
-}
-/* Closed-fist turquoise cursor ONLY while dragging project carousel. */
-@media (hover: hover) and (pointer: fine) {
+
+  /* PNG fallback for browsers that cannot display the SVG cursor. */
   body .project-rail.is-dragging,
-  body .project-rail.is-dragging *,
-  body .project-rail.is-dragging .explorer-card,
-  body .project-rail.is-dragging .explorer-card * {
+  body .project-rail.is-dragging * {
     cursor: url("cursor-grab.svg") 16 16, grabbing !important;
   }
 }
-
