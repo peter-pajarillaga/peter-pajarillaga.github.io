@@ -7,7 +7,6 @@
 
   <meta name="description"
   content="FunnelFlow Assist builds high-converting sales funnels, landing pages, CRM workflows, and marketing automations using GoHighLevel, ClickFunnels, Keap, and n8n.">
-  >
 
   <title>FunnelFlow Assist | Funnel Builder & Automation Specialist</title>
   
@@ -73,7 +72,7 @@
       <a href="#about">About</a>
     </div>
 
-    <a class="nav-cta" href="#contact">
+    <a class="nav-cta" href="./inquiry.html">
       LET'S BUILD →
     </a>
 
@@ -673,7 +672,7 @@
 
           <a
             class="button-primary"
-            href="mailto:pppajarillaga@gmail.com"
+            href="./inquiry.html"
           >
             LET'S TALK →
           </a>
@@ -810,8 +809,8 @@ document.addEventListener("DOMContentLoaded", () => {
     "cba-live": {
       number: "PROJECT 02",
       title: "CBA Live 2027",
-      description: "An event ticket funnel built in ClickFunnels, featuring ticket options, checkout, a BBQ add-on and tailored post-purchase pages.",
-      tags: ["CLICKFUNNELS", "EVENT SALES FUNNEL", "CHECKOUT", "CUSTOM CSS / JS"],
+      description: "An event ticket funnel built in GoHighLevel, featuring ticket options, checkout, a BBQ add-on and tailored post-purchase pages.",
+      tags: ["GOHIGHLEVEL", "EVENT SALES FUNNEL", "CHECKOUT", "CUSTOM CSS / JS"],
       pages: {
         sales: "assets/cba-live-sales.png",
         checkout: "assets/cba-live-checkout.png",
@@ -1067,23 +1066,7 @@ integrations: [
 <script src="grid-lights.js" defer></script>
   
 
-<script>
-document.querySelectorAll("a").forEach((link) => {
-  const label = link.textContent
-    .replace(/\s+/g, " ")
-    .trim()
-    .toUpperCase();
 
-  if (
-    label.includes("LET'S TALK") ||
-    label.includes("LET'S BUILD")
-  ) {
-    link.href = "./inquiry.html";
-    link.target = "_blank";
-    link.rel = "noopener noreferrer";
-  }
-});
-</script>
 
   
 <script>
@@ -1164,20 +1147,7 @@ function updateDetails(projectId) {
     });
   });
 
-  document.getElementById("projectPrev")?.addEventListener("click", function () {
-    setTimeout(syncActiveProject, 50);
-  });
-
-  document.getElementById("projectNext")?.addEventListener("click", function () {
-    setTimeout(syncActiveProject, 50);
-  });
-
-  function syncActiveProject() {
-    const active = document.querySelector(".explorer-card.active");
-    if (active) updateDetails(active.dataset.project);
-  }
-
-  updateDetails("first-circle");
+updateDetails("first-circle");
 });
 </script>
 
