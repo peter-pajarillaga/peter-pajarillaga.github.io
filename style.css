@@ -2606,3 +2606,48 @@ button:focus-visible {
     transition: none;
   }
 }
+
+/* =========================================================
+   LOTUS ROOTS — FIFTH HERO BROWSER (FIXED FRAME)
+   Keep tall homepage screenshot inside a normal browser card.
+   Existing four browsers and animations remain unchanged.
+   ========================================================= */
+.hero-system .hero-screen-lotus {
+  position: absolute;
+  z-index: 2;
+  left: 69%;
+  top: 0%;
+  right: auto;
+  bottom: auto;
+  width: 51%;
+  height: 260px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transform: rotate(7deg);
+  opacity: 1;
+  animation: safeHeroFloat 8.5s ease-in-out -1.5s infinite;
+}
+.hero-system .hero-screen-lotus .browser-top {
+  flex: 0 0 38px;
+}
+.hero-system .hero-screen-lotus > img {
+  display: block;
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  height: calc(100% - 38px);
+  object-fit: cover;
+  object-position: center top;
+}
+@media (max-width: 700px) {
+  .hero-system .hero-screen-lotus {
+    width: 53%;
+    height: 175px;
+    left: 55%;
+    top: 0%;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-system .hero-screen-lotus { animation: none; }
+}
