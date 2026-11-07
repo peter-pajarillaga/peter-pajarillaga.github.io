@@ -2538,7 +2538,8 @@ section[id] { scroll-margin-top: 100px; }
   .hero-system .hero-screen-third,
   .hero-system .hero-screen-main,
   .hero-system .hero-screen-secondary,
-  .hero-system .hero-screen-rise {
+  .hero-system .hero-screen-rise,
+  .hero-system .hero-screen-lotus {
     width: 51%;
     height: 260px;
   }
@@ -2551,7 +2552,8 @@ section[id] { scroll-margin-top: 100px; }
   .hero-system .hero-screen-third,
   .hero-system .hero-screen-main,
   .hero-system .hero-screen-secondary,
-  .hero-system .hero-screen-rise {
+  .hero-system .hero-screen-rise,
+  .hero-system .hero-screen-lotus {
     width: 53%;
     height: 175px;
   }
@@ -2615,8 +2617,8 @@ button:focus-visible {
 .hero-system .hero-screen-lotus {
   position: absolute;
   z-index: 2;
-  left: 69%;
-  top: 0%;
+  left: 66%;
+  top: 1%;
   right: auto;
   bottom: auto;
   width: 51%;
@@ -2624,7 +2626,7 @@ button:focus-visible {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  transform: rotate(7deg);
+  transform: rotate(5deg);
   opacity: 1;
   animation: safeHeroFloat 8.5s ease-in-out -1.5s infinite;
 }
@@ -2650,4 +2652,27 @@ button:focus-visible {
 }
 @media (prefers-reduced-motion: reduce) {
   .hero-system .hero-screen-lotus { animation: none; }
+}
+
+/* =========================================================
+   HERO BROWSERS — CLICK TO FRONT (NO RESIZING)
+   Only changes stacking order; preserves each browser's size,
+   position, rotation and floating animation.
+   ========================================================= */
+.hero-system .browser-window {
+  cursor: pointer;
+  scale: 1;
+  transition: box-shadow .4s ease, border-color .4s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.hero-system .browser-window.hero-card-active {
+  z-index: 30 !important;
+  scale: 1;
+}
+.hero-system .browser-window:focus-visible {
+  outline: 2px solid #a5fff4;
+  outline-offset: 5px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-system .browser-window { transition: none; }
 }
