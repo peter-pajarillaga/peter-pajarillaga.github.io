@@ -51,30 +51,6 @@
   <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="grid-lights.css">
   <link rel="stylesheet" href="cursors.css">
-  <!-- Lotus Roots fifth hero browser: scoped styling; existing browser effects preserved -->
-  <style>
-    .hero-system .hero-screen-lotus {
-      position: absolute;
-      width: 43%;
-      top: 1%;
-      right: -1%;
-      z-index: 2;
-      transform: rotate(7deg);
-    }
-    .hero-system .hero-screen-lotus img {
-      display: block;
-      width: 100%;
-      height: auto;
-    }
-    @media (max-width: 767px) {
-      .hero-system .hero-screen-lotus {
-        width: 39%;
-        top: 0;
-        right: 0;
-        transform: rotate(6deg);
-      }
-    }
-  </style>
 </head>
 
 <body>
@@ -1209,5 +1185,35 @@ updateDetails("first-circle");
 });
 </script>
 
+
+<!-- HERO BROWSER STACK: click or keyboard to bring a card forward -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const hero = document.querySelector('.hero-system');
+  if (!hero) return;
+  const cards = Array.from(hero.querySelectorAll('.browser-window'));
+  if (!cards.length) return;
+  cards.forEach(function (card, index) {
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('role', 'button');
+    card.setAttribute('aria-label', 'Bring ' + (card.querySelector('img')?.alt || 'project ' + (index + 1)) + ' to front');
+    card.setAttribute('aria-pressed', 'false');
+    function activate() {
+      cards.forEach(function (other) {
+        const selected = other === card;
+        other.classList.toggle('hero-card-active', selected);
+        other.setAttribute('aria-pressed', String(selected));
+      });
+    }
+    card.addEventListener('click', activate);
+    card.addEventListener('keydown', function (event) {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        activate();
+      }
+    });
+  });
+});
+</script>
 </body>
 </html>
