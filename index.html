@@ -1132,8 +1132,8 @@ const details = {
   },
   "lotus-roots": {
     platform: "ClickFunnels 2.0",
-    features: "Functional wellness homepage with editorial design, branded typography, responsive image layouts, custom styling, and interactive page elements using HTML, CSS and JavaScript.",
-    automation: "This project highlights front-end website and landing page development; no separate automation is claimed for this homepage."
+    features: "Multi-page functional wellness website featuring the homepage, Meet Suzanne, Our Approach, functional testing and labs, programs, newsletter signup, custom navigation and interactive popups. Built with responsive editorial layouts and custom HTML, CSS and JavaScript.",
+    automation: "CRM integrations, lead nurturing, and follow-up workflows are currently being developed to support the website and its conversion goals."
   }
 };
 
@@ -1146,8 +1146,8 @@ function updateDetails(projectId) {
 
     [
       ["PLATFORM", project.platform],
-      ["FUNNEL FEATURES", project.features],
-      ["AUTOMATIONS", project.automation]
+      [projectId === "lotus-roots" ? "WEBSITE FEATURES" : "FUNNEL FEATURES", project.features],
+      [projectId === "lotus-roots" ? "AUTOMATION — IN PROGRESS" : "AUTOMATIONS", project.automation]
     ].forEach(function ([heading, description]) {
       const item = document.createElement("div");
       item.className = "technical-detail-item";
