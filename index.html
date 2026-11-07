@@ -51,6 +51,30 @@
   <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="grid-lights.css">
   <link rel="stylesheet" href="cursors.css">
+  <!-- Lotus Roots fifth hero browser: scoped styling; existing browser effects preserved -->
+  <style>
+    .hero-system .hero-screen-lotus {
+      position: absolute;
+      width: 43%;
+      top: 1%;
+      right: -1%;
+      z-index: 2;
+      transform: rotate(7deg);
+    }
+    .hero-system .hero-screen-lotus img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    @media (max-width: 767px) {
+      .hero-system .hero-screen-lotus {
+        width: 39%;
+        top: 0;
+        right: 0;
+        transform: rotate(6deg);
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -164,6 +188,15 @@
       src="assets/cba-live-sales.png"
       alt="CBA Live sales funnel"
     >
+  </div>
+
+
+  <!-- FIFTH CARD: LOTUS ROOTS HOMEPAGE -->
+  <div class="browser-window hero-screen-lotus">
+    <div class="browser-top">
+      <span></span><span></span><span></span>
+    </div>
+    <img src="assets/lotus-roots-homepage.png" alt="Lotus Roots Functional Healing homepage and responsive wellness website" loading="lazy">
   </div>
 
   <!-- FOURTH CARD: RISE MAUI 2027 -->
@@ -400,6 +433,17 @@
               <small>PROJECT 04</small>
               <strong>RISE Maui 2027</strong>
               <p class="project-seo-description">Live retreat registration funnel with custom HTML, CSS and JavaScript, connected to Keap for contact management and automated email follow-up.</p>
+            </div>
+          </button>
+
+
+          <!-- LOTUS ROOTS FUNCTIONAL HEALING HOMEPAGE -->
+          <button class="explorer-card" data-project="lotus-roots" type="button">
+            <img src="assets/lotus-roots-homepage.png" alt="Lotus Roots Functional Healing homepage with editorial wellness design and responsive landing page sections" loading="lazy">
+            <div class="explorer-card-overlay">
+              <small>PROJECT 05</small>
+              <strong>Lotus Roots Homepage</strong>
+              <p class="project-seo-description">Responsive ClickFunnels 2.0 website with custom styling, interactions and editorial page design.</p>
             </div>
           </button>
 
@@ -836,6 +880,15 @@ document.addEventListener("DOMContentLoaded", () => {
       pages: {
         sales: "assets/rise-maui-2027.png"
       }
+    },
+    "lotus-roots": {
+      number: "PROJECT 05",
+      title: "Lotus Roots Functional Healing",
+      description: "A responsive ClickFunnels 2.0 homepage for a functional wellness brand, featuring editorial layouts, custom image sections, branded typography, and interactive elements implemented with HTML, CSS and JavaScript.",
+      tags: ["CLICKFUNNELS 2.0", "WEBSITE / LANDING PAGE", "RESPONSIVE DESIGN", "HTML / CSS / JS"],
+      pages: {
+        sales: "assets/lotus-roots-homepage.png"
+      }
     }
   };
 
@@ -1100,6 +1153,11 @@ const details = {
     platform: "ClickFunnels + Keap",
     features: "Live retreat registration funnel with responsive sections, custom image gallery, experience agenda, pricing and registration options built with HTML, CSS and JavaScript.",
     automation: "Live ClickFunnels-to-Keap integration sends registration contact details into Keap and triggers automated email follow-up sequences."
+  },
+  "lotus-roots": {
+    platform: "ClickFunnels 2.0",
+    features: "Functional wellness homepage with editorial design, branded typography, responsive image layouts, custom styling, and interactive page elements using HTML, CSS and JavaScript.",
+    automation: "This project highlights front-end website and landing page development; no separate automation is claimed for this homepage."
   }
 };
 
