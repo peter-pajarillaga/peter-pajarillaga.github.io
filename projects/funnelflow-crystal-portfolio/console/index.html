@@ -1,11 +1,20 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>FunnelFlow Crystal Console</title><style>html,body{margin:0;background:#050507;min-height:100%;overflow:hidden}</style></head><body>
+<title>FunnelFlow Crystal Console — V22 Cinematic Entrance</title><style>html,body{margin:0;background:#050507;min-height:100%;overflow:hidden}
+/* V21: soft, continuous silver studio sweep BEHIND the 3D canvas. */
+#ff-crystal-console .ff-stage{background:#030305!important;isolation:isolate}
+#ff-crystal-console .ff-silver-sweep{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;background:#030305}
+#ff-crystal-console .ff-silver-sweep::after{content:"";position:absolute;top:-25%;left:-55%;width:62%;height:150%;background:radial-gradient(ellipse at center,rgba(210,218,232,.085) 0%,rgba(125,137,156,.035) 29%,rgba(50,56,69,.045) 52%,transparent 74%);filter:blur(36px);animation:ff-silver-east-west 19s linear infinite;will-change:transform,opacity}
+@keyframes ff-silver-east-west{0%{transform:translateX(0);opacity:0}8%{opacity:.75}46%{opacity:1}90%{opacity:.7}100%{transform:translateX(260%);opacity:0}}
+#ff-crystal-console .ff-stage>canvas{position:relative;z-index:1}
+#ff-crystal-console .ui,#ff-crystal-console .controls{z-index:2}
+@media(prefers-reduced-motion:reduce){#ff-crystal-console .ff-silver-sweep::after{animation:none;left:18%;opacity:.32}}
+</style></head><body>
 <!-- FunnelFlow crystal console — ClickFunnels Custom HTML/JS element -->
 <style>*{box-sizing:border-box}#ff-crystal-console{color:#f4f4f5;font:14px system-ui,sans-serif}#ff-crystal-console .ff-stage{height:100%;min-height:560px;position:relative;overflow:hidden;background:radial-gradient(ellipse at 54% 48%,#1c1d21 0%,#0b0b0e 55%,#020204 100%)}#ff-crystal-console canvas{display:block;width:100%;height:100%;touch-action:pan-y}#ff-crystal-console .ui{position:absolute;left:clamp(16px,4vw,48px);top:30px;pointer-events:none}#ff-crystal-console .ui small{letter-spacing:.22em;color:#a1a2aa}#ff-crystal-console .ui h1{font-size:clamp(22px,3vw,34px);margin:10px 0 4px;letter-spacing:-.04em}#ff-crystal-console .ui p{color:#9c9ca4;font-size:12px}#ff-crystal-console .controls{position:absolute;bottom:25px;left:50%;transform:translateX(-50%);display:flex;gap:12px;background:#111216e8;border:1px solid #34343a;border-radius:40px;padding:9px 14px;align-items:center;white-space:nowrap}#ff-crystal-console button{background:#24252a;color:white;border:1px solid #505158;border-radius:22px;padding:10px 18px;cursor:pointer}#ff-crystal-console button[aria-pressed=true]{background:#85101a;border-color:#ff5360}#ff-crystal-console label{color:#bbb;font-size:12px}#ff-crystal-console input{accent-color:#e11a2a;width:95px}@media(max-width:530px){#ff-crystal-console .controls{width:calc(100% - 20px);justify-content:center;flex-wrap:wrap;bottom:15px}#ff-crystal-console .ui{top:15px}#ff-crystal-console .ui p{max-width:250px}}
 #ff-crystal-console{width:100%;isolation:isolate}#ff-crystal-console .ff-stage{height:640px;min-height:520px}#ff-crystal-console canvas{touch-action:none}
 </style>
-<div id="ff-crystal-console"><div class="ff-stage" id="stage"><div class="ui"><small>FUNNELFLOW / CRYSTAL CONSOLE</small><h1>CRYSTAL CONTROL PANEL</h1><p>Select a crystal · drag to inspect · V14 glass</p></div><div class="controls"><button id="toggle" aria-pressed="true">Ruby light: ON</button><label for="power">Intensity</label><input id="power" type="range" min="0" max="100" value="80"></div></div><div class="ff-error" hidden style="background:#41131b;color:#fff;padding:12px"></div></div>
+<div id="ff-crystal-console"><div class="ff-stage" id="stage"><div class="ff-silver-sweep" aria-hidden="true"></div><div class="ui"><small>FUNNELFLOW / CRYSTAL CONSOLE</small><h1>CRYSTAL CONTROL PANEL</h1><p>Select a crystal · cinematic entrance · face-on lock</p></div><div class="controls"><button id="toggle" aria-pressed="true">Ruby light: ON</button><label for="power">Intensity</label><input id="power" type="range" min="0" max="100" value="80"></div></div><div class="ff-error" hidden style="background:#41131b;color:#fff;padding:12px"></div></div>
 <script>
 (function(){
  const root=document.getElementById('ff-crystal-console');
@@ -16,12 +25,17 @@
 const THREE = await import('https://cdn.jsdelivr.net/npm/three@0.164.1/build/three.module.js');
 
 const stage=root.querySelector('#stage');const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.15;stage.prepend(renderer.domElement);
-const scene=new THREE.Scene();const camera=new THREE.PerspectiveCamera(35,1,.1,100);camera.position.set(1.7,9.3,23.5);const controls={update(){camera.lookAt(0,-.1,0)}};
-let orbitTheta=Math.atan2(camera.position.x,camera.position.z),orbitPhi=Math.acos(camera.position.y/camera.position.length());
-let dragging=false,lastX=0,lastY=0;
-renderer.domElement.addEventListener('pointerdown',e=>{dragging=true;lastX=e.clientX;lastY=e.clientY});
-window.addEventListener('pointerup',()=>dragging=false);
-renderer.domElement.addEventListener('pointermove',e=>{if(!dragging)return;const dx=e.clientX-lastX,dy=e.clientY-lastY;lastX=e.clientX;lastY=e.clientY;orbitTheta-=dx*.004;orbitPhi=Math.max(.25,Math.min(1.55,orbitPhi+dy*.004));const r=camera.position.length();camera.position.set(r*Math.sin(orbitPhi)*Math.sin(orbitTheta),r*Math.cos(orbitPhi),r*Math.sin(orbitPhi)*Math.cos(orbitTheta))});
+const scene=new THREE.Scene();const camera=new THREE.PerspectiveCamera(35,1,.1,100);camera.position.set(1.7,9.3,23.5);const controls={update(){camera.up.set(0,0,-1);camera.lookAt(0,-.1,0)}};
+// V22: one cinematic camera orbit, then a fixed elevated, straight-on view.
+// The console lies horizontally, so a raised camera is required to reveal its faces.
+const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const introDuration=5200;
+const introStart=performance.now();
+let introFinished=reducedMotion;
+const finalCamera=new THREE.Vector3(0,29,0.01);
+const startCamera=new THREE.Vector3(18,13,20);
+const easeInOut=t=>t*t*(3-2*t);
+camera.position.copy(reducedMotion?finalCamera:startCamera);
 scene.add(new THREE.AmbientLight(0xffffff,.45));const key=new THREE.DirectionalLight(0xffffff,3);key.position.set(-4,8,6);scene.add(key);const rim=new THREE.DirectionalLight(0xdceaff,2.5);rim.position.set(4,2,-5);scene.add(rim);
 // Procedural studio reflections for physical glass without external HDR files.
 const envScene=new THREE.Scene();envScene.background=new THREE.Color('#101115');function panel(x,y,z,w,h,brightness,rotation=0){const mesh=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({color:brightness,side:THREE.DoubleSide}));mesh.position.set(x,y,z);mesh.rotation.y=rotation;envScene.add(mesh)}panel(-4,5,1,1.1,10,'#ffffff',-.45);panel(3.5,4,-2,2,9,'#3a414d',.5);panel(0,8,0,12,2,'#ffffff',0);panel(-5,1,-1,.5,7,'#343942',.7);const pmrem=new THREE.PMREMGenerator(renderer);const env=pmrem.fromScene(envScene,.04).texture;scene.environment=env;
@@ -91,17 +105,33 @@ const floor=new THREE.Mesh(new THREE.PlaneGeometry(70,34),new THREE.MeshPhysical
  color:0x09090d,metalness:.5,roughness:.26,transparent:true,opacity:.9
 }));
 floor.position.z=-.88;floor.renderOrder=-2;assembly.add(floor);
-function redHalo(x,y,w,h,opacity){
- const cv=document.createElement('canvas');cv.width=128;cv.height=128;
- const c=cv.getContext('2d'),g=c.createRadialGradient(64,64,0,64,64,64);
- g.addColorStop(0,'rgba(255,17,28,.95)');g.addColorStop(.26,'rgba(255,7,22,.48)');g.addColorStop(1,'rgba(255,0,0,0)');
- c.fillStyle=g;c.fillRect(0,0,128,128);
- const m=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({
- map:new THREE.CanvasTexture(cv),transparent:true,opacity,depthWrite:false,blending:THREE.AdditiveBlending
- }));m.position.set(x,y,-.85);m.renderOrder=1;assembly.add(m);
-}
-redHalo(0,0,24,7,.34);
-redHalo(-7.5,-2.05,8,3,.55);redHalo(7.7,-2.05,8,3,.55);
+ // V19: +20% ruby illumination for active and standby buttons. Three INDEPENDENT, fixed-position light wells; subtle inactive standby illumination.
+ // No animated x coordinates and no glow planes extending beyond the console.
+ function rubyWell(w,h,x,y,z,peak){
+  const cv=document.createElement('canvas');cv.width=cv.height=256;
+  const ctx=cv.getContext('2d');
+  const grad=ctx.createRadialGradient(128,128,0,128,128,128);
+  grad.addColorStop(0,'rgba(255,22,36,'+peak+')');
+  grad.addColorStop(.27,'rgba(215,7,27,.27)');
+  grad.addColorStop(.65,'rgba(105,0,12,.055)');
+  grad.addColorStop(1,'rgba(0,0,0,0)');
+  ctx.fillStyle=grad;ctx.fillRect(0,0,256,256);
+  const tex=new THREE.CanvasTexture(cv);
+  const mat=new THREE.MeshBasicMaterial({map:tex,transparent:true,opacity:0,
+    depthWrite:false,depthTest:true,blending:THREE.AdditiveBlending,
+    toneMapped:false,side:THREE.DoubleSide});
+  const mesh=new THREE.Mesh(new THREE.PlaneGeometry(w,h),mat);
+  mesh.position.set(x,y,z);mesh.renderOrder=1;assembly.add(mesh);
+  return mesh;
+ }
+ // The top of the base is around z=-.365; these pools sit just above it,
+ // but below the actual button glass and black face. Small, low-opacity wells
+ // make the black surface catch light rather than displaying floating spotlights.
+ const rubyWells=[-7,0,7].map(x=>({
+  contact:rubyWell(5.9,2.45,x,0,-.305,.40),
+  rear:rubyWell(5.5,1.12,x,1.33,-.304,.32),
+  front:rubyWell(5.0,.85,x,-1.35,-.304,.18)
+ }));
 // Build three buttons using the exact approved V14 material.
 const sharedBodyGeometry=extrude(5.9,1.65,.56,.20);
 const sharedFaceGeometry=extrude(5.25,1.06,.07,.055);
@@ -191,15 +221,38 @@ renderer.domElement.addEventListener('pointerup',e=>{
 let on=true;const toggle=root.querySelector('#toggle'),power=root.querySelector('#power');
 function update(){
  const p=on?Number(power.value)/100:0;
- buttons.forEach((b,i)=>b.target=(i===selected?p:Math.min(.22,p*.25)));
+ buttons.forEach((b,i)=>b.target=(i===selected?Math.min(1.56,p*1.56):p*.156));
  toggle.textContent='Ruby reflections: '+(on?'ON':'OFF');
  toggle.setAttribute('aria-pressed',String(on));
 }
 toggle.onclick=()=>{on=!on;update()};
 power.oninput=update;update();
-function resize(){const w=stage.clientWidth,h=stage.clientHeight;camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h,false);if(w<550){camera.position.set(0,15,33)} }window.addEventListener('resize',resize);resize();function animate(){requestAnimationFrame(animate);controls.update();
+function resize(){const w=stage.clientWidth,h=stage.clientHeight;camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h,false);// Preserve the viewing angle; increase distance on narrow screens.
+if(introFinished){camera.position.copy(finalCamera).multiplyScalar(w<700?2.1:1)}}window.addEventListener('resize',resize);resize();function animate(){requestAnimationFrame(animate);
+ if(!introFinished){
+   const t=Math.min(1,(performance.now()-introStart)/introDuration);
+   const eased=easeInOut(t);
+   // The camera begins at the right side, sweeps past center and settles face-on.
+   const azimuth=(1-eased)*0.85;
+   const elevation=0.50+0.33*eased+0.075*Math.sin(Math.PI*t);
+   const radius=29.5-(3.5*eased);
+   camera.position.set(Math.sin(azimuth)*radius*Math.cos(elevation),Math.sin(elevation)*radius,Math.cos(azimuth)*radius*Math.cos(elevation));
+   camera.position.lerp(finalCamera.clone().multiplyScalar(stage.clientWidth<700?1.55:1),easeInOut(Math.max(0,(t-.78)/.22)));
+   if(t>=1){introFinished=true;camera.position.copy(finalCamera).multiplyScalar(stage.clientWidth<700?1.55:1)}
+ }
+ controls.update();
  buttons.forEach(b=>{const u=b.rubyMaterial.uniforms.uPower;
  u.value+=(b.target-u.value)*.085;});
+ // Independent crossfade: outgoing well dims in place; incoming well
+ // brightens in place. No moving beam, streak, or position interpolation.
+ const activePower=on?Number(power.value)/100:0;
+ rubyWells.forEach((well,i)=>{
+  const target=(i===selected?Math.min(1.56,activePower*1.56):activePower*.12);
+  [well.contact,well.rear,well.front].forEach((mesh,j)=>{
+   const desired=target*[.53,.72,.31][j];
+   mesh.material.opacity+=(desired-mesh.material.opacity)*.16;
+  });
+ });
  renderer.render(scene,camera)}animate();
 
  }catch(err){console.error('FunnelFlow crystal:',err);const e=root.querySelector('.ff-error');e.hidden=false;e.textContent='3D rendering failed: '+err.message;}

@@ -1,235 +1,1260 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>FunnelFlow Crystal Console — V15 Reactive Ruby</title><style>html,body{margin:0;background:#050507;min-height:100%;overflow:hidden}</style></head><body>
-<!-- FunnelFlow crystal console — ClickFunnels Custom HTML/JS element -->
-<style>*{box-sizing:border-box}#ff-crystal-console{color:#f4f4f5;font:14px system-ui,sans-serif}#ff-crystal-console .ff-stage{height:100%;min-height:560px;position:relative;overflow:hidden;background:radial-gradient(ellipse at 54% 48%,#1c1d21 0%,#0b0b0e 55%,#020204 100%)}#ff-crystal-console canvas{display:block;width:100%;height:100%;touch-action:pan-y}#ff-crystal-console .ui{position:absolute;left:clamp(16px,4vw,48px);top:30px;pointer-events:none}#ff-crystal-console .ui small{letter-spacing:.22em;color:#a1a2aa}#ff-crystal-console .ui h1{font-size:clamp(22px,3vw,34px);margin:10px 0 4px;letter-spacing:-.04em}#ff-crystal-console .ui p{color:#9c9ca4;font-size:12px}#ff-crystal-console .controls{position:absolute;bottom:25px;left:50%;transform:translateX(-50%);display:flex;gap:12px;background:#111216e8;border:1px solid #34343a;border-radius:40px;padding:9px 14px;align-items:center;white-space:nowrap}#ff-crystal-console button{background:#24252a;color:white;border:1px solid #505158;border-radius:22px;padding:10px 18px;cursor:pointer}#ff-crystal-console button[aria-pressed=true]{background:#85101a;border-color:#ff5360}#ff-crystal-console label{color:#bbb;font-size:12px}#ff-crystal-console input{accent-color:#e11a2a;width:95px}@media(max-width:530px){#ff-crystal-console .controls{width:calc(100% - 20px);justify-content:center;flex-wrap:wrap;bottom:15px}#ff-crystal-console .ui{top:15px}#ff-crystal-console .ui p{max-width:250px}}
-#ff-crystal-console{width:100%;isolation:isolate}#ff-crystal-console .ff-stage{height:640px;min-height:520px}#ff-crystal-console canvas{touch-action:none}
-</style>
-<div id="ff-crystal-console"><div class="ff-stage" id="stage"><div class="ui"><small>FUNNELFLOW / CRYSTAL CONSOLE</small><h1>CRYSTAL CONTROL PANEL</h1><p>Select a crystal · drag to inspect · V15 reactive ruby / V14 glass</p></div><div class="controls"><button id="toggle" aria-pressed="true">Ruby light: ON</button><label for="power">Intensity</label><input id="power" type="range" min="0" max="100" value="80"></div></div><div class="ff-error" hidden style="background:#41131b;color:#fff;padding:12px"></div></div>
-<script>
-(function(){
- const root=document.getElementById('ff-crystal-console');
- if(!root||root.dataset.ffLoaded)return;root.dataset.ffLoaded='1';
- (async()=>{
- try{
+<html lang="en">
+<head>
+  <link rel="icon" type="image/png" href="../../favicon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-const THREE = await import('https://cdn.jsdelivr.net/npm/three@0.164.1/build/three.module.js');
+  <meta name="description"
+  content="FunnelFlow Assist builds high-converting sales funnels, landing pages, CRM workflows, and marketing automations using GoHighLevel, ClickFunnels, Keap, and n8n.">
 
-const stage=root.querySelector('#stage');const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.15;stage.prepend(renderer.domElement);
-const scene=new THREE.Scene();const camera=new THREE.PerspectiveCamera(35,1,.1,100);camera.position.set(1.7,9.3,23.5);const controls={update(){camera.lookAt(0,-.1,0)}};
-let orbitTheta=Math.atan2(camera.position.x,camera.position.z),orbitPhi=Math.acos(camera.position.y/camera.position.length());
-let dragging=false,lastX=0,lastY=0;
-renderer.domElement.addEventListener('pointerdown',e=>{dragging=true;lastX=e.clientX;lastY=e.clientY});
-window.addEventListener('pointerup',()=>dragging=false);
-renderer.domElement.addEventListener('pointermove',e=>{if(!dragging)return;const dx=e.clientX-lastX,dy=e.clientY-lastY;lastX=e.clientX;lastY=e.clientY;orbitTheta-=dx*.004;orbitPhi=Math.max(.25,Math.min(1.55,orbitPhi+dy*.004));const r=camera.position.length();camera.position.set(r*Math.sin(orbitPhi)*Math.sin(orbitTheta),r*Math.cos(orbitPhi),r*Math.sin(orbitPhi)*Math.cos(orbitTheta))});
-scene.add(new THREE.AmbientLight(0xffffff,.45));const key=new THREE.DirectionalLight(0xffffff,3);key.position.set(-4,8,6);scene.add(key);const rim=new THREE.DirectionalLight(0xdceaff,2.5);rim.position.set(4,2,-5);scene.add(rim);
-// Procedural studio reflections for physical glass without external HDR files.
-const envScene=new THREE.Scene();envScene.background=new THREE.Color('#101115');function panel(x,y,z,w,h,brightness,rotation=0){const mesh=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({color:brightness,side:THREE.DoubleSide}));mesh.position.set(x,y,z);mesh.rotation.y=rotation;envScene.add(mesh)}panel(-4,5,1,1.1,10,'#ffffff',-.45);panel(3.5,4,-2,2,9,'#3a414d',.5);panel(0,8,0,12,2,'#ffffff',0);panel(-5,1,-1,.5,7,'#343942',.7);const pmrem=new THREE.PMREMGenerator(renderer);const env=pmrem.fromScene(envScene,.04).texture;scene.environment=env;
-// Capsule outline made from 2 straight sides and two semicircles, extruded with rounded bevel.
-function pillShape(w,h){const s=new THREE.Shape();const r=h/2;const a=w/2-r;s.moveTo(-a,-r);s.lineTo(a,-r);s.absarc(a,0,r,-Math.PI/2,Math.PI/2,false);s.lineTo(-a,r);s.absarc(-a,0,r,Math.PI/2,3*Math.PI/2,false);return s}
-function extrude(w,h,depth,bevel){const g=new THREE.ExtrudeGeometry(pillShape(w,h),{depth:depth-2*bevel,steps:1,bevelEnabled:true,bevelThickness:bevel,bevelSize:bevel,bevelSegments:9,curveSegments:48});g.translate(0,0,-(depth-2*bevel)/2);g.computeVertexNormals();return g}
-const assembly=new THREE.Group();assembly.rotation.x=-Math.PI/2;scene.add(assembly);
-const buttons=[];let selected=1;
-// A single glossy, rounded black console below the three V14 crystal buttons.
-const baseShape=pillShape(22.0,4.2);
-// V13: optical clear crystal. Remove the opaque/gray transmitted studio fill.
-// Surface contributes only angle-dependent reflection, allowing the black inset
-// and background to remain visible through the broad flat regions.
-// V14: sharpen crystal facets and specular glints without adding opaque fill.
-const glass=new THREE.ShaderMaterial({
-  vertexShader:`varying vec3 vN; varying vec3 vV; varying vec3 vP; varying vec3 vWorld;
-    void main(){
-      vec4 wp=modelMatrix*vec4(position,1.);
-      vN=normalize(mat3(modelMatrix)*normal);
-      vV=normalize(cameraPosition-wp.xyz);
-      vP=position;vWorld=wp.xyz;
-      gl_Position=projectionMatrix*viewMatrix*wp;
-    }`,
-  fragmentShader:`varying vec3 vN; varying vec3 vV; varying vec3 vP; varying vec3 vWorld;
-    void main(){
-      vec3 n=normalize(vN),v=normalize(vV);
-      float facing=abs(dot(n,v));
-      float edge=pow(1.-facing,2.2);
-      float rim=pow(1.-facing,7.);
-      vec3 reflected=reflect(-v,n);
-      float streak=pow(max(dot(reflected,normalize(vec3(-.38,.85,.42))),0.),48.);
-      float thin=pow(max(dot(reflected,normalize(vec3(.63,.53,-.56))),0.),85.);
-      // Tiny, sharp studio light glints — not a fuzzy or gray overlay.
-      float glintA=pow(max(dot(reflected,normalize(vec3(-.17,.92,.35))),0.),220.);
-      float glintB=pow(max(dot(reflected,normalize(vec3(.84,.30,-.45))),0.),270.);
-      // Transparent in broad front-facing areas, visibly crystalline at bevels.
-      float alpha=clamp(.012+edge*.23+rim*.42+streak*.55+thin*.43
-                        +glintA*.78+glintB*.72,0.,.91);
-      vec3 silver=vec3(.91,.96,1.);
-      float highlight=clamp(rim*.68+streak+thin+glintA*1.8+glintB*1.8,0.,1.);
-      vec3 col=mix(vec3(.055,.075,.10),silver,highlight);
-      gl_FragColor=vec4(col,alpha);
-    }`,
-  transparent:true,depthWrite:false,side:THREE.FrontSide,
-  blending:THREE.NormalBlending
-});
-// Extruded solid base with softly beveled perimeter.
-const baseMaterial=new THREE.MeshPhysicalMaterial({
- color:0x08080b,metalness:.68,roughness:.17,clearcoat:1,clearcoatRoughness:.075,
- envMapIntensity:1.1
-});
-const base=new THREE.Mesh(extrude(22,4.2,.43,.19),baseMaterial);
-base.position.z=-.58;base.renderOrder=0;assembly.add(base);
-// Red light runs along the real perimeter of the base, not across its top.
-function outline(w,h,z,radius,color,opacity){
- const points=pillShape(w,h).getPoints(170).map(p=>new THREE.Vector3(p.x,p.y,z));
- const curve=new THREE.CatmullRomCurve3(points,true,'centripetal');
- const tube=new THREE.Mesh(new THREE.TubeGeometry(curve,380,radius,5,true),
- new THREE.MeshBasicMaterial({color,transparent:true,opacity,depthWrite:false,blending:THREE.AdditiveBlending}));
- tube.renderOrder=3;assembly.add(tube);return tube;
+  <title>FunnelFlow Assist | Crystal Portfolio</title>
+  
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "FunnelFlow Assist",
+  "url": "https://peter-pajarillaga.github.io/",
+  "description": "FunnelFlow Assist provides sales funnel development, landing pages, CRM workflows, and marketing automation services.",
+  "founder": {
+    "@type": "Person",
+    "name": "Peter Pajarillaga"
+  },
+  "areaServed": {
+    "@type": "Place",
+    "name": "Worldwide (online)"
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Digital Marketing Services",
+    "itemListElement": [
+      {
+        "@type": "OfferCatalog",
+        "name": "Sales Funnel Development"
+      },
+      {
+        "@type": "OfferCatalog",
+        "name": "Landing Page Development"
+      },
+      {
+        "@type": "OfferCatalog",
+        "name": "CRM and Marketing Automation"
+      }
+    ]
+  }
 }
-outline(21.9,4.1,-.36,.021,0xff3445,.9);
-outline(21.9,4.1,-.38,.095,0xff071a,.16);
-outline(21.8,4.0,-.74,.033,0xe60015,.85);
-// Dark mirror-black floor directly under the base, with ruby contact glow.
-const floor=new THREE.Mesh(new THREE.PlaneGeometry(70,34),new THREE.MeshPhysicalMaterial({
- color:0x09090d,metalness:.5,roughness:.26,transparent:true,opacity:.9
-}));
-floor.position.z=-.88;floor.renderOrder=-2;assembly.add(floor);
- // V16: visible ruby spill on the upper black console, plus rear and front floor bounce.
- // V15 placed every pool beneath the opaque base, hiding the glow in low-angle views.
- function createRubyPool(w,h,z,stops,order){
-  const cv=document.createElement('canvas');cv.width=256;cv.height=256;
-  const ctx=cv.getContext('2d');
-  const g=ctx.createRadialGradient(128,128,0,128,128,128);
-  stops.forEach(([at,color])=>g.addColorStop(at,color));
-  ctx.fillStyle=g;ctx.fillRect(0,0,256,256);
-  const tex=new THREE.CanvasTexture(cv);
-  const mat=new THREE.MeshBasicMaterial({map:tex,transparent:true,opacity:0,
-   depthWrite:false,depthTest:false,blending:THREE.AdditiveBlending,
-   toneMapped:false,side:THREE.DoubleSide});
-  const mesh=new THREE.Mesh(new THREE.PlaneGeometry(w,h),mat);
-  mesh.position.z=z;mesh.renderOrder=order;assembly.add(mesh);return mesh;
- }
- const surfaceStops=[[0,'rgba(255,28,43,.44)'],[.25,'rgba(230,7,27,.23)'],[.62,'rgba(130,0,17,.065)'],[1,'rgba(80,0,8,0)']];
- const floorStops=[[0,'rgba(255,17,33,.64)'],[.25,'rgba(200,3,23,.31)'],[.6,'rgba(110,0,13,.075)'],[1,'rgba(70,0,7,0)']];
- // Top-of-base is approx -.365. A surface overlay at -.315 is visible,
- // but remains behind the actual crystal button meshes.
- const surfaceRuby=createRubyPool(7.0,3.55,-.305,surfaceStops,1);
- surfaceRuby.position.y=0;
- // The back and front floor pools extend beyond the console silhouette.
- const rearRuby=createRubyPool(7.6,4.0,-.845,floorStops,1);
- rearRuby.position.y=2.65;
- const frontRuby=createRubyPool(8.0,4.2,-.842,floorStops,1);
- frontRuby.position.y=-2.65;
- const rubyPools=[surfaceRuby,rearRuby,frontRuby];
- rubyPools.forEach(m=>m.position.x=-7);
-// Build three buttons using the exact approved V14 material.
-const sharedBodyGeometry=extrude(5.9,1.65,.56,.20);
-const sharedFaceGeometry=extrude(5.25,1.06,.07,.055);
-const faceMaterial=new THREE.MeshPhysicalMaterial({color:0x030305,roughness:.11,metalness:.14,clearcoat:1,clearcoatRoughness:.03});
-const names=['FUNNELS','AUTOMATIONS','WEB DESIGN'];
-for(let i=0;i<3;i++){
- const group=new THREE.Group();group.position.x=(i-1)*7.0;group.position.y=0;group.position.z=.12;assembly.add(group);
- group.scale.set(.96,.96,.96);
- const body=new THREE.Mesh(sharedBodyGeometry,glass);
- body.renderOrder=5;group.add(body);
- const face=new THREE.Mesh(sharedFaceGeometry,faceMaterial);
- face.position.z=.33;face.renderOrder=2;group.add(face);
- buttons.push({group,body,face,name:names[i]});
-}
-// No inner red object, red strips, or outline geometry. Red appears only where
-// light catches the existing curved glass surface, using a view-dependent Fresnel reflection.
-const rubyReflection=new THREE.ShaderMaterial({
- uniforms:{uPower:{value:.8},uTime:{value:0}},
- vertexShader:`varying vec3 vNormal; varying vec3 vView; varying vec3 vPosition;
- void main(){vec4 worldPos=modelMatrix*vec4(position,1.0);vPosition=position;
- vNormal=normalize(mat3(modelMatrix)*normal);vView=normalize(cameraPosition-worldPos.xyz);
- gl_Position=projectionMatrix*viewMatrix*worldPos;}`,
- fragmentShader:`uniform float uPower; varying vec3 vNormal; varying vec3 vView; varying vec3 vPosition;
- void main(){float fresnel=pow(1.0-abs(dot(normalize(vNormal),normalize(vView))),3.2);
- // Spatially varying studio-style ruby reflection, no rings or solid inner volume.
- float pools=.48+.27*sin(vPosition.x*1.7+1.2)+.19*sin(vPosition.x*4.3-1.0);
- float side=0.55+0.45*smoothstep(.30,.75,abs(vPosition.y));
- float strength=clamp(fresnel*(.68+pools)*side*uPower*1.85,0.0,.86);
- vec3 ruby=mix(vec3(.48,.001,.012),vec3(1.0,.10,.055),clamp(pools,0.0,1.0));
- gl_FragColor=vec4(ruby,strength);}`,
- transparent:true,depthWrite:false,depthTest:true,side:THREE.DoubleSide,
- blending:THREE.AdditiveBlending
-});
-for(let i=0;i<3;i++){
- const item=buttons[i];
- const material=rubyReflection.clone();
- material.uniforms.uPower.value=i===selected?.8:0;
- const reflectedLight=new THREE.Mesh(sharedBodyGeometry,material);
- reflectedLight.renderOrder=7;item.group.add(reflectedLight);
- item.reflection=reflectedLight;item.rubyMaterial=material;
- const textCanvas=document.createElement('canvas');
- textCanvas.width=1024;textCanvas.height=256;
- const ctx=textCanvas.getContext('2d');
- ctx.strokeStyle='#ffffff';ctx.fillStyle='#ffffff';ctx.lineWidth=8;
- ctx.lineCap='round';ctx.lineJoin='round';
- // Vector icons are painted onto the texture, so they rotate with each 3D button.
- const x=512,y=68;
- if(i===0){ // funnel
-   ctx.beginPath();ctx.moveTo(x-37,y-21);ctx.lineTo(x+37,y-21);
-   ctx.lineTo(x+10,y+9);ctx.lineTo(x+10,y+30);ctx.lineTo(x-10,y+39);
-   ctx.lineTo(x-10,y+9);ctx.closePath();ctx.stroke();
- }else if(i===1){ // automation gear
-   ctx.beginPath();for(let j=0;j<24;j++){
-     const a=j*Math.PI/12,rad=(j%3===0||j%3===1)?34:25;
-     const px=x+Math.cos(a)*rad,py=y+Math.sin(a)*rad;
-     if(j===0)ctx.moveTo(px,py);else ctx.lineTo(px,py);
-   }ctx.closePath();ctx.stroke();ctx.beginPath();ctx.arc(x,y,12,0,Math.PI*2);ctx.stroke();
- }else{ // desktop monitor
-   ctx.strokeRect(x-42,y-27,84,51);ctx.beginPath();ctx.moveTo(x,y+24);
-   ctx.lineTo(x,y+42);ctx.moveTo(x-22,y+42);ctx.lineTo(x+22,y+42);ctx.stroke();
- }
- ctx.font='600 56px Arial';ctx.textAlign='center';ctx.textBaseline='middle';
- ctx.fillText(item.name,512,179);
- const texture=new THREE.CanvasTexture(textCanvas);
- texture.colorSpace=THREE.SRGBColorSpace;
- const textPlane=new THREE.Mesh(new THREE.PlaneGeometry(4.6,1.15),
- new THREE.MeshBasicMaterial({map:texture,transparent:true,depthWrite:false}));
- textPlane.position.z=.44;textPlane.renderOrder=10;item.group.add(textPlane);
- item.textPlane=textPlane;
-}
-const raycaster=new THREE.Raycaster(),pointer=new THREE.Vector2();
-let downX=0,downY=0;
-renderer.domElement.addEventListener('pointerdown',e=>{downX=e.clientX;downY=e.clientY});
-renderer.domElement.addEventListener('pointerup',e=>{
- if(Math.hypot(e.clientX-downX,e.clientY-downY)>7)return;
- const rect=renderer.domElement.getBoundingClientRect();
- pointer.x=((e.clientX-rect.left)/rect.width)*2-1;
- pointer.y=-((e.clientY-rect.top)/rect.height)*2+1;
- raycaster.setFromCamera(pointer,camera);
- const hits=raycaster.intersectObjects(buttons.map(b=>b.face),false);
- if(hits.length){
-   selected=buttons.findIndex(b=>b.face===hits[0].object);
-   update();
-   if(window.parent!==window) window.parent.postMessage({type:'funnelflow-crystal-select',index:selected},window.location.origin);
- }
-});
-let on=true;const toggle=root.querySelector('#toggle'),power=root.querySelector('#power');
-function update(){
- const p=on?Number(power.value)/100:0;
- buttons.forEach((b,i)=>b.target=(i===selected?p:Math.min(.22,p*.25)));
- toggle.textContent='Ruby reflections: '+(on?'ON':'OFF');
- toggle.setAttribute('aria-pressed',String(on));
-}
-toggle.onclick=()=>{on=!on;update()};
-power.oninput=update;update();
-function resize(){const w=stage.clientWidth,h=stage.clientHeight;camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h,false);if(w<550){camera.position.set(0,15,33)} }window.addEventListener('resize',resize);resize();function animate(){requestAnimationFrame(animate);controls.update();
- buttons.forEach(b=>{const u=b.rubyMaterial.uniforms.uPower;
- u.value+=(b.target-u.value)*.085;});
- // One light source tracks the selected crystal, with a soft moving tail.
- const targetX=buttons[selected].group.position.x;
- const activePower=on?Number(power.value)/100:0;
- rubyPools.forEach((pool,i)=>{
-   pool.position.x+=(targetX-pool.position.x)*.085;
-   const level=activePower*[.54,.78,.72][i];
-   pool.material.opacity+=(level-pool.material.opacity)*.085;
- });
- renderer.render(scene,camera)}animate();
-
- }catch(err){console.error('FunnelFlow crystal:',err);const e=root.querySelector('.ff-error');e.hidden=false;e.textContent='3D rendering failed: '+err.message;}
- })();
-})();
 </script>
 
-</body></html>
+
+  <meta name="theme-color" content="#070508">
+  <link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../grid-lights.css">
+  <link rel="stylesheet" href="../../cursors.css">
+<style id="crystal-theme">
+:root{--crystal-ruby:#ff3048;--crystal-ink:#050507}
+html{scroll-behavior:smooth}body{background:#050507!important;color:#f5f2f4!important}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;background:radial-gradient(ellipse at 70% 20%,rgba(75,6,18,.16),transparent 48%)}
+#aq-grid-lights,.aq-grid-lights{opacity:.18;filter:hue-rotate(150deg) saturate(.6)}
+.site-nav{background:rgba(9,7,11,.87)!important;border-color:rgba(255,65,84,.38)!important;box-shadow:0 0 30px rgba(150,8,31,.09)!important}
+.brand-dot{background:#fa3448!important;box-shadow:0 0 14px #e82443!important}
+.site-nav .nav-links a.active,.site-nav .nav-links a:hover{color:#ff6878!important}
+.nav-cta{background:linear-gradient(145deg,#e7354d,#7e0c21)!important;color:white!important;border-color:#ff6071!important}
+.crystal-hero{min-height:720px;display:grid;grid-template-columns:minmax(300px,.83fr) minmax(0,1.17fr);align-items:center;gap:0;padding:105px clamp(20px,6vw,100px) 70px;position:relative;isolation:isolate;max-width:1650px;margin:auto}
+.crystal-hero:before{content:"";position:absolute;inset:5% 0;z-index:-1;background:radial-gradient(ellipse at 72% 55%,rgba(115,10,28,.16),transparent 50%)}
+.crystal-eyebrow{color:#ff5267;font:700 11px system-ui,sans-serif;letter-spacing:.28em}
+.crystal-intro h1{font:900 clamp(40px,5vw,84px)/.99 system-ui,sans-serif;letter-spacing:-.065em;color:#fff;margin:30px 0 25px}
+.crystal-intro h1 em{font-style:normal;color:transparent;-webkit-text-stroke:1.5px #ff4c61}
+.crystal-intro p{font:400 clamp(15px,1.3vw,19px)/1.7 system-ui,sans-serif;color:#b9aeb4;max-width:460px}
+.crystal-explore{display:inline-flex;margin-top:25px;padding:14px 20px;border:1px solid #bd263d;border-radius:30px;color:#fff;text-decoration:none;font:700 12px system-ui,sans-serif;letter-spacing:.1em;background:rgba(110,12,29,.18)}
+.crystal-console-wrap{min-width:0;position:relative}.crystal-console-wrap iframe{width:100%;height:520px;display:block;border:0;background:transparent}
+.crystal-console-hint{text-align:center;color:#a36d79;font:600 10px system-ui,sans-serif;letter-spacing:.25em;margin-top:-45px;position:relative;pointer-events:none}
+/* Original hero content is retained in source; crystal edition replaces its display. */
+.hero#home{display:none!important}
+.project-card,.explorer-card,.glass-card,.capability-card,.tool-card,.browser-window,.stack-card{border-color:rgba(184,42,65,.35)!important}
+.hero-kicker,.section-kicker{color:#ff6074!important}
+a:focus-visible,button:focus-visible{outline:2px solid #ff657a;outline-offset:3px}
+@media(max-width:900px){.crystal-hero{grid-template-columns:1fr;padding-top:125px;gap:8px;min-height:0}.crystal-intro{text-align:center}.crystal-intro p{margin-inline:auto}.crystal-console-wrap iframe{height:420px}}
+@media(max-width:530px){.crystal-intro h1{font-size:clamp(36px,11vw,55px)}.crystal-console-wrap iframe{height:350px}.crystal-console-hint{margin-top:-30px}.crystal-hero{padding-inline:12px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+
+<body>
+
+  <!-- ================= NAV ================= -->
+
+  <nav class="site-nav">
+
+    <a class="brand" href="#crystal-home">
+      <span class="brand-dot"></span>
+      FUNNELFLOW ASSIST
+    </a>
+
+    <div class="nav-links">
+      <a href="#crystal-home" class="active">Home</a>
+      <a href="#work">Work</a>
+      <a href="#systems">Systems</a>
+      <a href="#tools">Tools</a>
+      <a href="#about">About</a>
+    </div>
+
+    <a class="nav-cta" href="../../inquiry.html">
+      LET'S BUILD →
+    </a>
+
+  </nav>
+
+
+  <!-- ================= HERO ================= -->
+
+  <main>
+<section class="crystal-hero" id="crystal-home" aria-label="Crystal navigation">
+<div class="crystal-intro"><span class="crystal-eyebrow">FUNNELFLOW ASSIST / CRYSTAL EDITION</span><h1>THE FUNNEL.<br><em>THE SYSTEM.</em><br>THE EXPERIENCE.</h1><p>Conversion-focused funnels, thoughtful web design, and the automation behind them.</p><a class="crystal-explore" href="#work">EXPLORE SELECTED WORK <span aria-hidden="true">↗</span></a></div>
+<div class="crystal-console-wrap"><iframe id="crystalConsole" title="Interactive FunnelFlow crystal navigation" src="console/index.html" loading="eager" allow="autoplay"></iframe><div class="crystal-console-hint">SELECT A CRYSTAL TO EXPLORE</div></div>
+</section>
+
+    <section class="hero" id="home">
+
+      <div class="container hero-grid">
+
+        <div class="hero-copy">
+
+          <div class="hero-kicker">
+            <span></span>
+            Funnel Builder & Automation Specialist
+          </div>
+
+          <h1>
+            I BUILD
+            <br>
+            THE FUNNEL.
+            <span class="outline">
+              AND EVERYTHING
+              <br>
+              BEHIND IT.
+            </span>
+          </h1>
+
+         <p class="hero-description">
+  I build conversion-focused funnels and the systems
+  that make them work. This includes responsive front-end
+  experiences, checkout flows, CRM workflows and automation.
+</p>
+
+          <div class="hero-actions">
+
+            <a class="button-primary" href="#work">
+              VIEW MY WORK ↓
+            </a>
+
+            <a class="button-secondary" href="#systems">
+              SEE WHAT'S BEHIND IT →
+            </a>
+
+          </div>
+
+        </div>
+
+
+        
+<!-- REAL PROJECT SCREENS -->
+
+<div class="hero-system">
+
+  <div class="system-glow"></div>
+
+  <!-- TOP CARD: FIRST CIRCLE -->
+  <div class="browser-window hero-screen-third">
+    <div class="browser-top">
+      <span></span><span></span><span></span>
+    </div>
+    <img
+      src="../../assets/first-circle-sales.png"
+      alt="First Circle sales funnel"
+    >
+  </div>
+
+  <!-- RIGHT CARD: CBA BOOK -->
+  <div class="browser-window hero-screen-secondary">
+    <div class="browser-top">
+      <span></span><span></span><span></span>
+    </div>
+    <img
+      src="../../assets/cba-book-sales.png"
+      alt="CBA Book sales page"
+    >
+  </div>
+
+  <!-- FRONT LOWER CARD: CBA LIVE -->
+  <div class="browser-window hero-screen-main">
+    <div class="browser-top">
+      <span></span><span></span><span></span>
+    </div>
+    <img
+      src="../../assets/cba-live-sales.png"
+      alt="CBA Live sales funnel"
+    >
+  </div>
+
+
+  <!-- FIFTH CARD: LOTUS ROOTS HOMEPAGE -->
+  <div class="browser-window hero-screen-lotus">
+    <div class="browser-top">
+      <span></span><span></span><span></span>
+    </div>
+    <img src="../../assets/lotus-roots-homepage.png" alt="Lotus Roots Functional Healing homepage and responsive wellness website" loading="lazy">
+  </div>
+
+  <!-- FOURTH CARD: RISE MAUI 2027 -->
+  <div class="browser-window hero-screen-rise">
+    <div class="browser-top">
+      <span></span><span></span><span></span>
+    </div>
+    <img
+      src="../../assets/rise-maui-2027.png"
+      alt="RISE Maui 2027 live retreat registration funnel"
+    >
+  </div>
+
+</div>
+
+      </div>
+    </section>
+
+    <!-- ================= CAPABILITIES ================= -->
+
+    <section class="capability-strip" aria-label="Core capabilities">
+      <div class="container">
+        <div class="capability-inner" id="capabilityTabs" aria-label="Explore capabilities">
+          <button class="capability" type="button" data-capability="strategy" aria-expanded="false" aria-controls="capabilityDetails">Funnel Strategy</button>
+          <button class="capability" type="button" data-capability="responsive" aria-expanded="false" aria-controls="capabilityDetails">Responsive Build</button>
+          <button class="capability" type="button" data-capability="custom" aria-expanded="false" aria-controls="capabilityDetails">Custom CSS / JS</button>
+          <button class="capability" type="button" data-capability="crm" aria-expanded="false" aria-controls="capabilityDetails">CRM Workflows</button>
+          <button class="capability" type="button" data-capability="automation" aria-expanded="false" aria-controls="capabilityDetails">Automation</button>
+          <button class="capability" type="button" data-capability="seo" aria-expanded="false" aria-controls="capabilityDetails">SEO Optimization</button>
+        </div>
+        <div class="capability-details" id="capabilityDetails" aria-hidden="true" aria-live="polite">
+          <div class="capability-details-content">
+            <div class="capability-details-heading">
+              <span class="capability-eyebrow">CAPABILITY DETAILS</span>
+              <button class="capability-close" type="button" aria-label="Close capability details">&times;</button>
+            </div>
+            <h3 id="capabilityHeading"></h3>
+            <p id="capabilityDescription"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ================= INTERACTIVE PROJECT VIEWER ================= -->
+
+<section class="projects project-explorer" id="work">
+
+  <div class="container">
+
+    <div class="section-label">Selected Work</div>
+
+    <h2 class="section-title">
+      REAL BUILDS.<br>
+      REAL SYSTEMS.
+    </h2>
+
+    <p class="section-copy">
+      Explore selected funnel projects through preserved full-page previews. Some original live funnels may no longer be available due to completed campaigns, hosting changes, or platform access.
+    </p>
+
+
+    <div class="portfolio-viewer">
+
+      <!-- FULL PAGE SCREENSHOT -->
+      <div class="viewer-scroll" id="viewerScroll">
+
+        <img
+          id="viewerImage"
+          src="../../assets/first-circle-sales.png"
+          alt="First Circle sales page"
+        >
+
+      </div>
+
+
+      <!-- DARK OVERLAY -->
+      <div class="viewer-shade"></div>
+
+
+      <!-- STATIC PROJECT INFORMATION -->
+      <div class="viewer-info">
+
+        <div class="viewer-project-number" id="viewerNumber">
+          PROJECT 01
+        </div>
+
+        <h3 id="viewerTitle">
+          First Circle
+        </h3>
+
+        <p id="viewerDescription">
+          A complete program sales experience built for Donna Zerger's
+          First Circle, from the sales page through checkout and into
+          the post-purchase experience.
+        </p>
+
+
+        <div class="viewer-tags" id="viewerTags">
+
+          <span>GOHIGHLEVEL</span>
+          <span>SALES FUNNEL</span>
+          <span>CHECKOUT</span>
+          <span>CUSTOM CSS</span>
+
+        </div>
+
+        <!-- TECHNICAL DETAILS -->
+<div class="viewer-technical">
+  <button
+    type="button"
+    id="technicalToggle"
+    class="technical-toggle"
+    aria-expanded="false"
+    aria-controls="technicalPanel"
+  >
+    VIEW TECHNICAL DETAILS
+    <span aria-hidden="true">+</span>
+  </button>
+
+  <div id="technicalPanel" class="technical-panel" hidden>
+    <p id="technicalContent"></p>
+  </div>
+</div>
+
+      </div>
+
+
+      <!-- PROJECT CARDS -->
+
+      <div class="project-rail-wrap" aria-label="Drag or swipe to rotate projects">
+         <div class="carousel-toolbar">
+           <span class="carousel-hint">DRAG TO ROTATE</span>
+           <div class="carousel-controls">
+             <button type="button" class="carousel-arrow" id="projectPrev" aria-label="Previous project">&#8592;</button>
+             <button type="button" class="carousel-arrow" id="projectNext" aria-label="Next project">&#8594;</button>
+           </div>
+         </div>
+
+        <div class="project-rail" id="projectRail">
+
+
+          <!-- FIRST CIRCLE -->
+
+          <button
+            class="explorer-card active"
+            data-project="first-circle"
+            type="button"
+          >
+
+            <img
+              src="../../assets/first-circle-sales.png"
+              alt="First Circle sales funnel featuring landing page design, checkout flow, and thank-you page"
+            >
+
+            <div class="explorer-card-overlay">
+
+              <small>PROJECT 01</small>
+
+              <strong>
+                First Circle
+              </strong>
+              <p class="project-seo-description">
+  Sales funnel with landing page, checkout, and thank-you page.
+</p>
+
+            </div>
+
+          </button>
+
+
+          <!-- CBA LIVE -->
+
+          <button
+            class="explorer-card"
+            data-project="cba-live"
+            type="button"
+          >
+
+            <img
+              src="../../assets/cba-live-sales.png"
+              alt="CBA Live 2027 event ticket sales funnel with registration, payment options, and BBQ add-on"
+            >
+
+            <div class="explorer-card-overlay">
+
+              <small>PROJECT 02</small>
+
+              <strong>
+                CBA Live
+              </strong>
+              <p class="project-seo-description">
+  Event ticketing funnel with payment options and checkout automation.
+</p>
+
+            </div>
+
+          </button>
+
+
+          <!-- CBA BOOK FUNNEL -->
+
+          <button
+            class="explorer-card"
+            data-project="cba-book"
+            type="button"
+          >
+
+            <img
+              src="../../assets/cba-book-sales.png"
+              alt="CBA Book Funnel sales page design for book marketing and lead generation"
+            >
+
+            <div class="explorer-card-overlay">
+
+              <small>PROJECT 03</small>
+
+              <strong>
+                CBA Book Funnel
+              </strong>
+              <p class="project-seo-description">
+  Book sales funnel with conversion-focused page design.
+</p>
+
+            </div>
+
+          </button>
+
+
+          <!-- RISE MAUI 2027 -->
+          <button class="explorer-card" data-project="rise-maui" type="button">
+            <img src="../../assets/rise-maui-2027.png" alt="RISE Maui 2027 retreat registration funnel for Lotus Roots Functional Healing">
+            <div class="explorer-card-overlay">
+              <small>PROJECT 04</small>
+              <strong>RISE Maui 2027</strong>
+              <p class="project-seo-description">Live retreat registration funnel with custom HTML, CSS and JavaScript, connected to Keap for contact management and automated email follow-up.</p>
+            </div>
+          </button>
+
+
+          <!-- LOTUS ROOTS FUNCTIONAL HEALING HOMEPAGE -->
+          <button class="explorer-card" data-project="lotus-roots" type="button">
+            <img src="../../assets/lotus-roots-homepage.png" alt="Lotus Roots Functional Healing homepage with editorial wellness design and responsive landing page sections" loading="lazy">
+            <div class="explorer-card-overlay">
+              <small>PROJECT 05</small>
+              <strong>Lotus Roots Homepage</strong>
+              <p class="project-seo-description">Responsive ClickFunnels 2.0 website with custom styling, interactions and editorial page design.</p>
+            </div>
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- SCROLL INDICATOR -->
+
+      <div class="viewer-scroll-indicator">
+
+        <span></span>
+
+        SCROLL PAGE
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+    <!-- ================= UNDER THE HOOD ================= -->
+
+    <section class="under-hood" id="systems">
+
+      <div class="container hood-grid">
+
+        <div>
+
+          <div class="section-label">
+            Under The Hood
+          </div>
+
+          <h2 class="section-title">
+            IT'S MORE THAN
+            <br>
+            A PRETTY PAGE.
+          </h2>
+
+          <p class="section-copy">
+            The visible funnel is only one layer. I connect the
+            design, front end, conversion path, CRM and automation
+            so the experience works from the first click through
+            the follow-up.
+          </p>
+
+          <div class="hood-info" id="hoodInfo" aria-hidden="true" aria-live="polite">
+            <div class="hood-info-inner">
+              <div class="hood-info-top">
+                <span>BEHIND THE BUILD</span>
+                <button class="hood-info-close" type="button" aria-label="Close detail">&times;</button>
+              </div>
+              <h3 id="hoodInfoTitle"></h3>
+              <p id="hoodInfoDescription"></p>
+            </div>
+          </div>
+
+        </div>
+
+
+        <div class="system-layers" aria-label="Interactive technology stack">
+          <button class="system-layer" type="button" data-layer="design" aria-pressed="false" aria-controls="hoodInfo">
+            <strong>Design</strong><span>EXPERIENCE</span>
+          </button>
+          <button class="system-layer" type="button" data-layer="front" aria-pressed="false" aria-controls="hoodInfo">
+            <strong>Front End</strong><span>HTML + CSS + JS</span>
+          </button>
+          <button class="system-layer" type="button" data-layer="conversion" aria-pressed="false" aria-controls="hoodInfo">
+            <strong>Conversion</strong><span>FORMS + CHECKOUT</span>
+          </button>
+          <button class="system-layer" type="button" data-layer="automation" aria-pressed="false" aria-controls="hoodInfo">
+            <strong>Automation</strong><span>WORKFLOWS</span>
+          </button>
+          <button class="system-layer" type="button" data-layer="integration" aria-pressed="false" aria-controls="hoodInfo">
+            <strong>Integration</strong><span>CONNECTED SYSTEMS</span>
+          </button>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= TOOLS ================= -->
+
+    <section id="tools">
+
+      <div class="container">
+
+        <div class="section-label">
+          Tools & Technologies
+        </div>
+
+        <h2 class="section-title">
+          THE STACK
+          <br>
+          BEHIND THE BUILD.
+        </h2>
+
+
+        <div class="tools-grid" id="toolsGrid">
+          <button class="tool-card" type="button" data-tool="ghl" aria-pressed="false" aria-controls="toolDetails">
+            <small>FUNNEL PLATFORM</small>
+            <strong>GoHighLevel</strong>
+          </button>
+          <button class="tool-card" type="button" data-tool="clickfunnels" aria-pressed="false" aria-controls="toolDetails">
+            <small>FUNNEL PLATFORM</small>
+            <strong>ClickFunnels</strong>
+          </button>
+          <button class="tool-card" type="button" data-tool="html" aria-pressed="false" aria-controls="toolDetails">
+            <small>FRONT END</small>
+            <strong>HTML</strong>
+          </button>
+          <button class="tool-card" type="button" data-tool="css" aria-pressed="false" aria-controls="toolDetails">
+            <small>FRONT END</small>
+            <strong>CSS</strong>
+          </button>
+          <button class="tool-card" type="button" data-tool="javascript" aria-pressed="false" aria-controls="toolDetails">
+            <small>FRONT END</small>
+            <strong>JavaScript</strong>
+          </button>
+          <button class="tool-card" type="button" data-tool="n8n" aria-pressed="false" aria-controls="toolDetails">
+            <small>AUTOMATION</small>
+            <strong>n8n</strong>
+          </button>
+          <button class="tool-card" type="button" data-tool="keap" aria-pressed="false" aria-controls="toolDetails">
+            <small>CRM & EMAIL AUTOMATION</small>
+            <strong>Keap</strong>
+          </button>
+          <button class="tool-card" type="button" data-tool="integrations" aria-pressed="false" aria-controls="toolDetails">
+            <small>INTEGRATIONS</small>
+            <strong>APIs + Webhooks</strong>
+          </button>
+          
+<!-- ON-PAGE SEO -->
+<button class="tool-card" type="button"
+  data-tool="onpage-seo"
+  aria-pressed="false"
+  aria-controls="toolDetails">
+  <small>SEARCH OPTIMIZATION</small>
+  <strong>On-Page & Technical SEO</strong>
+</button>
+
+<!-- LOCAL SEO -->
+<button class="tool-card" type="button"
+  data-tool="local-seo"
+  aria-pressed="false"
+  aria-controls="toolDetails">
+  <small>LOCAL SEARCH VISIBILITY</small>
+  <strong>Local SEO</strong>
+</button>
+
+        </div>
+
+        <div class="tool-details" id="toolDetails" aria-hidden="true" aria-live="polite">
+          <div class="tool-details-inner">
+            <div class="tool-details-top">
+              <span id="toolDetailsCategory">TECHNOLOGY</span>
+              <button class="tool-details-close" type="button" aria-label="Close technology details" tabindex="-1">×</button>
+            </div>
+            <h3 id="toolDetailsTitle"></h3>
+            <p id="toolDetailsDescription"></p>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= ABOUT ================= -->
+
+    <section id="about">
+
+      <div class="container about-grid">
+
+        <div class="about-images">
+
+          <div class="profile-image">
+            <img
+              src="../../assets/peter-profile.png"
+              alt="Peter Pajarillaga at his workstation"
+            >
+          </div>
+
+        </div>
+
+
+        <div class="about-copy">
+
+          <div class="section-label">
+            The Person Behind The Build
+          </div>
+
+          <h2>
+            HI, I'M
+            <br>
+            PETER.
+          </h2>
+
+          <p>
+            I'm a <strong>Funnel Builder & Automation Specialist</strong>
+            based in Davao City, Philippines.
+          </p>
+
+          <p>
+  I work across the full funnel experience, including page
+  structure, responsive design, custom CSS and JavaScript,
+  checkout flows, CRM workflows and automation.
+</p>
+
+          <p>
+            My focus is simple:
+            <strong>
+              the page shouldn't just look good. It should work
+              as a complete system.
+            </strong>
+          </p>
+
+          <div class="about-stats">
+
+            <div class="about-stat">
+              <strong>BUILD</strong>
+              <span>Funnels & Pages</span>
+            </div>
+
+            <div class="about-stat">
+              <strong>CONNECT</strong>
+              <span>CRM & Automation</span>
+            </div>
+
+            <div class="about-stat">
+              <strong>OFFLINE</strong>
+              <span>Offshore Jigging</span>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= CONTACT ================= -->
+
+    <section class="contact" id="contact">
+
+      <div class="container">
+
+        <div class="contact-panel">
+
+          <div class="section-label">
+            Let's Build
+          </div>
+
+          <h2>
+            HAVE A FUNNEL
+            <br>
+            TO <span>BUILD?</span>
+          </h2>
+
+          <p>
+  Let's build the page and everything behind it.
+</p>
+
+          <a
+            class="button-primary"
+            href="../../inquiry.html"
+          >
+            LET'S TALK →
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- ================= FOOTER ================= -->
+
+  <footer>
+
+    <div class="container footer-inner">
+
+      <span>
+        © 2026 FunnelFlow Assist
+      </span>
+
+      <span>
+        Funnel Builder & Automation Specialist
+      </span>
+
+    </div>
+
+  </footer>
+
+
+        
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const nav = document.querySelector(
+    ".site-nav .nav-links"
+  );
+
+  if (!nav) return;
+
+  const links = [...nav.querySelectorAll("a")];
+  const home = links.find(
+    link => link.getAttribute("href") === "#home"
+  );
+
+  let selected = home || links[0];
+
+  function movePill(link) {
+    if (!link) return;
+
+    const navRect = nav.getBoundingClientRect();
+    const linkRect = link.getBoundingClientRect();
+
+    nav.style.setProperty(
+      "--pill-x",
+      `${linkRect.left - navRect.left}px`
+    );
+
+    nav.style.setProperty(
+      "--pill-width",
+      `${linkRect.width}px`
+    );
+
+    nav.style.setProperty(
+      "--pill-height",
+      `${linkRect.height}px`
+    );
+
+    links.forEach(item => {
+      item.classList.toggle(
+        "pill-selected",
+        item === link
+      );
+    });
+
+    nav.classList.add("pill-ready");
+  }
+
+  links.forEach(link => {
+    link.addEventListener("mouseenter", () => {
+      movePill(link);
+    });
+
+    link.addEventListener("focus", () => {
+      movePill(link);
+    });
+  });
+
+  nav.addEventListener("mouseleave", () => {
+    movePill(selected);
+  });
+
+  nav.addEventListener("focusout", event => {
+    if (!nav.contains(event.relatedTarget)) {
+      movePill(selected);
+    }
+  });
+
+  window.addEventListener("resize", () => {
+    movePill(selected);
+  });
+
+  movePill(selected);
+});
+</script>
+
+<script>
+/* SELECTED WORK VIEWER */
+document.addEventListener("DOMContentLoaded", () => {
+  const viewerImage = document.getElementById("viewerImage");
+  const viewerScroll = document.getElementById("viewerScroll");
+  const viewerNumber = document.getElementById("viewerNumber");
+  const viewerTitle = document.getElementById("viewerTitle");
+  const viewerDescription = document.getElementById("viewerDescription");
+  const viewerTags = document.getElementById("viewerTags");
+  const projectButtons = [...document.querySelectorAll(".explorer-card")];
+  const pageButtons = [...document.querySelectorAll(".page-button")];
+
+  if (!viewerImage || !viewerScroll || !projectButtons.length) return;
+
+  const projects = {
+    "first-circle": {
+      number: "PROJECT 01",
+      title: "First Circle",
+      description: "A GoHighLevel program funnel for Donna Zerger's First Circle, featuring a sales page, checkout and post-purchase experience.",
+      tags: ["GOHIGHLEVEL", "PROGRAM SALES FUNNEL", "CHECKOUT", "CUSTOM CSS / JS"],
+      pages: {
+        sales: "../../assets/first-circle-sales.png",
+        checkout: "../../assets/first-circle-checkout.png",
+        thankyou: "../../assets/first-circle-thank-you.png"
+      }
+    },
+    "cba-live": {
+      number: "PROJECT 02",
+      title: "CBA Live 2027",
+      description: "An event ticket funnel built in GoHighLevel, featuring ticket options, checkout, a BBQ add-on and tailored post-purchase pages.",
+      tags: ["GOHIGHLEVEL", "EVENT SALES FUNNEL", "CHECKOUT", "CUSTOM CSS / JS"],
+      pages: {
+        sales: "../../assets/cba-live-sales.png",
+        checkout: "../../assets/cba-live-checkout.png",
+        thankyou: "../../assets/cba-live-thank-you.png"
+      }
+    },
+    "cba-book": {
+      number: "PROJECT 03",
+      title: "CBA Book Funnel",
+      description: "A ClickFunnels book sales experience designed to present the offer and guide visitors through the next step.",
+      tags: ["CLICKFUNNELS", "BOOK SALES FUNNEL", "RESPONSIVE DESIGN"],
+      pages: {
+        sales: "../../assets/cba-book-sales.png",
+        checkout: "../../assets/cba-book-checkout.png",
+        thankyou: "../../assets/cba-book-thank-you.png"
+      }
+    },
+    "rise-maui": {
+      number: "PROJECT 04",
+      title: "RISE Maui 2027",
+      description: "A live ClickFunnels retreat registration funnel for Lotus Roots Functional Healing, featuring responsive layouts, venue gallery, retreat agenda and registration options built with custom HTML, CSS and JavaScript. Registration contact details flow into Keap, triggering automated email follow-up.",
+      tags: ["CLICKFUNNELS", "RETREAT REGISTRATION", "HTML / CSS / JS", "KEAP INTEGRATION", "EMAIL AUTOMATION"],
+      pages: {
+        sales: "../../assets/rise-maui-2027.png"
+      }
+    },
+    "lotus-roots": {
+      number: "PROJECT 05",
+      title: "Lotus Roots Functional Healing",
+      description: "A responsive ClickFunnels 2.0 homepage for a functional wellness brand, featuring editorial layouts, custom image sections, branded typography, and interactive elements implemented with HTML, CSS and JavaScript.",
+      tags: ["CLICKFUNNELS 2.0", "WEBSITE / LANDING PAGE", "RESPONSIVE DESIGN", "HTML / CSS / JS"],
+      pages: {
+        sales: "../../assets/lotus-roots-homepage.png"
+      }
+    }
+  };
+
+  let currentProject = "first-circle";
+  let currentPage = "sales";
+
+  function renderViewer() {
+    const project = projects[currentProject];
+    if (!project) return;
+
+    viewerNumber.textContent = project.number;
+    viewerTitle.textContent = project.title;
+    viewerDescription.textContent = project.description;
+    viewerTags.replaceChildren();
+    project.tags.forEach(tag => {
+      const span = document.createElement("span");
+      span.textContent = tag;
+      viewerTags.appendChild(span);
+    });
+
+    const requestedPage = project.pages[currentPage] || project.pages.sales;
+    viewerImage.onerror = () => {
+      viewerImage.onerror = null;
+      // Do not silently display a different page when a screenshot is missing.
+      viewerImage.alt = `${project.title} ${currentPage} screenshot unavailable`;
+      viewerImage.style.visibility = "hidden";
+    };
+    viewerImage.style.visibility = "visible";
+    viewerImage.src = requestedPage;
+    viewerImage.alt = `${project.title} ${currentPage} page preview`;
+    viewerScroll.scrollTop = 0;
+
+    projectButtons.forEach(button => {
+      const active = button.dataset.project === currentProject;
+      button.classList.toggle("active", active);
+      button.setAttribute("aria-pressed", String(active));
+    });
+    pageButtons.forEach(button => {
+      const active = button.dataset.page === currentPage;
+      button.classList.toggle("active", active);
+      button.setAttribute("aria-pressed", String(active));
+    });
+  }
+
+  projectButtons.forEach(button => {
+    button.addEventListener("click", () => {
+      currentProject = button.dataset.project;
+      currentPage = "sales";
+      renderViewer();
+    });
+  });
+
+  pageButtons.forEach(button => {
+    button.addEventListener("click", () => {
+      currentPage = button.dataset.page;
+      renderViewer();
+    });
+  });
+
+  renderViewer();
+});
+</script>
+
+
+  <!-- INTERACTIVE CAPABILITY STRIP -->
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const buttons = [...document.querySelectorAll("#capabilityTabs .capability")];
+    const panel = document.getElementById("capabilityDetails");
+    const heading = document.getElementById("capabilityHeading");
+    const description = document.getElementById("capabilityDescription");
+    const closeButton = panel?.querySelector(".capability-close");
+    if (!buttons.length || !panel || !heading || !description) return;
+
+    const details = {
+      strategy: {
+        title: "Funnels Built With Purpose",
+        description: "I structure the customer journey from the first visit through the next action, connecting landing pages, offers, checkout experiences and follow-up."
+      },
+      responsive: {
+        title: "Built for Every Screen",
+        description: "I create responsive layouts for desktop, tablet and mobile, keeping the experience clear, consistent and easy to navigate."
+      },
+      custom: {
+        title: "Beyond Default Templates",
+        description: "I use HTML, CSS and JavaScript to customize layouts, interactions, animations and individual page elements beyond standard funnel-builder settings."
+      },
+      crm: {
+        title: "Organized Behind the Scenes",
+        description: "I connect forms, contacts, tags, pipelines and follow-up sequences so leads move through an organized process."
+      },
+      automation: {
+  title: "Systems That Work Together",
+  description: "I build automated processes using tools such as GoHighLevel, Keap and n8n to connect actions and reduce repetitive tasks."
+},
+seo: {
+  title: "Built for Search Visibility",
+  description: "I work with on-page and technical SEO, including metadata, heading structure, image optimization, XML sitemaps, structured data and Google Search Console. I also support local SEO through Google Business Profile setup and optimization."
+}
+    };
+
+    let active = null;
+    function selectCapability(key) {
+      active = key === active ? null : key;
+      buttons.forEach(button => {
+        const selected = button.dataset.capability === active;
+        button.classList.toggle("is-selected", selected);
+        button.setAttribute("aria-expanded", String(selected));
+      });
+      const open = active !== null;
+      if (open) {
+        heading.textContent = details[active].title;
+        description.textContent = details[active].description;
+      }
+      panel.classList.toggle("is-open", open);
+      panel.setAttribute("aria-hidden", String(!open));
+      if (closeButton) closeButton.tabIndex = open ? 0 : -1;
+    }
+
+    buttons.forEach(button => button.addEventListener("click", () => selectCapability(button.dataset.capability)));
+    closeButton?.addEventListener("click", () => selectCapability(active));
+  });
+  </script>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const cards = [...document.querySelectorAll(".system-layers .system-layer")];
+  const panel = document.getElementById("hoodInfo");
+  const title = document.getElementById("hoodInfoTitle");
+  const description = document.getElementById("hoodInfoDescription");
+  const close = panel?.querySelector(".hood-info-close");
+  if (!cards.length || !panel || !title || !description) return;
+
+  const content = {
+    design: ["Design & Experience", "I shape the visual hierarchy, page structure and user experience so every part of the funnel feels consistent and easy to follow."],
+    front: ["Front-End Development", "I use HTML, CSS and JavaScript to create responsive layouts, custom styling and interactive elements beyond standard page-builder templates."],
+    conversion: ["Conversion Path", "I connect forms, calls to action and checkout experiences to guide visitors toward a clear next step."],
+    automation: ["CRM & Automation", "I configure triggers, follow-up sequences and workflows that support the customer journey after a visitor takes action."],
+    integration: ["Connected Systems", "I connect funnel platforms, CRMs and supporting tools using integrations, APIs and webhooks where appropriate."]
+  };
+
+  let active = null;
+  function choose(key) {
+    active = key === active ? null : key;
+    cards.forEach(card => {
+      const selected = card.dataset.layer === active;
+      card.classList.toggle("is-selected", selected);
+      card.setAttribute("aria-pressed", String(selected));
+    });
+    if (active) {
+      title.textContent = content[active][0];
+      description.textContent = content[active][1];
+    }
+    const open = active !== null;
+    panel.classList.toggle("is-open", open);
+    panel.setAttribute("aria-hidden", String(!open));
+    close.tabIndex = open ? 0 : -1;
+  }
+  cards.forEach(card => card.addEventListener("click", () => choose(card.dataset.layer)));
+  close.addEventListener("click", () => choose(active));
+});
+</script>
+
+
+<!-- INTERACTIVE TOOLS & TECHNOLOGIES -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const cards = [...document.querySelectorAll("#toolsGrid .tool-card")];
+  const panel = document.getElementById("toolDetails");
+  const category = document.getElementById("toolDetailsCategory");
+  const title = document.getElementById("toolDetailsTitle");
+  const description = document.getElementById("toolDetailsDescription");
+  const close = panel?.querySelector(".tool-details-close");
+  if (!cards.length || !panel || !category || !title || !description || !close) return;
+
+  const details = {
+    ghl: ["FUNNEL PLATFORM", "GoHighLevel", "I build landing pages, funnels, forms, checkout flows, CRM pipelines, email sequences and automated follow-up workflows in GoHighLevel."],
+    clickfunnels: ["FUNNEL PLATFORM", "ClickFunnels", "I build structured sales funnels, landing pages and checkout experiences that guide visitors through a clear customer journey."],
+    html: ["FRONT END", "HTML", "I use HTML to structure pages and create custom elements that work alongside funnel-builder platforms."],
+    css: ["FRONT END", "CSS", "I use CSS for responsive layouts, custom styling, motion effects and polished interfaces beyond standard templates."],
+    javascript: ["FRONT END", "JavaScript", "I use JavaScript to build interactive components, custom behaviors and dynamic page experiences."],
+    n8n: ["AUTOMATION", "n8n", "I create multi-step automations that connect tools, move data between systems and reduce repetitive manual work."],
+    keap: ["CRM & EMAIL AUTOMATION", "Keap", "I work with contact management, email marketing and follow-up workflows in Keap. My CRM and automation approach is platform-flexible, based on the client's preferred tools, including GoHighLevel and Keap."],
+    
+integrations: [
+  "INTEGRATIONS",
+  "APIs + Webhooks",
+  "I connect funnels, CRMs and supporting platforms using available integrations, APIs and webhooks to pass information between systems."
+],
+
+"onpage-seo": [
+  "SEARCH OPTIMIZATION",
+  "On-Page & Technical SEO",
+  "I work with page titles, meta descriptions, heading structure, image alt text, structured data (Schema.org), XML sitemaps, and Google Search Console to improve website search readiness and crawlability."
+],
+
+"local-seo": [
+  "LOCAL SEARCH VISIBILITY",
+  "Local SEO",
+  "I work with Google Business Profile setup, business information, service descriptions, and local search optimization fundamentals to help businesses establish a clearer presence in relevant local searches."
+]
+
+  };
+
+  let active = null;
+  function choose(key) {
+    active = active === key ? null : key;
+    cards.forEach(card => {
+      const selected = card.dataset.tool === active;
+      card.classList.toggle("is-selected", selected);
+      card.setAttribute("aria-pressed", String(selected));
+    });
+    if (active) {
+      [category.textContent, title.textContent, description.textContent] = details[active];
+    }
+    const isOpen = active !== null;
+    panel.classList.toggle("is-open", isOpen);
+    panel.setAttribute("aria-hidden", String(!isOpen));
+    close.tabIndex = isOpen ? 0 : -1;
+  }
+  cards.forEach(card => card.addEventListener("click", () => choose(card.dataset.tool)));
+  close.addEventListener("click", () => choose(active));
+});
+</script>
+
+<script src="../../project-carousel.js" defer></script>
+<script src="../../grid-lights.js" defer></script>
+  
+
+
+
+  
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const toggle = document.getElementById("technicalToggle");
+  const panel = document.getElementById("technicalPanel");
+  const content = document.getElementById("technicalContent");
+
+  if (!toggle || !panel || !content) return;
+
+  
+const details = {
+  "first-circle": {
+    platform: "GoHighLevel",
+    features: "Program sales page, checkout, thank-you page, responsive design, and custom CSS/JavaScript.",
+    automation: "Post-purchase onboarding emails with instructions and access to program modules."
+  },
+
+  "cba-live": {
+    platform: "GoHighLevel",
+    features: "Event ticket sales funnel, full-payment and installment options, BBQ order bump, custom CSS/JavaScript, and purchase-based thank-you page routing.",
+    automation: "Conditional purchase workflows, community access, confirmation emails, and event onboarding."
+  },
+
+  "cba-book": {
+    platform: "ClickFunnels",
+    features: "Responsive book sales page, checkout, thank-you page, and a post-purchase CTA promoting the Let's Talk Dog Business podcast.",
+    automation: "Automated book order confirmation emails."
+  },
+  "rise-maui": {
+    platform: "ClickFunnels + Keap",
+    features: "Live retreat registration funnel with responsive sections, custom image gallery, experience agenda, pricing and registration options built with HTML, CSS and JavaScript.",
+    automation: "Live ClickFunnels-to-Keap integration sends registration contact details into Keap and triggers automated email follow-up sequences."
+  },
+  "lotus-roots": {
+    platform: "ClickFunnels 2.0",
+    features: "Multi-page functional wellness website featuring the homepage, Meet Suzanne, Our Approach, functional testing and labs, programs, newsletter signup, custom navigation and interactive popups. Built with responsive editorial layouts and custom HTML, CSS and JavaScript.",
+    automation: "CRM integrations, lead nurturing, and follow-up workflows are currently being developed to support the website and its conversion goals."
+  }
+};
+
+  
+function updateDetails(projectId) {
+  const project = details[projectId];
+
+  if (project) {
+    content.replaceChildren();
+
+    [
+      ["PLATFORM", project.platform],
+      [projectId === "lotus-roots" ? "WEBSITE FEATURES" : "FUNNEL FEATURES", project.features],
+      [projectId === "lotus-roots" ? "AUTOMATION — IN PROGRESS" : "AUTOMATIONS", project.automation]
+    ].forEach(function ([heading, description]) {
+      const item = document.createElement("div");
+      item.className = "technical-detail-item";
+
+      const label = document.createElement("strong");
+      label.textContent = heading;
+
+      const paragraph = document.createElement("p");
+      paragraph.textContent = description;
+
+      item.append(label, paragraph);
+      content.appendChild(item);
+    });
+  }
+
+  panel.hidden = true;
+  toggle.setAttribute("aria-expanded", "false");
+  toggle.querySelector("span").textContent = "+";
+}
+
+  toggle.addEventListener("click", function () {
+    const opening = panel.hidden;
+    panel.hidden = !opening;
+    toggle.setAttribute("aria-expanded", String(opening));
+    toggle.querySelector("span").textContent = opening ? "−" : "+";
+  });
+
+  document.querySelectorAll(".explorer-card").forEach(function (card) {
+    card.addEventListener("click", function () {
+      updateDetails(card.dataset.project);
+    });
+  });
+
+updateDetails("first-circle");
+});
+</script>
+
+
+<!-- HERO BROWSER STACK: click or keyboard to bring a card forward -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const hero = document.querySelector('.hero-system');
+  if (!hero) return;
+  const cards = Array.from(hero.querySelectorAll('.browser-window'));
+  if (!cards.length) return;
+  cards.forEach(function (card, index) {
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('role', 'button');
+    card.setAttribute('aria-label', 'Bring ' + (card.querySelector('img')?.alt || 'project ' + (index + 1)) + ' to front');
+    card.setAttribute('aria-pressed', 'false');
+    function activate() {
+      cards.forEach(function (other) {
+        const selected = other === card;
+        other.classList.toggle('hero-card-active', selected);
+        other.setAttribute('aria-pressed', String(selected));
+      });
+    }
+    card.addEventListener('click', activate);
+    card.addEventListener('keydown', function (event) {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        activate();
+      }
+    });
+  });
+});
+</script>
+<script>
+window.addEventListener('message',function(event){
+ if(event.origin!==window.location.origin)return;
+ const data=event.data;
+ if(!data||data.type!=='funnelflow-crystal-select'||![0,1,2].includes(data.index))return;
+ const targets=['work','systems','tools'];
+ const target=document.getElementById(targets[data.index]);
+ if(target)target.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth',block:'start'});
+});
+</script>
+</body>
+</html>

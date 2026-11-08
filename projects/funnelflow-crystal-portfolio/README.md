@@ -1,23 +1,15 @@
-# FunnelFlow Crystal Portfolio — NEW WEBSITE
+# FunnelFlow Assist — Crystal Edition (Prototype V23)
 
-This is a **separate portfolio redesign**, not a modification of your existing homepage.
+This is a **separate** redesign in `projects/funnelflow-crystal-portfolio/`. The original repository root homepage remains unchanged.
 
-## Upload to GitHub Pages
+- Face-on locked camera after a 5.2s cinematic entrance; V19-inspired reactive ruby button lighting.
+- Silver background reflection moves continuously.
+- Three console buttons navigate to Work, Systems and Tools.
+- Original portfolio content, project cards, and assets reused from repository root.
+- Three.js loaded from CDN; online connection required.
 
-Upload the `funnelflow-crystal-portfolio` folder into your repository's `projects` folder, keeping the internal structure:
+Deploy by replacing only this `projects/funnelflow-crystal-portfolio` folder in your existing repository. Keep root `assets/`, CSS, JS, and `inquiry.html` in place.
 
-```
-projects/
-  funnelflow-crystal-portfolio/
-    index.html
-    console/
-      index.html
-```
+Preview: https://peter-pajarillaga.github.io/projects/funnelflow-crystal-portfolio/
 
-The existing repository must still contain the portfolio image files in `/assets/` and `inquiry.html` at the repository root.
-
-Preview URL: https://peter-pajarillaga.github.io/projects/funnelflow-crystal-portfolio/
-
-The V14-based crystal console is a live Three.js iframe and needs internet access to the Three.js CDN. The old portfolio at the repository root is unchanged.
-
-This is an initial redesign; browser rendering has not been verified.
+This is a first integration prototype, not yet visually browser-tested.
