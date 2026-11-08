@@ -91,35 +91,34 @@ const floor=new THREE.Mesh(new THREE.PlaneGeometry(70,34),new THREE.MeshPhysical
  color:0x09090d,metalness:.5,roughness:.26,transparent:true,opacity:.9
 }));
 floor.position.z=-.88;floor.renderOrder=-2;assembly.add(floor);
- // V15: physically positioned ruby spill follows the selected crystal.
- // The rear pool illuminates the far edge; the front pool spills onto the floor.
- function createRubyPool(w,h,z){
+ // V16: visible ruby spill on the upper black console, plus rear and front floor bounce.
+ // V15 placed every pool beneath the opaque base, hiding the glow in low-angle views.
+ function createRubyPool(w,h,z,stops,order){
   const cv=document.createElement('canvas');cv.width=256;cv.height=256;
   const ctx=cv.getContext('2d');
-  const gradient=ctx.createRadialGradient(128,128,0,128,128,128);
-  gradient.addColorStop(0,'rgba(255,35,48,.94)');
-  gradient.addColorStop(.22,'rgba(235,9,30,.60)');
-  gradient.addColorStop(.56,'rgba(160,0,22,.19)');
-  gradient.addColorStop(1,'rgba(100,0,12,0)');
-  ctx.fillStyle=gradient;ctx.fillRect(0,0,256,256);
-  const texture=new THREE.CanvasTexture(cv);
-  const material=new THREE.MeshBasicMaterial({map:texture,transparent:true,opacity:0,
+  const g=ctx.createRadialGradient(128,128,0,128,128,128);
+  stops.forEach(([at,color])=>g.addColorStop(at,color));
+  ctx.fillStyle=g;ctx.fillRect(0,0,256,256);
+  const tex=new THREE.CanvasTexture(cv);
+  const mat=new THREE.MeshBasicMaterial({map:tex,transparent:true,opacity:0,
    depthWrite:false,depthTest:false,blending:THREE.AdditiveBlending,
    toneMapped:false,side:THREE.DoubleSide});
-  const mesh=new THREE.Mesh(new THREE.PlaneGeometry(w,h),material);
-  mesh.position.z=z;mesh.renderOrder=1;assembly.add(mesh);
-  return mesh;
+  const mesh=new THREE.Mesh(new THREE.PlaneGeometry(w,h),mat);
+  mesh.position.z=z;mesh.renderOrder=order;assembly.add(mesh);return mesh;
  }
- // In assembly coordinates positive Y is the back edge of the console.
- // Two independently shaped pools produce a convincing backlight and floor reflection.
- const rearRuby=createRubyPool(8.7,3.8,-.825);
- const frontRuby=createRubyPool(9.2,4.4,-.835);
- const contactRuby=createRubyPool(6.2,2.5,-.805);
- const rubyPools=[rearRuby,frontRuby,contactRuby];
- rubyPools.forEach(m=>m.position.x=0);
- rearRuby.position.y=2.02;
- frontRuby.position.y=-2.45;
- contactRuby.position.y=-.85;
+ const surfaceStops=[[0,'rgba(255,28,43,.44)'],[.25,'rgba(230,7,27,.23)'],[.62,'rgba(130,0,17,.065)'],[1,'rgba(80,0,8,0)']];
+ const floorStops=[[0,'rgba(255,17,33,.64)'],[.25,'rgba(200,3,23,.31)'],[.6,'rgba(110,0,13,.075)'],[1,'rgba(70,0,7,0)']];
+ // Top-of-base is approx -.365. A surface overlay at -.315 is visible,
+ // but remains behind the actual crystal button meshes.
+ const surfaceRuby=createRubyPool(7.0,3.55,-.305,surfaceStops,1);
+ surfaceRuby.position.y=0;
+ // The back and front floor pools extend beyond the console silhouette.
+ const rearRuby=createRubyPool(7.6,4.0,-.845,floorStops,1);
+ rearRuby.position.y=2.65;
+ const frontRuby=createRubyPool(8.0,4.2,-.842,floorStops,1);
+ frontRuby.position.y=-2.65;
+ const rubyPools=[surfaceRuby,rearRuby,frontRuby];
+ rubyPools.forEach(m=>m.position.x=-7);
 // Build three buttons using the exact approved V14 material.
 const sharedBodyGeometry=extrude(5.9,1.65,.56,.20);
 const sharedFaceGeometry=extrude(5.25,1.06,.07,.055);
@@ -218,6 +217,14 @@ power.oninput=update;update();
 function resize(){const w=stage.clientWidth,h=stage.clientHeight;camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h,false);if(w<550){camera.position.set(0,15,33)} }window.addEventListener('resize',resize);resize();function animate(){requestAnimationFrame(animate);controls.update();
  buttons.forEach(b=>{const u=b.rubyMaterial.uniforms.uPower;
  u.value+=(b.target-u.value)*.085;});
+ // One light source tracks the selected crystal, with a soft moving tail.
+ const targetX=buttons[selected].group.position.x;
+ const activePower=on?Number(power.value)/100:0;
+ rubyPools.forEach((pool,i)=>{
+   pool.position.x+=(targetX-pool.position.x)*.085;
+   const level=activePower*[.54,.78,.72][i];
+   pool.material.opacity+=(level-pool.material.opacity)*.085;
+ });
  renderer.render(scene,camera)}animate();
 
  }catch(err){console.error('FunnelFlow crystal:',err);const e=root.querySelector('.ff-error');e.hidden=false;e.textContent='3D rendering failed: '+err.message;}
