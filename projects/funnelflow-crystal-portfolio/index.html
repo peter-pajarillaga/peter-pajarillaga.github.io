@@ -1,6 +1,6 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>FunnelFlow — Crystal Atrium V49</title><style>
 :root{color-scheme:dark}*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#020204;color:#f6f2f4;font-family:Inter,Arial,sans-serif}canvas{display:block}#scene{position:fixed;inset:0}#hud{position:fixed;inset:0;pointer-events:none}header{position:absolute;top:22px;left:30px;letter-spacing:.2em;font-size:11px;color:#b6a5ad}header strong{display:block;margin-top:8px;font-size:17px;letter-spacing:.08em;color:white}#controls{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);display:flex;gap:10px;pointer-events:auto;align-items:center;background:rgba(7,7,12,.78);border:1px solid #5c2736;border-radius:40px;padding:9px 12px;backdrop-filter:blur(15px)}button{color:#fff;background:linear-gradient(130deg,#681127,#240912);border:1px solid #e44869;border-radius:30px;padding:10px 16px;cursor:pointer;font-size:11px;font-weight:750;letter-spacing:.04em}button:hover{background:#9b1d3a}#status{position:absolute;bottom:85px;left:50%;transform:translateX(-50%);white-space:nowrap;color:#b5a4ad;font-size:11px;letter-spacing:.19em;text-align:center}#hint{position:absolute;right:25px;top:25px;font-size:11px;color:#b3a0a8;letter-spacing:.08em;text-align:right}#fallback{display:none;position:fixed;inset:0;place-items:center;background:#060408;padding:30px;text-align:center;line-height:1.6}#fallback a{color:#ff718d}@media(max-width:600px){header{left:16px;top:14px;font-size:9px}header strong{font-size:12px}#hint{right:12px;top:72px;font-size:9px}#status{font-size:9px;width:95%;white-space:normal}button{font-size:10px;padding:10px}#controls{width:max-content;max-width:95%}}
-#deploymentUI{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(2,1,4,.76);opacity:0;pointer-events:none;transition:opacity .42s ease;z-index:10}#deploymentUI.open{opacity:1;pointer-events:auto}#deployWindow{position:relative;width:min(94vw,1200px);height:min(87vh,760px);border:3px solid rgba(190,27,65,.68);border-radius:24px;background:linear-gradient(135deg,#20050e,#050306 22%,#070407 78%,#250710);box-shadow:inset 0 0 22px rgba(170,14,49,.27),0 0 50px rgba(145,5,35,.22);padding:clamp(24px,5vw,65px);display:flex;flex-direction:column;justify-content:center}#deployWindow h1{font-size:clamp(40px,8vw,100px);margin:12px 0}#deployWindow p{color:#bba6ad}#returnAtrium{position:absolute;right:20px;top:20px;pointer-events:auto}#deploymentUI:not(.open) #returnAtrium{pointer-events:none}@media(prefers-reduced-motion:reduce){#deploymentUI{transition:none}}</style></head><body><div id="scene"></div><div id="hud"><header>FUNNELFLOW ASSIST / CRYSTAL EDITION<strong>THE CRYSTAL ATRIUM · V49.1 · DEPLOYMENT FIX</strong></header><div id="hint">3D CRYSTAL ARCHITECTURE<br>DRONE ARRIVAL → FRONTAGE VIEW</div><div id="status">CINEMATIC ARRIVAL IN PROGRESS</div><div id="controls"><button id="replay">↻ REPLAY FLIGHT</button><button id="skip">SKIP INTRO</button><button id="lights">RUBY GRID: ON</button></div></div><div id="deploymentUI" aria-hidden="true"><div id="deployWindow"><button id="returnAtrium">← BACK TO ATRIUM</button><small style="letter-spacing:.3em;color:#ff6280">CRYSTAL MODULE / DEPLOYED</small><h1>FUNNELS</h1><p>Interface placeholder — deployment animation test.</p></div></div><div id="fallback">The 3D engine could not load. This prototype needs internet access to load Three.js from its CDN.<br>Try opening the GitHub Pages version in Chrome or Edge.</div>
+#deploymentUI{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(2,1,4,.76);opacity:0;pointer-events:none;transition:opacity .42s ease;z-index:10}#deploymentUI.open{opacity:1;pointer-events:auto}#deployWindow{position:relative;width:min(94vw,1200px);height:min(87vh,760px);border:3px solid rgba(190,27,65,.68);border-radius:24px;background:linear-gradient(135deg,#20050e,#050306 22%,#070407 78%,#250710);box-shadow:inset 0 0 22px rgba(170,14,49,.27),0 0 50px rgba(145,5,35,.22);padding:clamp(24px,5vw,65px);display:flex;flex-direction:column;justify-content:center}#deployWindow h1{font-size:clamp(40px,8vw,100px);margin:12px 0}#deployWindow p{color:#bba6ad}#returnAtrium{position:absolute;right:20px;top:20px;pointer-events:auto}#deploymentUI:not(.open) #returnAtrium{pointer-events:none}@media(prefers-reduced-motion:reduce){#deploymentUI{transition:none}}</style></head><body><div id="scene"></div><div id="hud"><header>FUNNELFLOW ASSIST / CRYSTAL EDITION<strong>THE CRYSTAL ATRIUM · V49.3 · CABLE PUSH</strong></header><div id="hint">3D CRYSTAL ARCHITECTURE<br>DRONE ARRIVAL → FRONTAGE VIEW</div><div id="status">CINEMATIC ARRIVAL IN PROGRESS</div><div id="controls"><button id="replay">↻ REPLAY FLIGHT</button><button id="skip">SKIP INTRO</button><button id="lights">RUBY GRID: ON</button></div></div><div id="deploymentUI" aria-hidden="true"><div id="deployWindow"><button id="returnAtrium">← BACK TO ATRIUM</button><small style="letter-spacing:.3em;color:#ff6280">CRYSTAL MODULE / DEPLOYED</small><h1>FUNNELS</h1><p>Interface placeholder — deployment animation test.</p></div></div><div id="fallback">The 3D engine could not load. This prototype needs internet access to load Three.js from its CDN.<br>Try opening the GitHub Pages version in Chrome or Edge.</div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.1/three.min.js"></script><script>
 (()=>{if(!window.THREE){document.querySelector('#fallback').style.display='grid';return}const T=THREE,root=document.querySelector('#scene'),scene=new T.Scene();scene.background=new T.Color(0x020204);scene.fog=new T.FogExp2(0x030207,.017);const camera=new T.PerspectiveCamera(40,innerWidth/innerHeight,.1,400);const renderer=new T.WebGLRenderer({antialias:true,alpha:false,powerPreference:'high-performance'});renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,2.5));renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.3;root.appendChild(renderer.domElement);
 const ruby=0xff244b,bright=0xff5476,steel=0x9da1b3;const black=new T.MeshPhysicalMaterial({color:0x080910,metalness:.78,roughness:.15,clearcoat:1,clearcoatRoughness:.06});const glass=new T.MeshPhysicalMaterial({color:0x14121c,metalness:.45,roughness:.09,transparent:true,opacity:.86,clearcoat:1,clearcoatRoughness:.03,side:T.DoubleSide});const red=new T.MeshBasicMaterial({color:ruby});const white=new T.MeshBasicMaterial({color:0xdedce7});const gridGroup=new T.Group();scene.add(gridGroup);const ambient=new T.AmbientLight(0x8a7180,1.25);scene.add(ambient);const redLight=new T.PointLight(ruby,95,23,1.5);redLight.position.set(0,0.8,1);scene.add(redLight);const key=new T.PointLight(0xd4e5ff,105,38);key.position.set(-7,10,12);scene.add(key);const rim=new T.PointLight(0xff335c,65,30);rim.position.set(9,3,-5);scene.add(rim);
@@ -180,13 +180,16 @@ const electricPoint=new T.PointLight(0xff315a,0,5);core.add(electricPoint);
 let deployment=null;
 const deployUI=document.querySelector('#deploymentUI');
 const returnButton=document.querySelector('#returnAtrium');
-const deployDuration=2800;
+const deployDuration=2300;
 const ease=t=>t*t*(3-2*t);
 const smooth=t=>ease(T.MathUtils.clamp(t,0,1));
 const deployedCard=panels[1];
 const basePosition=deployedCard.g.position.clone(),baseQuaternion=deployedCard.g.quaternion.clone();
 const baseScale=deployedCard.g.scale.clone();
 const tempTarget=new T.Vector3(),tempQuat=new T.Quaternion();
+const fixedDeployTarget=new T.Vector3();
+const deployLookMatrix=new T.Matrix4();
+let cableLastProgress=-1;
 function cableAt(end){
  const c=cableParts[1],control1=c.c1.clone(),control2=c.c2.clone();
  // The sheath remains attached to the moving card mount throughout deployment.
@@ -199,14 +202,20 @@ function cableAt(end){
 }
 function beginDeploy(){
  if(playing||deployment)return;
+ // Snapshot the deployment destination once. The live parallax camera must not
+ // drag the selected card around or create a second camera flight.
+ const viewDirection=new T.Vector3();camera.getWorldDirection(viewDirection);
+ fixedDeployTarget.copy(camera.position).addScaledVector(viewDirection,3.9);
  deployment={start:performance.now(),reverse:false};
- pointerTarget.set(0,0);cardPointer.set(3,3);
+ cableLastProgress=-1;
+ cardPointer.set(3,3);
  status.textContent='CRYSTAL NETWORK · CHARGING';
 }
 function retract(){
  if(!deployment)return;
  deployUI.classList.remove('open');deployUI.setAttribute('aria-hidden','true');
  deployment={start:performance.now(),reverse:true};
+ cableLastProgress=-1;
 }
 returnButton.addEventListener('click',retract);
 root.addEventListener('click',e=>{
@@ -222,30 +231,36 @@ function updateDeployment(now){
  const elapsed=now-deployment.start;
  const phase=T.MathUtils.clamp(elapsed/deployDuration,0,1);
  const progress=deployment.reverse?1-phase:phase;
- const charge=deployment.reverse?0:smooth(progress/.20)*(1-smooth((progress-.37)/.18));
- electricMaterial.opacity=.02+charge*(.5+.24*Math.sin(now*.035));
- electricPoint.intensity=charge*7;
+ // One electrical ignition: a single flash, then sustained energy that feeds the cable.
+ const ignition=deployment.reverse?0:Math.sin(Math.PI*smooth(progress/.105))*(progress<.105?1:0);
+ const charge=deployment.reverse?0:smooth(progress/.085)*(1-smooth((progress-.26)/.12));
+ electricMaterial.opacity=.03+charge*.43+ignition*.25;
+ electricPoint.intensity=charge*3.4+ignition*2.5;
  cage.material.opacity=.075+charge*.18;
  outer.material.opacity=.045+charge*.13;
- const pulsePhase=deployment.reverse?-1:(progress-.19)/.19;
+ const pulsePhase=deployment.reverse?-1:(progress-.105)/.255;
  const p=opticPulses[1];
  if(pulsePhase>=0&&pulsePhase<=1){p.pulse.position.copy(cableParts[1].curve.getPoint(smooth(pulsePhase)));p.pulse.scale.setScalar(2.8);p.pulse.material.opacity=1;}
  else p.pulse.material.opacity=0;
- const extension=smooth((progress-.36)/.48);
+ const extension=smooth((progress-.34)/.53);
  // Push in camera direction, with no camera flight. Front of card faces viewer.
- const forward=new T.Vector3();camera.getWorldDirection(forward);
- tempTarget.copy(camera.position).addScaledVector(forward,3.6);
- deployedCard.g.position.copy(basePosition).lerp(tempTarget,extension);
- tempQuat.setFromRotationMatrix(new T.Matrix4().lookAt(deployedCard.g.position,camera.position,new T.Vector3(0,1,0)));
- deployedCard.g.quaternion.copy(baseQuaternion).slerp(tempQuat,extension);
- deployedCard.g.scale.copy(baseScale).multiplyScalar(1+extension*.45);
- deployedCard.g.updateMatrixWorld(true);
- const end=deployedCard.g.localToWorld(new T.Vector3(0,1.14,-.21));
- cableAt(end);
+ // Only the card moves. The camera stays at its frontage-view position.
+ // Use a fixed destination in front of the visitor, not the camera's
+ // continuously changing transform.
+ if(Math.abs(extension-cableLastProgress)>0.0001){
+   deployedCard.g.position.copy(basePosition).lerp(fixedDeployTarget,extension);
+   deployLookMatrix.lookAt(deployedCard.g.position,camera.position,new T.Vector3(0,1,0));
+   tempQuat.setFromRotationMatrix(deployLookMatrix);
+   deployedCard.g.quaternion.copy(baseQuaternion).slerp(tempQuat,extension);
+   deployedCard.g.scale.copy(baseScale).multiplyScalar(1+extension*.12);
+   deployedCard.g.updateMatrixWorld(true);
+   cableAt(deployedCard.g.localToWorld(new T.Vector3(0,1.14,-.21)));
+   cableLastProgress=extension;
+ }
  const show=progress>.83&&!deployment.reverse;
  if(show&&!deployUI.classList.contains('open')){deployUI.classList.add('open');deployUI.setAttribute('aria-hidden','false');}
  if(phase>=1){
-   if(deployment.reverse){deployment=null;deployedCard.g.position.copy(basePosition);deployedCard.g.quaternion.copy(baseQuaternion);deployedCard.g.scale.copy(baseScale);deployedCard.g.updateMatrixWorld(true);cableAt(deployedCard.g.localToWorld(new T.Vector3(0,1.14,-.21)));cage.material.opacity=.075;outer.material.opacity=.045;status.textContent='INTERIOR VIEW · SELECT A CRYSTAL CARD';}
+   if(deployment.reverse){deployment=null;cableLastProgress=-1;deployedCard.g.position.copy(basePosition);deployedCard.g.quaternion.copy(baseQuaternion);deployedCard.g.scale.copy(baseScale);deployedCard.g.updateMatrixWorld(true);cableAt(deployedCard.g.localToWorld(new T.Vector3(0,1.14,-.21)));cage.material.opacity=.075;outer.material.opacity=.045;electricMaterial.opacity=0;electricPoint.intensity=0;status.textContent='INTERIOR VIEW · SELECT A CRYSTAL CARD';}
    else status.textContent='FUNNELS · MODULE DEPLOYED';
  }
  return true;
@@ -434,8 +449,11 @@ if(finePointer){
 function applySpatialParallax(){
   pointerSmooth.lerp(pointerTarget,.045);
   // Small sideways and vertical camera travel reveals genuine 3D depth.
-  camera.position.x+=pointerSmooth.x*.78;
-  camera.position.y-=pointerSmooth.y*.42;
+  // Re-anchor each frame: additive offsets used to accumulate without bound,
+  // making the scene appear to fly through cards during deployment.
+  camAt(FLIGHT_DURATION);
+  camera.position.x+=pointerSmooth.x*.30;
+  camera.position.y-=pointerSmooth.y*.18;
   camera.lookAt(pointerSmooth.x*.16,.35-pointerSmooth.y*.12,1.4);
 }
 function camAt(t){
@@ -448,9 +466,9 @@ document.querySelector('#skip').onclick=()=>{if(deployment)return;playing=false;
 document.querySelector('#lights').onclick=()=>{gridOn=!gridOn;gridGroup.visible=gridOn;document.querySelector('#lights').textContent='RUBY GRID: '+(gridOn?'ON':'OFF')};
 function animate(now){requestAnimationFrame(animate);advanceWarp(now);const t=(now-start)/1000;
 if(playing){camAt(Math.min(t,FLIGHT_DURATION));status.textContent=t<FLIGHT_DURATION?'DRONE FLIGHT · '+Math.round(Math.min(t/FLIGHT_DURATION,1)*100)+'%':'INTERIOR VIEW · INWARD-FACING CRYSTAL PANELS';if(t>=FLIGHT_DURATION)playing=false}
-else{camAt(FLIGHT_DURATION);if(finePointer&&!deployment)applySpatialParallax()}
+else{if(finePointer)applySpatialParallax()}
 opticPulses.forEach(({pulse,curve,offset},i)=>{
-  if(i===1&&deployment)return;
+  if(i===1&&deployment){if(deployment.reverse)pulse.material.opacity=0;return;}
   const phase=(now*.000065+offset)%1;
   pulse.position.copy(curve.getPoint(phase));
   pulse.material.opacity=.35+.45*Math.sin(Math.PI*phase);
