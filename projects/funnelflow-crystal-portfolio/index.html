@@ -154,27 +154,10 @@ function makeCrystalCard(group,w,h,isGlassTest=false){
   // V48.5: all five cards use the tested crystal bevel glass material.
   const rubyGlassBody=new T.MeshPhysicalMaterial({color:0x7b1732,metalness:0,roughness:.105,transmission:.88,thickness:.95,ior:1.52,attenuationColor:new T.Color(0x8b0926),attenuationDistance:1.35,clearcoat:1,clearcoatRoughness:.045,emissive:0x8a0820,emissiveIntensity:.075,side:T.FrontSide,depthWrite:true});
   const body=new T.Mesh(geo,isGlassTest?rubyGlassBody:crystalMat);body.position.z=-.24;group.add(body);
-  // V19 Ruby +20: localized view-dependent ruby reflection on the existing bevel.
-  // Uses V19's Fresnel/pools/side response, without any moving spotlight or outline.
-  if(isGlassTest){
-    const v19Ruby=new T.ShaderMaterial({
-      uniforms:{uPower:{value:.24}},
-      vertexShader:`varying vec3 vNormal;varying vec3 vView;varying vec3 vPosition;
-        void main(){vec4 worldPos=modelMatrix*vec4(position,1.0);vPosition=position;
-        vNormal=normalize(mat3(modelMatrix)*normal);vView=normalize(cameraPosition-worldPos.xyz);
-        gl_Position=projectionMatrix*viewMatrix*worldPos;}`,
-      fragmentShader:`uniform float uPower;varying vec3 vNormal;varying vec3 vView;varying vec3 vPosition;
-        void main(){float fresnel=pow(1.0-abs(dot(normalize(vNormal),normalize(vView))),3.2);
-        float pools=.48+.27*sin(vPosition.x*1.7+1.2)+.19*sin(vPosition.x*4.3-1.0);
-        float side=.55+.45*smoothstep(.30,.75,abs(vPosition.y));
-        float strength=clamp(fresnel*(.68+pools)*side*uPower*1.85,0.0,.86);
-        vec3 ruby=mix(vec3(.48,.001,.012),vec3(1.0,.10,.055),clamp(pools,0.0,1.0));
-        gl_FragColor=vec4(ruby,strength);}`,
-      transparent:true,depthWrite:false,depthTest:true,side:T.FrontSide,blending:T.AdditiveBlending
-    });
-    const reflection=new T.Mesh(geo,v19Ruby);reflection.position.z=-.24;reflection.renderOrder=7;
-    group.add(reflection);group.userData.v19Ruby=v19Ruby;
-  }
+  // V50.8: removed the duplicate co-planar ruby reflection shell.
+  // The single hover reflection pass below handles standby + hover lighting.
+  // Two transparent overlays on identical geometry caused depth sorting shimmer
+  // during the drone's oblique camera angles.
   const insetMaterial=isGlassTest
     ?new T.MeshPhysicalMaterial({color:0x030305,metalness:.14,roughness:.11,clearcoat:1,clearcoatRoughness:.03,envMapIntensity:1.1,depthWrite:true,side:T.DoubleSide})
     :new T.MeshBasicMaterial({color:0x060408,depthWrite:true});
@@ -515,8 +498,8 @@ const hoverReflections=panels.map(p=>{
         gl_FragColor=vec4(vec3(.96,.025,.065),strength);
       }`;
     material.polygonOffset=true;
-    material.polygonOffsetFactor=-3;
-    material.polygonOffsetUnits=-3;
+    material.polygonOffsetFactor=-1;
+    material.polygonOffsetUnits=-1;
     material.needsUpdate=true;
   }
   const reflection=new T.Mesh(body.geometry,material);
@@ -524,6 +507,7 @@ const hoverReflections=panels.map(p=>{
   reflection.rotation.copy(body.rotation);
   reflection.scale.copy(body.scale);
   reflection.renderOrder=6;
+  reflection.frustumCulled=false;
   reflection.raycast=()=>{};
   p.g.add(reflection);
   return material;
