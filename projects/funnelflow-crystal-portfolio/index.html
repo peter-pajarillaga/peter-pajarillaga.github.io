@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>FunnelFlow Crystal Console</title><style>html,body{margin:0;background:#050507;min-height:100%;overflow:hidden}</style></head><body>
+<title>FunnelFlow Crystal Console — V15 Reactive Ruby</title><style>html,body{margin:0;background:#050507;min-height:100%;overflow:hidden}</style></head><body>
 <!-- FunnelFlow crystal console — ClickFunnels Custom HTML/JS element -->
 <style>*{box-sizing:border-box}#ff-crystal-console{color:#f4f4f5;font:14px system-ui,sans-serif}#ff-crystal-console .ff-stage{height:100%;min-height:560px;position:relative;overflow:hidden;background:radial-gradient(ellipse at 54% 48%,#1c1d21 0%,#0b0b0e 55%,#020204 100%)}#ff-crystal-console canvas{display:block;width:100%;height:100%;touch-action:pan-y}#ff-crystal-console .ui{position:absolute;left:clamp(16px,4vw,48px);top:30px;pointer-events:none}#ff-crystal-console .ui small{letter-spacing:.22em;color:#a1a2aa}#ff-crystal-console .ui h1{font-size:clamp(22px,3vw,34px);margin:10px 0 4px;letter-spacing:-.04em}#ff-crystal-console .ui p{color:#9c9ca4;font-size:12px}#ff-crystal-console .controls{position:absolute;bottom:25px;left:50%;transform:translateX(-50%);display:flex;gap:12px;background:#111216e8;border:1px solid #34343a;border-radius:40px;padding:9px 14px;align-items:center;white-space:nowrap}#ff-crystal-console button{background:#24252a;color:white;border:1px solid #505158;border-radius:22px;padding:10px 18px;cursor:pointer}#ff-crystal-console button[aria-pressed=true]{background:#85101a;border-color:#ff5360}#ff-crystal-console label{color:#bbb;font-size:12px}#ff-crystal-console input{accent-color:#e11a2a;width:95px}@media(max-width:530px){#ff-crystal-console .controls{width:calc(100% - 20px);justify-content:center;flex-wrap:wrap;bottom:15px}#ff-crystal-console .ui{top:15px}#ff-crystal-console .ui p{max-width:250px}}
 #ff-crystal-console{width:100%;isolation:isolate}#ff-crystal-console .ff-stage{height:640px;min-height:520px}#ff-crystal-console canvas{touch-action:none}
 </style>
-<div id="ff-crystal-console"><div class="ff-stage" id="stage"><div class="ui"><small>FUNNELFLOW / CRYSTAL CONSOLE</small><h1>CRYSTAL CONTROL PANEL</h1><p>Select a crystal · drag to inspect · V14 glass</p></div><div class="controls"><button id="toggle" aria-pressed="true">Ruby light: ON</button><label for="power">Intensity</label><input id="power" type="range" min="0" max="100" value="80"></div></div><div class="ff-error" hidden style="background:#41131b;color:#fff;padding:12px"></div></div>
+<div id="ff-crystal-console"><div class="ff-stage" id="stage"><div class="ui"><small>FUNNELFLOW / CRYSTAL CONSOLE</small><h1>CRYSTAL CONTROL PANEL</h1><p>Select a crystal · drag to inspect · V15 reactive ruby / V14 glass</p></div><div class="controls"><button id="toggle" aria-pressed="true">Ruby light: ON</button><label for="power">Intensity</label><input id="power" type="range" min="0" max="100" value="80"></div></div><div class="ff-error" hidden style="background:#41131b;color:#fff;padding:12px"></div></div>
 <script>
 (function(){
  const root=document.getElementById('ff-crystal-console');
@@ -91,17 +91,35 @@ const floor=new THREE.Mesh(new THREE.PlaneGeometry(70,34),new THREE.MeshPhysical
  color:0x09090d,metalness:.5,roughness:.26,transparent:true,opacity:.9
 }));
 floor.position.z=-.88;floor.renderOrder=-2;assembly.add(floor);
-function redHalo(x,y,w,h,opacity){
- const cv=document.createElement('canvas');cv.width=128;cv.height=128;
- const c=cv.getContext('2d'),g=c.createRadialGradient(64,64,0,64,64,64);
- g.addColorStop(0,'rgba(255,17,28,.95)');g.addColorStop(.26,'rgba(255,7,22,.48)');g.addColorStop(1,'rgba(255,0,0,0)');
- c.fillStyle=g;c.fillRect(0,0,128,128);
- const m=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({
- map:new THREE.CanvasTexture(cv),transparent:true,opacity,depthWrite:false,blending:THREE.AdditiveBlending
- }));m.position.set(x,y,-.85);m.renderOrder=1;assembly.add(m);
-}
-redHalo(0,0,24,7,.34);
-redHalo(-7.5,-2.05,8,3,.55);redHalo(7.7,-2.05,8,3,.55);
+ // V15: physically positioned ruby spill follows the selected crystal.
+ // The rear pool illuminates the far edge; the front pool spills onto the floor.
+ function createRubyPool(w,h,z){
+  const cv=document.createElement('canvas');cv.width=256;cv.height=256;
+  const ctx=cv.getContext('2d');
+  const gradient=ctx.createRadialGradient(128,128,0,128,128,128);
+  gradient.addColorStop(0,'rgba(255,35,48,.94)');
+  gradient.addColorStop(.22,'rgba(235,9,30,.60)');
+  gradient.addColorStop(.56,'rgba(160,0,22,.19)');
+  gradient.addColorStop(1,'rgba(100,0,12,0)');
+  ctx.fillStyle=gradient;ctx.fillRect(0,0,256,256);
+  const texture=new THREE.CanvasTexture(cv);
+  const material=new THREE.MeshBasicMaterial({map:texture,transparent:true,opacity:0,
+   depthWrite:false,depthTest:false,blending:THREE.AdditiveBlending,
+   toneMapped:false,side:THREE.DoubleSide});
+  const mesh=new THREE.Mesh(new THREE.PlaneGeometry(w,h),material);
+  mesh.position.z=z;mesh.renderOrder=1;assembly.add(mesh);
+  return mesh;
+ }
+ // In assembly coordinates positive Y is the back edge of the console.
+ // Two independently shaped pools produce a convincing backlight and floor reflection.
+ const rearRuby=createRubyPool(8.7,3.8,-.825);
+ const frontRuby=createRubyPool(9.2,4.4,-.835);
+ const contactRuby=createRubyPool(6.2,2.5,-.805);
+ const rubyPools=[rearRuby,frontRuby,contactRuby];
+ rubyPools.forEach(m=>m.position.x=0);
+ rearRuby.position.y=2.02;
+ frontRuby.position.y=-2.45;
+ contactRuby.position.y=-.85;
 // Build three buttons using the exact approved V14 material.
 const sharedBodyGeometry=extrude(5.9,1.65,.56,.20);
 const sharedFaceGeometry=extrude(5.25,1.06,.07,.055);
