@@ -1,14 +1,18 @@
-# FunnelFlow Assist — Crystal Edition V24
+# FunnelFlow Assist — Crystal Edition V25
 
-Site-wide V19-inspired black/ruby crystal treatment. The standalone console demo
-has been removed from the homepage; the original portfolio hero, screenshots,
-projects, systems, tools, About and contact content remain.
+A new visual architecture inspired by the approved V14/V19 Three.js crystal console, not a recolor of the original homepage.
 
-Upload these files to `projects/funnelflow-crystal-portfolio/`:
-- `index.html` (replace)
-- `crystal-theme.css` (new)
+## Deploy
+Upload these **five files** to `projects/funnelflow-crystal-portfolio/`:
+- `index.html`
+- `crystal.css`
+- `crystal.js`
+- `README.md`
+- `console/index.html` (inside the console folder)
 
-Keep existing `console/` folder as a separate preserved experiment. Do not
-modify the repository root `index.html`, `style.css`, assets, or inquiry page.
+Existing root `/assets` images and `/inquiry.html` are reused, not overwritten. Keep the original turquoise root portfolio unchanged.
 
-The site uses existing shared root assets and styles via relative paths.
+The crystal console uses Three.js 0.164.1 from jsDelivr, requiring an internet connection. The project screenshots link to the original full-size image files. The hero's 3D console buttons navigate to Work, Systems, and Tools. The intro camera animates toward a face-on view. Accessibility: reduced motion supported for site transitions; the 3D intro itself is currently animated.
+
+## Notes
+This is a first integration prototype. Validate in Chrome, Safari, and mobile before publishing as the primary client-facing site.
