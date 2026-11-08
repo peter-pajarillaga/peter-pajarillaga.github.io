@@ -1,21 +1,96 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>FunnelFlow — Crystal Atrium V29</title><style>
+ <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>FunnelFlow — Crystal Atrium V43</title><style>
 :root{color-scheme:dark}*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#020204;color:#f6f2f4;font-family:Inter,Arial,sans-serif}canvas{display:block}#scene{position:fixed;inset:0}#hud{position:fixed;inset:0;pointer-events:none}header{position:absolute;top:22px;left:30px;letter-spacing:.2em;font-size:11px;color:#b6a5ad}header strong{display:block;margin-top:8px;font-size:17px;letter-spacing:.08em;color:white}#controls{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);display:flex;gap:10px;pointer-events:auto;align-items:center;background:rgba(7,7,12,.78);border:1px solid #5c2736;border-radius:40px;padding:9px 12px;backdrop-filter:blur(15px)}button{color:#fff;background:linear-gradient(130deg,#681127,#240912);border:1px solid #e44869;border-radius:30px;padding:10px 16px;cursor:pointer;font-size:11px;font-weight:750;letter-spacing:.04em}button:hover{background:#9b1d3a}#status{position:absolute;bottom:85px;left:50%;transform:translateX(-50%);white-space:nowrap;color:#b5a4ad;font-size:11px;letter-spacing:.19em;text-align:center}#hint{position:absolute;right:25px;top:25px;font-size:11px;color:#b3a0a8;letter-spacing:.08em;text-align:right}#fallback{display:none;position:fixed;inset:0;place-items:center;background:#060408;padding:30px;text-align:center;line-height:1.6}#fallback a{color:#ff718d}@media(max-width:600px){header{left:16px;top:14px;font-size:9px}header strong{font-size:12px}#hint{right:12px;top:72px;font-size:9px}#status{font-size:9px;width:95%;white-space:normal}button{font-size:10px;padding:10px}#controls{width:max-content;max-width:95%}}
-</style></head><body><div id="scene"></div><div id="hud"><header>FUNNELFLOW ASSIST / CRYSTAL EDITION<strong>THE CRYSTAL ATRIUM · V29</strong></header><div id="hint">3D CRYSTAL ARCHITECTURE<br>DRONE ARRIVAL → FRONTAGE VIEW</div><div id="status">CINEMATIC ARRIVAL IN PROGRESS</div><div id="controls"><button id="replay">↻ REPLAY FLIGHT</button><button id="skip">SKIP INTRO</button><button id="lights">RUBY GRID: ON</button></div></div><div id="fallback">The 3D engine could not load. This prototype needs internet access to load Three.js from its CDN.<br>Try opening the GitHub Pages version in Chrome or Edge.</div>
+</style></head><body><div id="scene"></div><div id="hud"><header>FUNNELFLOW ASSIST / CRYSTAL EDITION<strong>THE CRYSTAL ATRIUM · V43</strong></header><div id="hint">3D CRYSTAL ARCHITECTURE<br>DRONE ARRIVAL → FRONTAGE VIEW</div><div id="status">CINEMATIC ARRIVAL IN PROGRESS</div><div id="controls"><button id="replay">↻ REPLAY FLIGHT</button><button id="skip">SKIP INTRO</button><button id="lights">RUBY GRID: ON</button></div></div><div id="fallback">The 3D engine could not load. This prototype needs internet access to load Three.js from its CDN.<br>Try opening the GitHub Pages version in Chrome or Edge.</div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.1/three.min.js"></script><script>
-(()=>{if(!window.THREE){document.querySelector('#fallback').style.display='grid';return}const T=THREE,root=document.querySelector('#scene'),scene=new T.Scene();scene.background=new T.Color(0x020204);scene.fog=new T.FogExp2(0x030207,.017);const camera=new T.PerspectiveCamera(40,innerWidth/innerHeight,.1,400);const renderer=new T.WebGLRenderer({antialias:true,alpha:false,powerPreference:'high-performance'});renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.3;root.appendChild(renderer.domElement);
+(()=>{if(!window.THREE){document.querySelector('#fallback').style.display='grid';return}const T=THREE,root=document.querySelector('#scene'),scene=new T.Scene();scene.background=new T.Color(0x020204);scene.fog=new T.FogExp2(0x030207,.017);const camera=new T.PerspectiveCamera(40,innerWidth/innerHeight,.1,400);const renderer=new T.WebGLRenderer({antialias:true,alpha:false,powerPreference:'high-performance'});renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,2.5));renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.3;root.appendChild(renderer.domElement);
 const ruby=0xff244b,bright=0xff5476,steel=0x9da1b3;const black=new T.MeshPhysicalMaterial({color:0x080910,metalness:.78,roughness:.15,clearcoat:1,clearcoatRoughness:.06});const glass=new T.MeshPhysicalMaterial({color:0x14121c,metalness:.45,roughness:.09,transparent:true,opacity:.86,clearcoat:1,clearcoatRoughness:.03,side:T.DoubleSide});const red=new T.MeshBasicMaterial({color:ruby});const white=new T.MeshBasicMaterial({color:0xdedce7});const gridGroup=new T.Group();scene.add(gridGroup);const ambient=new T.AmbientLight(0x8a7180,1.25);scene.add(ambient);const redLight=new T.PointLight(ruby,95,23,1.5);redLight.position.set(0,0.8,1);scene.add(redLight);const key=new T.PointLight(0xd4e5ff,105,38);key.position.set(-7,10,12);scene.add(key);const rim=new T.PointLight(0xff335c,65,30);rim.position.set(9,3,-5);scene.add(rim);
 function line(points,color=ruby,opacity=1){const geo=new T.BufferGeometry().setFromPoints(points.map(p=>new T.Vector3(...p)));return new T.Line(geo,new T.LineBasicMaterial({color,transparent:opacity<1,opacity}))}function ring(radius,y,color=ruby,tube=.017){const mesh=new T.Mesh(new T.TorusGeometry(radius,tube,7,128),new T.MeshBasicMaterial({color}));mesh.rotation.x=Math.PI/2;mesh.position.y=y;return mesh}function sphere(r,material){return new T.Mesh(new T.SphereGeometry(r,32,24),material)}function rounded(w,h,r=.24){const s=new T.Shape();s.moveTo(-w/2+r,-h/2);s.lineTo(w/2-r,-h/2);s.quadraticCurveTo(w/2,-h/2,w/2,-h/2+r);s.lineTo(w/2,h/2-r);s.quadraticCurveTo(w/2,h/2,w/2-r,h/2);s.lineTo(-w/2+r,h/2);s.quadraticCurveTo(-w/2,h/2,-w/2,h/2-r);s.lineTo(-w/2,-h/2+r);s.quadraticCurveTo(-w/2,-h/2,-w/2+r,-h/2);return s}
 // Ruby barrier grids, far behind the architecture.
 function gridPlane(w,h,step,axis,offset){let pts=[];for(let x=-w/2;x<=w/2+.01;x+=step)pts.push([x,-h/2,0],[x,h/2,0]);for(let y=-h/2;y<=h/2+.01;y+=step)pts.push([-w/2,y,0],[w/2,y,0]);const g=new T.BufferGeometry().setFromPoints(pts.map(p=>new T.Vector3(...p)));const mesh=new T.LineSegments(g,new T.LineBasicMaterial({color:0x9e1735,transparent:true,opacity:.44,depthWrite:false}));if(axis==='back')mesh.position.set(0,0,offset);if(axis==='floor'){mesh.rotation.x=-Math.PI/2;mesh.position.y=offset}if(axis==='left'){mesh.rotation.y=Math.PI/2;mesh.position.x=offset}if(axis==='right'){mesh.rotation.y=-Math.PI/2;mesh.position.x=offset}gridGroup.add(mesh)}gridPlane(42,19,1.5,'back',-18);gridPlane(42,40,1.5,'floor',-4.1);gridPlane(40,19,1.5,'left',-20);gridPlane(40,19,1.5,'right',20);
-// Floor pedestal: solid black crystal with ruby illuminated rings.
-const pedestal=new T.Group();pedestal.position.y=-3.05;scene.add(pedestal);[ [2.65,.32,-.32],[2.25,.25,-.05],[1.8,.17,.22] ].forEach(([r,h,y])=>{const m=new T.Mesh(new T.CylinderGeometry(r,r+.1,h,96),black);m.position.y=y;pedestal.add(m);pedestal.add(ring(r+.025,y+h/2+.008,ruby,.022))});[.8,1.35,1.93,2.5].forEach((r,i)=>pedestal.add(ring(r,.34-i*.12,i===0?bright:ruby,.011)));const disc=new T.Mesh(new T.CylinderGeometry(.7,.7,.08,72),new T.MeshBasicMaterial({color:0x41071a}));disc.position.y=.34;pedestal.add(disc);
-// Core: outer ruby crystalline cage + faceted inner diamond.
-const core=new T.Group();core.position.set(0,.05,0);scene.add(core);const cage=new T.Mesh(new T.IcosahedronGeometry(1.55,2),new T.MeshBasicMaterial({color:0x9d1737,wireframe:true,transparent:true,opacity:.57}));core.add(cage);const outer=new T.Mesh(new T.IcosahedronGeometry(1.83,1),new T.MeshBasicMaterial({color:0x76132a,wireframe:true,transparent:true,opacity:.35}));core.add(outer);const jewel=new T.Mesh(new T.OctahedronGeometry(.96,0),new T.MeshPhysicalMaterial({color:0x3a0713,metalness:.62,roughness:.06,clearcoat:1,emissive:0xd90c3b,emissiveIntensity:.55,flatShading:true}));core.add(jewel);const jewelWire=new T.LineSegments(new T.EdgesGeometry(jewel.geometry),new T.LineBasicMaterial({color:0xff5d7c}));jewel.add(jewelWire);const coreLamp=new T.PointLight(0xff3156,40,12);core.add(coreLamp);const coreHalo=ring(2.04,0,0xa61a38,.012);core.add(coreHalo);
+// V43 pedestal: one coherent stepped solid, with only fine integrated edge accents.
+const pedestal=new T.Group();pedestal.position.y=-3.05;scene.add(pedestal);
+const stageSolid=new T.MeshPhysicalMaterial({color:0x260611,metalness:.44,roughness:.19,clearcoat:1,clearcoatRoughness:.09,depthWrite:true,transparent:false});
+const stageTop=new T.MeshPhysicalMaterial({color:0x400817,metalness:.34,roughness:.15,clearcoat:1,clearcoatRoughness:.07,depthWrite:true,transparent:false});
+const stageEdgeMat=new T.MeshBasicMaterial({color:0xa91c3d,transparent:true,opacity:.64,depthWrite:false});
+const stageLevels=[[2.65,.30,-.32],[2.23,.23,-.055],[1.78,.16,.18]];
+stageLevels.forEach(([r,h,y],i)=>{
+  const shell=new T.Mesh(new T.CylinderGeometry(r,r+.045,h,192,1,false),[stageSolid,stageTop,stageSolid]);
+  shell.position.y=y;pedestal.add(shell);
+  const edge=new T.Mesh(new T.TorusGeometry(r-.022,.009,12,256),stageEdgeMat);
+  edge.rotation.x=Math.PI/2;edge.position.y=y+h/2+.003;pedestal.add(edge);
+});
+const cap=new T.Mesh(new T.CylinderGeometry(.72,.72,.014,192),stageTop);
+cap.position.y=.27;pedestal.add(cap);
+// V39 — restored double-pyramid octahedron with V38 optical ruby material.
+const core=new T.Group();core.position.set(0,.05,0);scene.add(core);
+const cage=new T.Mesh(new T.IcosahedronGeometry(1.55,2),new T.MeshBasicMaterial({color:0x8c1834,wireframe:true,transparent:true,opacity:.075,depthWrite:false}));core.add(cage);
+const outer=new T.Mesh(new T.IcosahedronGeometry(1.83,1),new T.MeshBasicMaterial({color:0x72152c,wireframe:true,transparent:true,opacity:.045,depthWrite:false}));core.add(outer);
+// An octahedron is precisely two square-based pyramids joined base to base.
+// Explicit vertices keep the vertical tips and four equatorial corners fixed.
+const apex=1.42, equator=1.13;
+const vertices=[
+  [0,apex,0],[equator,0,0],[0,0,equator],[-equator,0,0],[0,0,-equator],[0,-apex,0]
+];
+const triangles=[[0,2,1],[0,3,2],[0,4,3],[0,1,4],
+                 [5,1,2],[5,2,3],[5,3,4],[5,4,1]];
+function makeOctahedronGeometry(scale=1){
+  const positions=[];
+  for(const face of triangles) for(const idx of face){const v=vertices[idx];positions.push(v[0]*scale,v[1]*scale,v[2]*scale)}
+  const geo=new T.BufferGeometry();
+  geo.setAttribute('position',new T.Float32BufferAttribute(positions,3));
+  geo.computeVertexNormals();return geo;
+}
+const diamondGeo=makeOctahedronGeometry();
+const opticalShell=new T.MeshPhysicalMaterial({color:0x39070f,metalness:0,roughness:.055,transmission:.91,thickness:1.8,ior:1.54,clearcoat:1,clearcoatRoughness:.025,attenuationColor:new T.Color(0x8e0a20),attenuationDistance:1.9,side:T.FrontSide,depthWrite:true,flatShading:true});
+const jewel=new T.Mesh(diamondGeo,opticalShell);jewel.renderOrder=3;core.add(jewel);
+const rubyInterior=new T.Group();jewel.add(rubyInterior);
+// Dim inner volume gives the faceted glass optical depth without opaque fill.
+const innerVolume=new T.Mesh(makeOctahedronGeometry(.89),new T.MeshPhysicalMaterial({color:0x570715,metalness:0,roughness:.07,transmission:.94,thickness:.65,ior:1.49,transparent:true,opacity:.22,side:T.DoubleSide,depthWrite:false,flatShading:true}));rubyInterior.add(innerVolume);
+// Geometrically attached reflections: diagonal facet highlights, never floating rods.
+const facetMaterial=new T.MeshBasicMaterial({color:0xff2545,transparent:true,opacity:.085,side:T.DoubleSide,depthWrite:false});
+function facet(points,material){const geo=new T.BufferGeometry();geo.setAttribute('position',new T.Float32BufferAttribute(points.flat(),3));geo.computeVertexNormals();const mesh=new T.Mesh(geo,material);rubyInterior.add(mesh);return mesh;}
+facet([[0,apex*.92,0],[equator*.83,0,0],[0,0,equator*.83]],facetMaterial);
+facet([[0,-apex*.92,0],[0,0,equator*.83],[-equator*.83,0,0]],facetMaterial);
+// The exact eight triangular faces share twelve crisp, luminous edges.
+const edgeGeometry=new T.EdgesGeometry(diamondGeo,12);
+const facetEdges=new T.LineSegments(edgeGeometry,new T.LineBasicMaterial({color:0xff5771,transparent:true,opacity:.7,depthWrite:false}));facetEdges.renderOrder=4;jewel.add(facetEdges);
+const edgeEcho=new T.LineSegments(edgeGeometry,new T.LineBasicMaterial({color:0xf5153c,transparent:true,opacity:.17,depthWrite:false}));edgeEcho.scale.setScalar(.986);jewel.add(edgeEcho);
+const rearRubyLamp=new T.PointLight(0xff1233,110,7,1.8);rearRubyLamp.position.set(-.65,.55,-1.55);core.add(rearRubyLamp);
+const upperRubyLamp=new T.PointLight(0xff4560,38,5,1.7);upperRubyLamp.position.set(.85,1.1,-1.15);core.add(upperRubyLamp);
+const coreLamp=new T.PointLight(0xff2440,12,8);coreLamp.position.set(0,.05,-.65);core.add(coreLamp);
+const coreHalo=ring(2.04,0,0xa61a38,.008);core.add(coreHalo);
+// V40: Physical faceted ruby perimeter geometry, leaving a dark readable center.
+const rubyFacetMaterials=[0x3b0714,0x650b20,0x8e1029,0xb91939,0xe72a4c,0x4b0718].map((color,i)=>new T.MeshPhysicalMaterial({color,metalness:.28,roughness:.09,clearcoat:1,clearcoatRoughness:.025,transparent:true,opacity:i===4?.9:.78,side:T.DoubleSide,depthWrite:false}));
+function rubyTriangle(group,a,b,c,idx,z=.18){const geometry=new T.BufferGeometry();geometry.setAttribute('position',new T.Float32BufferAttribute([...a,...b,...c],3));geometry.computeVertexNormals();const mesh=new T.Mesh(geometry,rubyFacetMaterials[idx%rubyFacetMaterials.length]);mesh.position.z=z;mesh.renderOrder=2;group.add(mesh)}
+function addDiamondRim(group,w=3.65,h=2.12){const x=w/2,y=h/2,ix=x-.34,iy=y-.28;const outer=[[-x+.19,y],[x-.19,y],[x,y-.17],[x,-y+.17],[x-.19,-y],[-x+.19,-y],[-x,-y+.17],[-x,y-.17]];const inner=[[-ix+.17,iy],[ix-.17,iy],[ix,iy-.13],[ix,-iy+.13],[ix-.17,-iy],[-ix+.17,-iy],[-ix,-iy+.13],[-ix,iy-.13]];for(let i=0;i<8;i++){const j=(i+1)%8;const mid=[(outer[i][0]+outer[j][0])*.5,(outer[i][1]+outer[j][1])*.5,.02];rubyTriangle(group,[...outer[i],0],[...outer[j],0],[...inner[j],0],i);rubyTriangle(group,[...outer[i],0],[...inner[j],0],[...inner[i],0],i+3);rubyTriangle(group,[...outer[i],0],mid,[...inner[i],0],i+4,.195)}const outline=new T.LineLoop(new T.BufferGeometry().setFromPoints(outer.map(p=>new T.Vector3(p[0],p[1],.205))),new T.LineBasicMaterial({color:0xff4968,transparent:true,opacity:.92,depthWrite:false}));outline.renderOrder=3;group.add(outline);const innerOutline=new T.LineLoop(new T.BufferGeometry().setFromPoints(inner.map(p=>new T.Vector3(p[0],p[1],.207))),new T.LineBasicMaterial({color:0xe92950,transparent:true,opacity:.52,depthWrite:false}));innerOutline.renderOrder=3;group.add(innerOutline)}
+// The pedestal has actual low-poly crystal bands rather than a flat black cylinder.
+function addPedestalFacets(){for(const [radius,height,y] of [[2.65,.32,-.32],[2.25,.25,-.05],[1.8,.17,.22]]){const segments=32;for(let i=0;i<segments;i++){const a=i*2*Math.PI/segments,b=(i+1)*2*Math.PI/segments;const p=(r,t,yy)=>[r*Math.cos(t),yy,r*Math.sin(t)];const top=y+height/2,bottom=y-height/2;const g=new T.BufferGeometry();const verts=[...p(radius,a,bottom),...p(radius,b,bottom),...p(radius,a,top),...p(radius,b,bottom),...p(radius,b,top),...p(radius,a,top)];g.setAttribute('position',new T.Float32BufferAttribute(verts,3));g.computeVertexNormals();const mat=rubyFacetMaterials[(i*7+Math.floor(radius*10))%rubyFacetMaterials.length];const mesh=new T.Mesh(g,mat);mesh.renderOrder=1;pedestal.add(mesh)}}}
+// V41: V40 painted pedestal facets disabled; optical rings replace them.
+// V41: optical glass is volumetric beveled geometry, not painted flat facets.
+const crystalMat=new T.MeshPhysicalMaterial({color:0x330713,metalness:.32,roughness:.17,transmission:.08,thickness:.5,ior:1.5,clearcoat:1,clearcoatRoughness:.08,side:T.FrontSide,depthWrite:true});
+const crystalDark=new T.MeshPhysicalMaterial({color:0x18030a,metalness:.12,roughness:.12,transmission:.2,thickness:.42,ior:1.5,clearcoat:1,transparent:true,opacity:.84,depthWrite:false});
+const crystalEdge=new T.MeshPhysicalMaterial({color:0xf52250,metalness:.12,roughness:.045,transmission:.56,thickness:.45,ior:1.55,clearcoat:1,emissive:0x34040d,emissiveIntensity:.16});
+const opticalCards=[];
+function makeCrystalCard(group,w,h){
+  const shape=rounded(w,h,.26);
+  const geo=new T.ExtrudeGeometry(shape,{depth:.32,steps:1,bevelEnabled:true,bevelThickness:.14,bevelSize:.15,bevelSegments:10,curveSegments:28});
+  const body=new T.Mesh(geo,crystalMat);body.position.z=-.24;group.add(body);
+  const inset=new T.Mesh(new T.ShapeGeometry(rounded(w-.43,h-.43,.19)),new T.MeshBasicMaterial({color:0x060408,depthWrite:true}));inset.position.z=.225;group.add(inset);
+     // Optical edge highlights are embedded on the actual extruded face perimeter.
+   // No oversized, free-floating contours or separate moving light sweeps.
+   // The subtle outline sits flush with the actual front bevel, rather than floating in front.
+   const edgePts=rounded(w-.16,h-.16,.23).getPoints(160).map(p=>new T.Vector3(p.x,p.y,.225));
+   const attachedEdge=new T.LineLoop(new T.BufferGeometry().setFromPoints(edgePts),new T.LineBasicMaterial({color:0xff6784,transparent:true,opacity:.24,depthWrite:false}));
+   group.add(attachedEdge);
+   // Stable glass: no spinning tetrahedrons or orbiting point lights.
+   opticalCards.push({w,h});
+}
+// The stage is constructed once above; no overlapping glass shells or luminous torus stacks.
 // Canvas labels are drawn on physical panel faces, not positioned as flat HTML cards.
 function labelTexture(title,number){const c=document.createElement('canvas');c.width=1024;c.height=640;const ctx=c.getContext('2d');ctx.clearRect(0,0,1024,640);ctx.fillStyle='#fa5b7d';ctx.font='600 30px Arial';ctx.textAlign='center';ctx.fillText(number+' / CRYSTAL',512,165);ctx.strokeStyle='#ef4666';ctx.lineWidth=3;ctx.strokeRect(492,205,40,40);ctx.fillStyle='#ffffff';ctx.font='bold 65px Arial';ctx.fillText(title,512,350);ctx.fillStyle='#c6aeb7';ctx.font='30px Arial';ctx.fillText('FUNNELFLOW ASSIST',512,425);const tex=new T.CanvasTexture(c);tex.colorSpace=T.SRGBColorSpace;return tex}
 // Panels occupy the viewer-facing foreground, ahead of the central core (z=0).
 // The side panels turn toward the visitor at the center of the atrium, not away.
-const panelSpecs=[['THE EXPERIENCE','01',0,3.25,2.3],['FUNNELS','02',-5.0,1.15,4.15],['AUTOMATIONS','03',5.0,1.15,4.15],['WEB DESIGN','04',-4.65,-2.05,4.8],['THE BUILDER','05',4.65,-2.05,4.8]];const panels=[];panelSpecs.forEach(([title,num,x,y,z],i)=>{const g=new T.Group();g.position.set(x,y,z);g.rotation.y=x===0?0:x<0?.38:-.38;g.rotation.x=i===0?-.055:i>2?-.035:.035;scene.add(g);const body=new T.Mesh(new T.ExtrudeGeometry(rounded(3.65,2.12,.27),{depth:.19,bevelEnabled:true,bevelThickness:.09,bevelSize:.085,bevelSegments:4,steps:1,curveSegments:12}),black);body.position.z=-.17;g.add(body);const front=new T.Mesh(new T.ShapeGeometry(rounded(3.52,2,.25)),glass);front.position.z=.12;g.add(front);const edge=new T.LineLoop(new T.BufferGeometry().setFromPoints(rounded(3.68,2.16,.28).getPoints(64).map(p=>new T.Vector3(p.x,p.y,.135))),new T.LineBasicMaterial({color:0xff4266}));g.add(edge);const inner=new T.LineLoop(new T.BufferGeometry().setFromPoints(rounded(3.49,1.97,.22).getPoints(64).map(p=>new T.Vector3(p.x,p.y,.15))),new T.LineBasicMaterial({color:0x9293a0,transparent:true,opacity:.5}));g.add(inner);const label=new T.Mesh(new T.PlaneGeometry(3.4,2.04),new T.MeshBasicMaterial({map:labelTexture(title,num),transparent:true,depthWrite:false}));label.position.z=.17;g.add(label);const led=sphere(.082,new T.MeshBasicMaterial({color:bright}));led.position.set(0,1.14,-.17);g.add(led);const mount=new T.Mesh(new T.CylinderGeometry(.105,.105,.18,16),new T.MeshPhysicalMaterial({color:0x260810,metalness:.7,roughness:.13,clearcoat:1}));mount.rotation.x=Math.PI/2;mount.position.set(0,1.14,-.18);g.add(mount);const glow=new T.PointLight(ruby,2.5,3);glow.position.set(0,1.17,-.22);g.add(glow);panels.push({g,led,glow,title})});
+const panelSpecs=[['THE EXPERIENCE','01',0,3.25,2.3],['FUNNELS','02',-5.0,1.15,4.15],['AUTOMATIONS','03',5.0,1.15,4.15],['WEB DESIGN','04',-4.65,-2.05,4.8],['THE BUILDER','05',4.65,-2.05,4.8]];const panels=[];panelSpecs.forEach(([title,num,x,y,z],i)=>{const g=new T.Group();g.position.set(x,y,z);g.rotation.y=x===0?0:x<0?.38:-.38;g.rotation.x=i===0?-.055:i>2?-.035:.035;scene.add(g);makeCrystalCard(g,3.65,2.12);const label=new T.Mesh(new T.PlaneGeometry(3.4,2.04),new T.MeshBasicMaterial({map:labelTexture(title,num),transparent:true,depthWrite:false}));label.position.z=.235;label.renderOrder=5;g.add(label);const led=sphere(.082,new T.MeshBasicMaterial({color:bright}));led.position.set(0,1.14,-.17);g.add(led);const mount=new T.Mesh(new T.CylinderGeometry(.105,.105,.18,16),new T.MeshPhysicalMaterial({color:0x260810,metalness:.7,roughness:.13,clearcoat:1}));mount.rotation.x=Math.PI/2;mount.position.set(0,1.14,-.18);g.add(mount);const glow=new T.PointLight(ruby,2.5,3);glow.position.set(0,1.17,-.22);g.add(glow);panels.push({g,led,glow,title})});
 // V29: rear-origin suspension lines terminate at each card's TOP-CENTER REAR anchor.
 // All intermediate points stay BEHIND the panel plane, preventing cables from crossing its face.
 const connections=new T.Group();scene.add(connections);
@@ -37,9 +112,69 @@ panels.forEach((p,i)=>{
   const socket=sphere(.085,new T.MeshBasicMaterial({color:0xff5c7b}));socket.position.copy(end);connections.add(socket);
   const socketLight=new T.PointLight(0xff3158,1.4,1.8);socketLight.position.copy(end);connections.add(socketLight);
 });
-// Small dust motes establish depth.
-const count=280,positions=new Float32Array(count*3);for(let i=0;i<count;i++){positions[i*3]=(Math.random()-.5)*38;positions[i*3+1]=(Math.random()-.5)*17;positions[i*3+2]=(Math.random()-.5)*35-5}const dust=new T.BufferGeometry();dust.setAttribute('position',new T.BufferAttribute(positions,3));scene.add(new T.Points(dust,new T.PointsMaterial({color:0xef345c,size:.045,transparent:true,opacity:.7})));
+// V34 — layered exterior starfield: varied brightness, size, velocity and color.
+// Each star occupies one of four corridors OUTSIDE the grid chamber.
+const starLayers=[];
+const starPalettes=[
+  [0x531025,0x8e1b3a,0xb12a4b],
+  [0x9e2545,0xdb3a60,0xff6685],
+  [0xff7690,0xffb4c3,0xffdfe6]
+];
+function newExteriorStar(initial){
+  const lane=Math.floor(Math.random()*4);let x,y;
+  if(lane===0){x=-23-Math.random()*65;y=(Math.random()-.5)*110;}
+  else if(lane===1){x=23+Math.random()*65;y=(Math.random()-.5)*110;}
+  else if(lane===2){x=(Math.random()-.5)*175;y=12+Math.random()*75;}
+  else{x=(Math.random()-.5)*175;y=-8-Math.random()*75;}
+  return {x,y,z:initial?-145+Math.random()*220:-165-Math.random()*35,phase:Math.random()*6.283};
+}
+// Far: many pinpricks, barely moving. Mid: softer rubies. Near: rare, larger bright stars.
+[
+  {count:1150,size:.055,opacity:.49,minSpeed:.15,maxSpeed:.65},
+  {count:420,size:.13,opacity:.72,minSpeed:.7,maxSpeed:1.9},
+  {count:90,size:.28,opacity:.94,minSpeed:2,maxSpeed:4.3}
+].forEach((cfg,layerIndex)=>{
+  const positions=new Float32Array(cfg.count*3);
+  const colors=new Float32Array(cfg.count*3);
+  const stars=[];
+  for(let i=0;i<cfg.count;i++){
+    const star=newExteriorStar(true);
+    star.speed=cfg.minSpeed+Math.random()*(cfg.maxSpeed-cfg.minSpeed);
+    stars.push(star);
+    const k=i*3;positions[k]=star.x;positions[k+1]=star.y;positions[k+2]=star.z;
+    const palette=starPalettes[layerIndex];
+    const c=new T.Color(palette[Math.floor(Math.random()*palette.length)]);
+    colors[k]=c.r;colors[k+1]=c.g;colors[k+2]=c.b;
+  }
+  const geometry=new T.BufferGeometry();
+  const attr=new T.BufferAttribute(positions,3);attr.setUsage(T.DynamicDrawUsage);
+  geometry.setAttribute('position',attr);
+  geometry.setAttribute('color',new T.BufferAttribute(colors,3));
+  const material=new T.PointsMaterial({size:cfg.size,sizeAttenuation:true,vertexColors:true,
+    transparent:true,opacity:cfg.opacity,depthWrite:false,depthTest:true,
+    fog:false,blending:T.AdditiveBlending});
+  const points=new T.Points(geometry,material);
+  points.frustumCulled=false;points.renderOrder=-1;scene.add(points);
+  starLayers.push({cfg,positions,attr,stars,material,layerIndex});
+});
+let warpLast=performance.now();
+function advanceWarp(now){
+  const dt=Math.min(.05,Math.max(0,(now-warpLast)/1000));warpLast=now;
+  const boost=playing?1.45:1;
+  for(const layer of starLayers){
+    const {positions,attr,stars,material,layerIndex}=layer;
+    for(let i=0;i<stars.length;i++){
+      let s=stars[i];s.z+=s.speed*dt*boost;
+      if(s.z>72){const replacement=newExteriorStar(false);replacement.speed=s.speed;stars[i]=replacement;s=replacement;}
+      const k=i*3;positions[k]=s.x;positions[k+1]=s.y;positions[k+2]=s.z;
+    }
+    attr.needsUpdate=true;
+    // Slow, subtle collective scintillation: no distracting blinking dust.
+    material.opacity=layer.cfg.opacity*(.95+.05*Math.sin(now*.00038+layerIndex*1.8));
+  }
+}
 // Drone flight: close approach, arc around the architecture, rise, then face-on final lock.
-const flight=[{t:0,p:[-9,-1,9],look:[0,.2,0]},{t:2.5,p:[-5,1.2,5.5],look:[0,.3,0]},{t:5.5,p:[3.6,.8,4.8],look:[0,.2,0]},{t:8,p:[8,3,9],look:[0,.4,0]},{t:10.5,p:[2,5,16],look:[0,.1,1.5]},{t:13.5,p:[0,.75,20.5],look:[0,.35,1.4]}];let start=performance.now(),playing=!matchMedia('(prefers-reduced-motion: reduce)').matches,gridOn=true;if(!playing)start-=14000;const status=document.querySelector('#status');function ease(v){return v*v*(3-2*v)}function camAt(t){let i=0;while(i<flight.length-2&&t>flight[i+1].t)i++;const a=flight[i],b=flight[i+1],u=ease(Math.max(0,Math.min(1,(t-a.t)/(b.t-a.t))));const pos=new T.Vector3(...a.p).lerp(new T.Vector3(...b.p),u);const look=new T.Vector3(...a.look).lerp(new T.Vector3(...b.look),u);camera.position.copy(pos);camera.lookAt(look)}document.querySelector('#replay').onclick=()=>{start=performance.now();playing=true};document.querySelector('#skip').onclick=()=>{playing=false;camAt(13.5);status.textContent='INTERIOR VIEW · INWARD-FACING CRYSTAL PANELS'};document.querySelector('#lights').onclick=()=>{gridOn=!gridOn;gridGroup.visible=gridOn;document.querySelector('#lights').textContent='RUBY GRID: '+(gridOn?'ON':'OFF')};function animate(now){requestAnimationFrame(animate);const t=(now-start)/1000;if(playing){camAt(Math.min(t,13.5));status.textContent=t<13.5?'DRONE FLIGHT · '+Math.round(Math.min(t/13.5,1)*100)+'%':'INTERIOR VIEW · INWARD-FACING CRYSTAL PANELS';if(t>=13.5)playing=false}else camAt(13.5);core.rotation.y+=.0035;jewel.rotation.y-=.006;jewel.rotation.x+=.002;outer.rotation.y-=.001;coreHalo.rotation.z+=.002;const pulse=1+.12*Math.sin(now*.0025);redLight.intensity=95*pulse;coreLamp.intensity=40*pulse;panels.forEach((p,i)=>{p.glow.intensity=2.4+.65*Math.sin(now*.0018+i)});renderer.render(scene,camera)}addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.fov=innerWidth<700?55:40;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight)});if(innerWidth<700){camera.fov=55;camera.updateProjectionMatrix()}requestAnimationFrame(animate);
+const flight=[{t:0,p:[-9,-1,9],look:[0,.2,0]},{t:2.5,p:[-5,1.2,5.5],look:[0,.3,0]},{t:5.5,p:[3.6,.8,4.8],look:[0,.2,0]},{t:8,p:[8,3,9],look:[0,.4,0]},{t:10.5,p:[2,5,16],look:[0,.1,1.5]},{t:13.5,p:[0,.75,20.5],look:[0,.35,1.4]}];let start=performance.now(),playing=!matchMedia('(prefers-reduced-motion: reduce)').matches,gridOn=true;if(!playing)start-=14000;const status=document.querySelector('#status');function ease(v){return v*v*(3-2*v)}function camAt(t){let i=0;while(i<flight.length-2&&t>flight[i+1].t)i++;const a=flight[i],b=flight[i+1],u=ease(Math.max(0,Math.min(1,(t-a.t)/(b.t-a.t))));const pos=new T.Vector3(...a.p).lerp(new T.Vector3(...b.p),u);const look=new T.Vector3(...a.look).lerp(new T.Vector3(...b.look),u);camera.position.copy(pos);camera.lookAt(look)}document.querySelector('#replay').onclick=()=>{start=performance.now();playing=true};document.querySelector('#skip').onclick=()=>{playing=false;camAt(13.5);status.textContent='INTERIOR VIEW · INWARD-FACING CRYSTAL PANELS'};document.querySelector('#lights').onclick=()=>{gridOn=!gridOn;gridGroup.visible=gridOn;document.querySelector('#lights').textContent='RUBY GRID: '+(gridOn?'ON':'OFF')};function animate(now){requestAnimationFrame(animate);advanceWarp(now);const t=(now-start)/1000;if(playing){camAt(Math.min(t,13.5));status.textContent=t<13.5?'DRONE FLIGHT · '+Math.round(Math.min(t/13.5,1)*100)+'%':'INTERIOR VIEW · INWARD-FACING CRYSTAL PANELS';if(t>=13.5)playing=false}else camAt(13.5);core.rotation.y+=.0035;jewel.rotation.y-=.0035;jewel.rotation.x+=.0012;outer.rotation.y-=.001;coreHalo.rotation.z+=.002;const seconds=now*.001;
+  const pulse=1+.12*Math.sin(now*.0025);redLight.intensity=95*pulse;coreLamp.intensity=15*pulse;panels.forEach((p,i)=>{p.glow.intensity=2.4+.65*Math.sin(now*.0018+i)});renderer.render(scene,camera)}addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.fov=innerWidth<700?55:40;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight)});if(innerWidth<700){camera.fov=55;camera.updateProjectionMatrix()}requestAnimationFrame(animate);
 })();
 </script></body></html>
