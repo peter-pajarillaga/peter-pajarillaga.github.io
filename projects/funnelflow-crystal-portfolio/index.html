@@ -1,6 +1,6 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>FunnelFlow — Crystal Atrium V46</title><style>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>FunnelFlow — Crystal Atrium V47</title><style>
 :root{color-scheme:dark}*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#020204;color:#f6f2f4;font-family:Inter,Arial,sans-serif}canvas{display:block}#scene{position:fixed;inset:0}#hud{position:fixed;inset:0;pointer-events:none}header{position:absolute;top:22px;left:30px;letter-spacing:.2em;font-size:11px;color:#b6a5ad}header strong{display:block;margin-top:8px;font-size:17px;letter-spacing:.08em;color:white}#controls{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);display:flex;gap:10px;pointer-events:auto;align-items:center;background:rgba(7,7,12,.78);border:1px solid #5c2736;border-radius:40px;padding:9px 12px;backdrop-filter:blur(15px)}button{color:#fff;background:linear-gradient(130deg,#681127,#240912);border:1px solid #e44869;border-radius:30px;padding:10px 16px;cursor:pointer;font-size:11px;font-weight:750;letter-spacing:.04em}button:hover{background:#9b1d3a}#status{position:absolute;bottom:85px;left:50%;transform:translateX(-50%);white-space:nowrap;color:#b5a4ad;font-size:11px;letter-spacing:.19em;text-align:center}#hint{position:absolute;right:25px;top:25px;font-size:11px;color:#b3a0a8;letter-spacing:.08em;text-align:right}#fallback{display:none;position:fixed;inset:0;place-items:center;background:#060408;padding:30px;text-align:center;line-height:1.6}#fallback a{color:#ff718d}@media(max-width:600px){header{left:16px;top:14px;font-size:9px}header strong{font-size:12px}#hint{right:12px;top:72px;font-size:9px}#status{font-size:9px;width:95%;white-space:normal}button{font-size:10px;padding:10px}#controls{width:max-content;max-width:95%}}
-</style></head><body><div id="scene"></div><div id="hud"><header>FUNNELFLOW ASSIST / CRYSTAL EDITION<strong>THE CRYSTAL ATRIUM · V46</strong></header><div id="hint">3D CRYSTAL ARCHITECTURE<br>DRONE ARRIVAL → FRONTAGE VIEW</div><div id="status">CINEMATIC ARRIVAL IN PROGRESS</div><div id="controls"><button id="replay">↻ REPLAY FLIGHT</button><button id="skip">SKIP INTRO</button><button id="lights">RUBY GRID: ON</button></div></div><div id="fallback">The 3D engine could not load. This prototype needs internet access to load Three.js from its CDN.<br>Try opening the GitHub Pages version in Chrome or Edge.</div>
+</style></head><body><div id="scene"></div><div id="hud"><header>FUNNELFLOW ASSIST / CRYSTAL EDITION<strong>THE CRYSTAL ATRIUM · V47</strong></header><div id="hint">3D CRYSTAL ARCHITECTURE<br>DRONE ARRIVAL → FRONTAGE VIEW</div><div id="status">CINEMATIC ARRIVAL IN PROGRESS</div><div id="controls"><button id="replay">↻ REPLAY FLIGHT</button><button id="skip">SKIP INTRO</button><button id="lights">RUBY GRID: ON</button></div></div><div id="fallback">The 3D engine could not load. This prototype needs internet access to load Three.js from its CDN.<br>Try opening the GitHub Pages version in Chrome or Edge.</div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.1/three.min.js"></script><script>
 (()=>{if(!window.THREE){document.querySelector('#fallback').style.display='grid';return}const T=THREE,root=document.querySelector('#scene'),scene=new T.Scene();scene.background=new T.Color(0x020204);scene.fog=new T.FogExp2(0x030207,.017);const camera=new T.PerspectiveCamera(40,innerWidth/innerHeight,.1,400);const renderer=new T.WebGLRenderer({antialias:true,alpha:false,powerPreference:'high-performance'});renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,2.5));renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.3;root.appendChild(renderer.domElement);
 const ruby=0xff244b,bright=0xff5476,steel=0x9da1b3;const black=new T.MeshPhysicalMaterial({color:0x080910,metalness:.78,roughness:.15,clearcoat:1,clearcoatRoughness:.06});const glass=new T.MeshPhysicalMaterial({color:0x14121c,metalness:.45,roughness:.09,transparent:true,opacity:.86,clearcoat:1,clearcoatRoughness:.03,side:T.DoubleSide});const red=new T.MeshBasicMaterial({color:ruby});const white=new T.MeshBasicMaterial({color:0xdedce7});const gridGroup=new T.Group();scene.add(gridGroup);const ambient=new T.AmbientLight(0x8a7180,1.25);scene.add(ambient);const redLight=new T.PointLight(ruby,95,23,1.5);redLight.position.set(0,0.8,1);scene.add(redLight);const key=new T.PointLight(0xd4e5ff,105,38);key.position.set(-7,10,12);scene.add(key);const rim=new T.PointLight(0xff335c,65,30);rim.position.set(9,3,-5);scene.add(rim);
@@ -236,6 +236,49 @@ const FLIGHT_DURATION=13.5/1.2;
 let start=performance.now(),playing=!matchMedia('(prefers-reduced-motion: reduce)').matches,gridOn=true;
 if(!playing)start-=FLIGHT_DURATION*1000;
 const status=document.querySelector('#status');
+// V47 — hover-only crystal activation. No clicks or navigation yet.
+const cardRaycaster=new T.Raycaster(),cardPointer=new T.Vector2(3,3);
+let hoveredPanel=-1;
+const hoverHalos=panels.map((p)=>{
+  const halo=new T.Mesh(new T.PlaneGeometry(3.55,2.02),new T.MeshBasicMaterial({
+    color:0xff315d,transparent:true,opacity:0,blending:T.AdditiveBlending,
+    depthWrite:false,side:T.DoubleSide
+  }));
+  halo.position.z=.205;halo.renderOrder=4;p.g.add(halo);
+  return halo;
+});
+const hoverLevels=panels.map(()=>0);
+function updateCardHover(now){
+  let next=-1;
+  if(!playing&&finePointer&&cardPointer.x<=1&&cardPointer.x>=-1){
+    cardRaycaster.setFromCamera(cardPointer,camera);
+    const hits=cardRaycaster.intersectObjects(panels.map(p=>p.g),true);
+    for(const hit of hits){
+      const index=panels.findIndex(p=>{
+        let o=hit.object;while(o){if(o===p.g)return true;o=o.parent;}return false;
+      });
+      if(index>=0){next=index;break;}
+    }
+  }
+  hoveredPanel=next;
+  renderer.domElement.style.cursor=next>=0?'pointer':'';
+  panels.forEach((p,i)=>{
+    hoverLevels[i]=T.MathUtils.lerp(hoverLevels[i],i===next?1:0,.105);
+    const h=hoverLevels[i];
+    p.g.scale.setScalar(1.25*(1+.035*h));
+    hoverHalos[i].material.opacity=.045*h*(.88+.12*Math.sin(now*.003));
+    p.led.scale.setScalar(1+.7*h);
+    p.glow.intensity=2.4+.65*Math.sin(now*.0018+i)+3.3*h;
+  });
+}
+if(finePointer){
+  root.addEventListener('pointermove',e=>{
+    const r=renderer.domElement.getBoundingClientRect();
+    cardPointer.set(((e.clientX-r.left)/r.width)*2-1,-((e.clientY-r.top)/r.height)*2+1);
+  },{passive:true});
+  root.addEventListener('pointerleave',()=>cardPointer.set(3,3));
+  addEventListener('blur',()=>cardPointer.set(3,3));
+}
 // V44: damped pointer-driven spatial parallax, enabled only after drone arrival.
 const pointerTarget=new T.Vector2(),pointerSmooth=new T.Vector2();
 const finePointer=matchMedia('(hover: hover) and (pointer: fine)').matches;
@@ -271,6 +314,6 @@ opticPulses.forEach(({pulse,curve,offset})=>{
   pulse.material.opacity=.35+.45*Math.sin(Math.PI*phase);
 });
 core.rotation.y+=.0035;jewel.rotation.y-=.0035;jewel.rotation.x+=.0012;outer.rotation.y-=.001;coreHalo.rotation.z+=.002;const seconds=now*.001;
-  const pulse=1+.12*Math.sin(now*.0025);redLight.intensity=95*pulse;coreLamp.intensity=15*pulse;panels.forEach((p,i)=>{p.glow.intensity=2.4+.65*Math.sin(now*.0018+i)});renderer.render(scene,camera)}addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.fov=innerWidth<700?55:40;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight)});if(innerWidth<700){camera.fov=55;camera.updateProjectionMatrix()}requestAnimationFrame(animate);
+  const pulse=1+.12*Math.sin(now*.0025);redLight.intensity=95*pulse;coreLamp.intensity=15*pulse;updateCardHover(now);renderer.render(scene,camera)}addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.fov=innerWidth<700?55:40;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight)});if(innerWidth<700){camera.fov=55;camera.updateProjectionMatrix()}requestAnimationFrame(animate);
 })();
 </script></body></html>
