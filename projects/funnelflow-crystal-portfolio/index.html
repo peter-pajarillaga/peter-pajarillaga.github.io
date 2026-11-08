@@ -63,7 +63,58 @@
  #controls,#controls.cta-arrived,#workWithMe,#workWithMe::after{transition:none!important}
  #workWithMe:hover,#workWithMe:focus-visible{transform:none}
 }
-</style></head><body><div id="scene"></div><div id="hud"><header><strong>FUNNELFLOW ASSIST</strong><span>THE CRYSTAL ATRIUM</span></header><div id="controls"><button id="workWithMe" type="button"><span class="cta-label">WORK WITH ME</span></button></div></div><div id="deploymentUI" aria-hidden="true"><div id="deployWindow"><button id="returnAtrium">← BACK TO ATRIUM</button><h1>FUNNEL ARCHITECTURE</h1><p>Portfolio section preview. Full content coming soon.</p></div></div><div id="fallback">The 3D engine could not load. This prototype needs internet access to load Three.js from its CDN.<br>Try opening the GitHub Pages version in Chrome or Edge.</div>
+
+/* V50.9 — two-level ruby portfolio, no nested modal */
+#deployWindow{overflow:hidden;padding:0;justify-content:stretch;background:linear-gradient(135deg,#2c030e 0%,#090205 20%,#050306 75%,#23040d 100%);border:2px solid #a91739;box-shadow:inset 0 0 22px #8b082f44,0 0 36px #8e062844}
+#returnAtrium{z-index:15;top:18px;right:20px}
+#portfolioGallery,#projectDetail{height:100%;width:100%}
+#portfolioGallery[hidden],#projectDetail[hidden],#otherModule[hidden]{display:none!important}
+.portfolio-gallery{display:flex;flex-direction:column;justify-content:space-around;padding:52px 34px 26px;position:relative;background:radial-gradient(ellipse at 50% 115%,#64051b33,transparent 65%)}
+.portfolio-gallery:before{content:'';position:absolute;inset:0;pointer-events:none;border-radius:22px;background:linear-gradient(133deg,#f9426b38,transparent 13% 89%,#ff2c5840);mask-image:linear-gradient(135deg,#000,transparent 25%,transparent 75%,#000)}
+.gallery-head{text-align:center;position:relative}.ruby-gem{font-size:36px;color:#d91440;text-shadow:0 0 18px #ff1c54}.gallery-head h1{font-size:clamp(28px,4vw,56px)!important;letter-spacing:.18em;margin:10px 0 15px!important}.gallery-head p{font-size:12px;letter-spacing:.38em;color:#a79ca1}
+.gallery-stage{display:flex;align-items:center;gap:15px;min-height:230px}.gallery-cards{display:flex;align-items:center;justify-content:center;flex:1;gap:16px;min-width:0}.gallery-project{position:relative;min-width:0;flex:1;max-width:340px;height:clamp(170px,29vh,255px);padding:10px 10px 15px;border:1px solid #a8203e;border-radius:18px;background:linear-gradient(145deg,#390611,#080305 35%,#26030b);color:#f9f2f3;cursor:pointer;box-shadow:inset 0 2px 3px #ff68843b,0 10px 25px #0009;transition:transform .35s,filter .35s,box-shadow .35s;overflow:hidden}
+.gallery-project img{display:block;width:100%;height:67%;object-fit:cover;object-position:top;border-radius:10px;background:#12090e}.gallery-project strong{display:block;font-size:clamp(11px,1.2vw,16px);margin-top:10px}.gallery-project small{display:block;color:#b9a0aa;letter-spacing:.16em;font-size:9px;margin-top:4px}.gallery-project.featured{transform:translateY(-8px);border-color:#ff4268;box-shadow:0 0 16px #ed144b77,inset 0 1px 3px #ff8ca6}.gallery-project:hover,.gallery-project:focus-visible{transform:translateY(-13px);filter:brightness(1.23)}.gallery-arrow{flex:0 0 40px;width:40px;height:40px;border:1px solid #a91a3a;border-radius:50%;background:linear-gradient(#4b0718,#13030a);color:white;font-size:30px;cursor:pointer}.gallery-arrow:hover{filter:brightness(1.6)}.gallery-dots{display:flex;justify-content:center;gap:9px}.gallery-dot{width:10px;height:10px;border-radius:50%;border:0;background:#6c1028;cursor:pointer}.gallery-dot.active{background:#ff315e;box-shadow:0 0 9px #fa315f}
+.project-detail{position:relative;background:#040408;overflow:hidden}.detail-preview{position:absolute;inset:0 0 0 27%;background:#171a22}.detail-preview img{width:100%;height:100%;object-fit:cover;object-position:top;opacity:.65}.detail-preview:after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,#050509 0%,#050509b8 22%,transparent 70%),linear-gradient(0deg,#05050999,transparent 50%)}.detail-copy{position:relative;z-index:2;overflow-y:auto;height:100%;width:min(47%,510px);padding:clamp(70px,8vh,95px) 20px 28px clamp(24px,4vw,60px);scrollbar-width:thin}.detail-number{color:#fb4b70;font-size:12px;font-weight:700;letter-spacing:.17em}.detail-copy h1{font-size:clamp(30px,4vw,62px)!important;line-height:1.03;letter-spacing:-.04em;margin:20px 0!important}.detail-copy p{color:#d3cbd0;line-height:1.65;font-size:clamp(13px,1.2vw,16px)}.detail-tags{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0}.detail-tags span{border:1px solid #9c2442;border-radius:5px;padding:10px;font-size:10px;font-weight:700;letter-spacing:.05em;background:#070508d9}.back-projects{position:absolute;right:18px;bottom:18px;z-index:5;border:1px solid #d13a60;border-radius:30px;background:#24030ecf;color:white;padding:12px 18px;cursor:pointer;font-weight:700}.technical-toggle{display:flex;justify-content:space-between;width:100%;padding:15px;background:#0a0509d9;border:1px solid #bd2b50;color:#f9f0f2;border-radius:8px;cursor:pointer;font-size:11px;font-weight:700;letter-spacing:.05em}.technical-body{background:#10060bdf;padding:16px;border:1px solid #742038;border-radius:8px;margin-top:8px;color:#ddd;line-height:1.6;font-size:13px}#otherModule{height:100%;display:flex;flex-direction:column;justify-content:center;padding:clamp(24px,5vw,65px)}
+@media(max-width:750px){.portfolio-gallery{padding:65px 12px 20px}.gallery-stage{gap:5px}.gallery-cards{gap:6px}.gallery-project{padding:6px;height:190px}.gallery-project:not(.featured){display:none}.gallery-project strong{font-size:13px}.gallery-arrow{flex-basis:32px;width:32px;height:32px}.gallery-head h1{letter-spacing:.07em}.gallery-head p{letter-spacing:.14em}.detail-preview{inset:0}.detail-preview:after{background:linear-gradient(90deg,#040408f5,#040408a8),linear-gradient(0deg,#040408aa,transparent)}.detail-copy{width:100%;padding:75px 22px 75px}.detail-copy h1{font-size:40px!important}.back-projects{bottom:12px;right:12px}}
+
+/* V51 — matte-black portfolio shell and faceted crystal project frames */
+#deployWindow{background:#030305!important;box-shadow:0 18px 60px rgba(0,0,0,.85),inset 0 0 0 1px rgba(180,15,46,.23)!important;border:1px solid rgba(128,13,35,.7)!important}
+.portfolio-gallery{background:#030305!important;isolation:isolate}
+.portfolio-gallery::before{display:none!important}
+.gallery-head .ruby-gem{display:flex;justify-content:center;align-items:center;height:46px;text-shadow:none;filter:none}
+.gallery-head .ruby-gem svg{display:block;filter:none}
+.gallery-project{
+ border:1px solid rgba(160,19,43,.55)!important;
+ border-radius:21px!important;
+ padding:14px 14px 17px!important;
+ background:linear-gradient(128deg,rgba(255,91,116,.13) 0%,transparent 12% 80%,rgba(255,47,80,.13) 98%),linear-gradient(180deg,#33050e 0%,#160207 30%,#26030b 80%,#130105 100%)!important;
+ box-shadow:inset 0 2px 2px rgba(255,130,151,.36),inset 2px 0 2px rgba(202,30,62,.16),inset -2px 0 2px rgba(220,30,62,.18),inset 0 -2px 2px rgba(240,44,72,.28),0 15px 25px rgba(0,0,0,.70)!important;
+ overflow:hidden;isolation:isolate;
+}
+.gallery-project::before{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:3;background:radial-gradient(ellipse 24% 3% at 51% 0%,rgba(255,166,178,.65),transparent),linear-gradient(120deg,transparent 0 6%,rgba(255,93,120,.28) 9%,transparent 14% 85%,rgba(255,70,99,.16) 91%,transparent 96%);opacity:.67;transition:opacity .3s ease}
+.gallery-project::after{content:'';position:absolute;inset:9px;border:1px solid rgba(16,0,5,.85);border-radius:13px;pointer-events:none;box-shadow:inset 0 1px 2px rgba(255,255,255,.06);z-index:1}
+.gallery-project img{position:relative;z-index:2;border:1px solid rgba(100,12,31,.3);background:#020203!important}
+.gallery-project strong,.gallery-project small{position:relative;z-index:2}
+.gallery-project.featured{border-color:rgba(240,52,87,.8)!important;box-shadow:inset 0 2px 2px rgba(255,149,166,.52),inset 0 -2px 3px rgba(255,50,86,.35),0 0 13px rgba(211,13,55,.26),0 17px 30px rgba(0,0,0,.8)!important}
+.gallery-project:hover::before,.gallery-project:focus-visible::before{opacity:1}
+@media(max-width:750px){.gallery-project{padding:9px!important}}
+
+/* V52 — rotational 3D carousel: matte gallery, polished ruby crystal cards */
+.gallery-stage{perspective:1100px;perspective-origin:50% 48%;overflow:visible;min-height:310px}
+.gallery-cards{position:relative;display:block;flex:1;height:300px;min-width:0;transform-style:preserve-3d;touch-action:pan-y;cursor:grab;user-select:none}
+.gallery-cards:active{cursor:grabbing}
+.gallery-project{position:absolute;left:50%;top:50%;width:min(32vw,340px);height:235px;max-width:none;min-width:0;flex:none;transform-style:preserve-3d;backface-visibility:hidden;will-change:transform,opacity;transition:transform .68s cubic-bezier(.22,1,.36,1),opacity .55s ease,filter .35s ease,box-shadow .35s ease!important;transform-origin:center center}
+.gallery-project.slot-center,.gallery-project.featured{z-index:3;transform:translate(-50%,-50%) translateZ(110px) rotateY(0deg) scale(1.04)!important;opacity:1}
+.gallery-project.slot-left{z-index:2;transform:translate(-50%,-50%) translateX(-94%) translateZ(-45px) rotateY(35deg) scale(.89)!important;opacity:.87}
+.gallery-project.slot-right{z-index:2;transform:translate(-50%,-50%) translateX(94%) translateZ(-45px) rotateY(-35deg) scale(.89)!important;opacity:.87}
+.gallery-project:hover,.gallery-project:focus-visible{filter:brightness(1.24)!important}
+.gallery-project.slot-left:hover,.gallery-project.slot-right:hover{filter:brightness(1.35)!important}
+.gallery-project.slot-center:hover{transform:translate(-50%,-52%) translateZ(120px) scale(1.045)!important}
+.gallery-project img{pointer-events:none}
+.gallery-head .ruby-gem svg{width:30px;height:44px}
+@media(max-width:750px){.gallery-stage{min-height:245px;perspective:800px}.gallery-cards{height:240px}.gallery-project{width:min(65vw,310px);height:205px}.gallery-project:not(.featured){display:block!important}.gallery-project.slot-left{transform:translate(-50%,-50%) translateX(-74%) translateZ(-110px) rotateY(43deg) scale(.75)!important;opacity:.48}.gallery-project.slot-right{transform:translate(-50%,-50%) translateX(74%) translateZ(-110px) rotateY(-43deg) scale(.75)!important;opacity:.48}.gallery-project.slot-center{transform:translate(-50%,-50%) translateZ(60px) scale(.95)!important}.gallery-project.slot-center:hover{transform:translate(-50%,-52%) translateZ(65px) scale(.95)!important}}
+@media(prefers-reduced-motion:reduce){.gallery-project{transition:none!important}}
+</style></head><body><div id="scene"></div><div id="hud"><header><strong>FUNNELFLOW ASSIST</strong><span>THE CRYSTAL ATRIUM</span></header><div id="controls"><button id="workWithMe" type="button"><span class="cta-label">WORK WITH ME</span></button></div></div><div id="deploymentUI" aria-hidden="true"><div id="deployWindow"><button id="returnAtrium">← BACK TO ATRIUM</button><div id="portfolioGallery" class="portfolio-gallery" hidden><div class="gallery-head"><div class="ruby-gem" aria-hidden="true"><svg viewBox="0 0 100 130" width="30" height="44" xmlns="http://www.w3.org/2000/svg"><path d="M50 5 L83 65 L50 125 L17 65 Z" fill="#4c0011" stroke="#d21b42" stroke-width="2"/><path d="M50 5 L83 65 L50 65 Z" fill="#b50a2a"/><path d="M50 5 L17 65 L50 65 Z" fill="#e32248"/><path d="M17 65 L50 65 L50 125 Z" fill="#78041c"/><path d="M83 65 L50 65 L50 125 Z" fill="#250009"/><path d="M50 5 V125 M17 65 H83" fill="none" stroke="#ff486a" stroke-width="1.6"/></svg></div><h1>THE PORTFOLIO</h1><p>SELECT A PROJECT TO EXPLORE</p></div><div class="gallery-stage"><button class="gallery-arrow" id="galleryPrev" aria-label="Previous project">‹</button><div id="galleryCards" class="gallery-cards"></div><button class="gallery-arrow" id="galleryNext" aria-label="Next project">›</button></div><div id="galleryDots" class="gallery-dots"></div></div><div id="projectDetail" class="project-detail" hidden><button id="backToProjects" class="back-projects">← BACK TO PROJECTS</button><div class="detail-preview"><img id="detailImage" alt="Selected project preview"></div><div class="detail-copy"><div id="detailNumber" class="detail-number"></div><h1 id="detailTitle"></h1><p id="detailDescription"></p><div id="detailTags" class="detail-tags"></div><button id="technicalToggle" class="technical-toggle" aria-expanded="false">VIEW TECHNICAL DETAILS <span>+</span></button><div id="technicalBody" class="technical-body" hidden></div></div></div><div id="otherModule" class="other-module"><h1>FUNNEL ARCHITECTURE</h1><p>Portfolio section preview. Full content coming soon.</p></div></div></div><div id="fallback">The 3D engine could not load. This prototype needs internet access to load Three.js from its CDN.<br>Try opening the GitHub Pages version in Chrome or Edge.</div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.1/three.min.js"></script><script>
 (()=>{if(!window.THREE){document.querySelector('#fallback').style.display='grid';return}const T=THREE,root=document.querySelector('#scene'),scene=new T.Scene();scene.background=new T.Color(0x020204);scene.fog=new T.FogExp2(0x030207,.017);const camera=new T.PerspectiveCamera(40,innerWidth/innerHeight,.1,400);const renderer=new T.WebGLRenderer({antialias:true,alpha:false,powerPreference:'high-performance'});renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,2.5));renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.3;root.appendChild(renderer.domElement);
 const ruby=0xff244b,bright=0xff5476,steel=0x9da1b3;const black=new T.MeshPhysicalMaterial({color:0x080910,metalness:.78,roughness:.15,clearcoat:1,clearcoatRoughness:.06});const glass=new T.MeshPhysicalMaterial({color:0x14121c,metalness:.45,roughness:.09,transparent:true,opacity:.86,clearcoat:1,clearcoatRoughness:.03,side:T.DoubleSide});const red=new T.MeshBasicMaterial({color:ruby});const white=new T.MeshBasicMaterial({color:0xdedce7});const gridGroup=new T.Group();scene.add(gridGroup);const ambient=new T.AmbientLight(0x8a7180,1.25);scene.add(ambient);const redLight=new T.PointLight(ruby,95,23,1.5);redLight.position.set(0,0.8,1);scene.add(redLight);const key=new T.PointLight(0xd4e5ff,105,38);key.position.set(-7,10,12);scene.add(key);const rim=new T.PointLight(0xff335c,65,30);rim.position.set(9,3,-5);scene.add(rim);
@@ -300,10 +351,48 @@ function cableAt(end){
  c.cardSocket.position.copy(end);c.ferrule.position.copy(end);
  c.curve=path;
 }
+
+const projectData=[
+ {title:'First Circle',type:'COURSE FUNNEL',image:'assets/first-circle-sales.png',description:'A conversion-focused course funnel for Rewrite and Rise, including sales, checkout, and thank-you experiences.',tags:['CLICKFUNNELS 2.0','COURSE FUNNEL','HTML / CSS / JS'],technical:'Sales page, checkout flow, thank-you page, responsive presentation and custom interface styling.'},
+ {title:'CBA Live 2027',type:'EVENT FUNNEL',image:'assets/cba-live-sales.png',description:'An event registration funnel for Canine Business Academy, with ticket offers, payment options, and post-purchase routing.',tags:['GOHIGHLEVEL','EVENT FUNNEL','CHECKOUT ROUTING'],technical:'Event sales page, full and installment payment paths, optional BBQ order bump, and tailored thank-you pages.'},
+ {title:'CBA Book Sales',type:'BOOK SALES FUNNEL',image:'assets/cba-book-sales.png',description:'A focused book-sales landing experience designed to guide visitors toward a clear purchase action.',tags:['FUNNEL DESIGN','RESPONSIVE DESIGN','LANDING PAGE'],technical:'Custom page sections, visual hierarchy, and mobile-responsive sales presentation.'},
+ {title:'RISE Maui 2027',type:'RETREAT FUNNEL',image:'assets/rise-maui-2027.png',description:'A luxury retreat funnel with editorial visual design, booking options, and a branded checkout experience.',tags:['CLICKFUNNELS 2.0','RETREAT FUNNEL','CUSTOM CSS / JS'],technical:'Responsive retreat sales experience, multiple pricing options, shared-room request handling, and Keap campaign integration.'},
+ {title:'Lotus Roots Functional Healing',type:'WEBSITE / LANDING PAGE',image:'assets/lotus-roots-homepage.png',description:'A responsive ClickFunnels 2.0 homepage for a functional wellness brand, featuring editorial layouts, custom image sections, branded typography, and interactive elements implemented with HTML, CSS and JavaScript.',tags:['CLICKFUNNELS 2.0','WEBSITE / LANDING PAGE','RESPONSIVE DESIGN','HTML / CSS / JS'],technical:'Editorial homepage layout, branded content sections, responsive image treatments, custom CSS and JavaScript interactions.'}
+];
+let galleryIndex=3;
+let suppressGalleryClick=false;
+function rotateGallery(step){galleryIndex=(galleryIndex+step+projectData.length)%projectData.length;renderGallery();}
+const gallery=document.querySelector('#portfolioGallery'),detail=document.querySelector('#projectDetail'),other=document.querySelector('#otherModule');
+function setPortfolioMode(isPortfolio){gallery.hidden=!isPortfolio;detail.hidden=true;other.hidden=isPortfolio;if(isPortfolio)renderGallery();}
+function renderGallery(){
+ const cards=document.querySelector('#galleryCards');cards.replaceChildren();
+ for(let offset=-1;offset<=1;offset++){
+  const idx=(galleryIndex+offset+projectData.length)%projectData.length,p=projectData[idx];
+  const b=document.createElement('button');b.type='button';b.className='gallery-project '+(offset===0?'featured slot-center':offset<0?'slot-left':'slot-right');
+  const im=document.createElement('img');im.src=p.image;im.alt=p.title;im.loading='lazy';
+  const strong=document.createElement('strong');strong.textContent=p.title;
+  const small=document.createElement('small');small.textContent=p.type;
+  b.append(im,strong,small);b.onclick=()=>{if(suppressGalleryClick)return;if(offset===0)openProject(idx);else rotateGallery(offset);};cards.append(b);
+ }
+ const dots=document.querySelector('#galleryDots');dots.replaceChildren();projectData.forEach((_,i)=>{const d=document.createElement('button');d.className='gallery-dot'+(i===galleryIndex?' active':'');d.setAttribute('aria-label','Select project '+(i+1));d.onclick=()=>{galleryIndex=i;renderGallery()};dots.append(d)});
+}
+document.querySelector('#galleryPrev').onclick=()=>rotateGallery(-1);
+document.querySelector('#galleryNext').onclick=()=>rotateGallery(1);
+// Swipe/drag horizontally to rotate. Prevent accidental project opening after drag.
+const galleryRail=document.querySelector('#galleryCards');
+let galleryDrag=null;
+galleryRail.addEventListener('pointerdown',e=>{if(e.button!==0)return;galleryDrag={x:e.clientX,y:e.clientY,id:e.pointerId};});
+galleryRail.addEventListener('pointerup',e=>{if(!galleryDrag||galleryDrag.id!==e.pointerId)return;const dx=e.clientX-galleryDrag.x,dy=e.clientY-galleryDrag.y;galleryDrag=null;if(Math.abs(dx)>42&&Math.abs(dx)>Math.abs(dy)*1.15){suppressGalleryClick=true;rotateGallery(dx<0?1:-1);requestAnimationFrame(()=>setTimeout(()=>{suppressGalleryClick=false},80));}});
+galleryRail.addEventListener('pointercancel',()=>{galleryDrag=null});
+function openProject(index){const p=projectData[index];gallery.hidden=true;detail.hidden=false;document.querySelector('#detailNumber').textContent='PROJECT '+String(index+1).padStart(2,'0');document.querySelector('#detailTitle').textContent=p.title;document.querySelector('#detailDescription').textContent=p.description;const im=document.querySelector('#detailImage');im.src=p.image;im.alt=p.title+' screenshot';const tags=document.querySelector('#detailTags');tags.replaceChildren();p.tags.forEach(t=>{const sp=document.createElement('span');sp.textContent=t;tags.append(sp)});document.querySelector('#technicalBody').textContent=p.technical;document.querySelector('#technicalBody').hidden=true;document.querySelector('#technicalToggle').setAttribute('aria-expanded','false');}
+document.querySelector('#backToProjects').onclick=()=>{detail.hidden=true;gallery.hidden=false;renderGallery()};
+document.querySelector('#technicalToggle').onclick=()=>{const el=document.querySelector('#technicalBody');el.hidden=!el.hidden;document.querySelector('#technicalToggle').setAttribute('aria-expanded',String(!el.hidden))};
+
 function beginDeploy(index){
  if(playing||deployment||index<0)return;
  selectedIndex=index;deployedCard=panels[index];
- document.querySelector('#deployWindow h1').textContent=deployedCard.title;
+ document.querySelector('#otherModule h1').textContent=deployedCard.title;
+ setPortfolioMode(index===0);
  // Snapshot the deployment destination once. The live parallax camera must not
  // drag the selected card around or create a second camera flight.
  const viewDirection=new T.Vector3();camera.getWorldDirection(viewDirection);
