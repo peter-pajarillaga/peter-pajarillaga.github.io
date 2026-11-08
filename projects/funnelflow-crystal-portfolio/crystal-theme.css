@@ -1,0 +1,119 @@
+
+/* FUNNELFLOW ASSIST — CRYSTAL EDITION V24
+   Site-wide transformation; preserves original portfolio structure and JS.
+   V19-inspired black glass, ruby edge illumination, silver glints.
+*/
+:root {
+  --crystal-ruby:#ff334d; --crystal-ruby-soft:#9b142b;
+  --crystal-ink:#030305; --crystal-silver:#dfe7f0;
+  --crystal-line:rgba(255,65,88,.38);
+  --crystal-glass:linear-gradient(150deg,rgba(35,35,43,.82),rgba(3,3,6,.95) 50%,rgba(18,7,13,.94));
+}
+html {scroll-behavior:smooth;scroll-padding-top:110px}
+body {
+  color:#f6f4f7!important;
+  background:#030305!important;
+  background-image:radial-gradient(ellipse at 65% 8%,rgba(104,10,28,.10),transparent 45%)!important;
+}
+body::before {
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:linear-gradient(105deg,transparent 25%,rgba(210,222,240,.018) 49%,transparent 67%);
+}
+#aq-grid-lights,.aq-grid-lights {opacity:.11!important;filter:hue-rotate(145deg) saturate(.55)}
+section {position:relative}
+.site-nav {
+  background:linear-gradient(160deg,rgba(19,18,24,.94),rgba(2,2,5,.96))!important;
+  border:1px solid rgba(245,82,102,.45)!important;
+  border-top-color:rgba(222,231,243,.65)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.22),
+    inset 0 -2px 0 rgba(132,0,24,.30),
+    0 14px 40px rgba(0,0,0,.52),0 0 27px rgba(173,16,44,.13)!important;
+  backdrop-filter:blur(22px) saturate(135%);
+}
+.site-nav::after {
+  content:"";position:absolute;inset:1px;border-radius:inherit;pointer-events:none;
+  background:linear-gradient(105deg,transparent 15%,rgba(255,255,255,.055) 42%,transparent 58%);
+}
+.brand-dot {background:#ff3451!important;box-shadow:0 0 16px rgba(255,31,67,.85)!important}
+.nav-links a {color:#bdbbc3!important}
+.nav-links a:hover,.nav-links a.active {color:#fff!important;text-shadow:0 0 14px rgba(255,59,83,.55)}
+.nav-links a.active {background:linear-gradient(#3b101c,#14070d)!important;border:1px solid #a9233d!important;border-radius:999px!important}
+.nav-cta,.button-primary,.button-secondary,.contact a.button-primary,
+.crystal-explore {
+  color:#fff!important;background:linear-gradient(160deg,#510d20 0%,#13070d 60%,#250710 100%)!important;
+  border:1px solid rgba(255,75,99,.77)!important;border-top-color:rgba(248,208,219,.65)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.20),inset 0 -4px 10px rgba(0,0,0,.4),
+    0 7px 24px rgba(118,6,29,.18)!important;
+  transition:transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s ease!important;
+}
+.nav-cta:hover,.button-primary:hover,.button-secondary:hover {
+  transform:translateY(-3px)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 12px 28px rgba(209,19,51,.3)!important;
+}
+.hero#home {display:block!important}
+.hero {background:transparent!important;min-height:min(850px,95vh)}
+.hero::before {
+  content:"";position:absolute;inset:4% 0 0;pointer-events:none;
+  background:radial-gradient(ellipse at 74% 45%,rgba(118,11,35,.14),transparent 52%);
+}
+.hero-kicker,.section-kicker {color:#ff5b73!important}
+.hero h1 .outline,.hero h1 .outline * {
+  -webkit-text-stroke:1.4px #f04761!important;
+  color:transparent!important;
+  text-shadow:0 0 28px rgba(211,30,58,.12);
+}
+.hero-description {color:#c0b8bf!important}
+.hero-system {filter:drop-shadow(0 18px 30px rgba(0,0,0,.65))}
+.system-glow {background:radial-gradient(ellipse,rgba(152,8,37,.23),transparent 70%)!important}
+.browser-window,.explorer-card,.project-card,.glass-card,.capability-card,
+.tool-card,.stack-card,.system-layer,.contact-panel,.about-stat,
+.tool-details-inner,.viewer-panel {
+  background:var(--crystal-glass)!important;
+  border:1px solid var(--crystal-line)!important;
+  border-top-color:rgba(222,226,235,.53)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.16),
+    inset 0 -3px 0 rgba(101,3,23,.24),
+    0 13px 34px rgba(0,0,0,.43),0 0 23px rgba(152,6,35,.08)!important;
+  backdrop-filter:blur(16px) saturate(125%);
+}
+.browser-window {overflow:hidden!important}
+.browser-window .browser-top {background:linear-gradient(180deg,#19191e,#09090c)!important}
+.browser-top span {background:#ff3451!important;box-shadow:0 0 9px rgba(255,46,77,.6)!important}
+.explorer-card,.project-card,.tool-card,.capability-card,.stack-card {
+  position:relative;isolation:isolate;
+  transition:border-color .35s ease,box-shadow .35s ease,transform .35s ease!important;
+}
+.explorer-card:hover,.project-card:hover,.tool-card:hover,
+.capability-card:hover,.stack-card:hover {
+  border-color:rgba(255,92,111,.83)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.25),
+    0 16px 36px rgba(0,0,0,.5),0 0 25px rgba(235,30,64,.19)!important;
+}
+.explorer-card::after,.project-card::after,.tool-card::after,
+.capability-card::after,.stack-card::after {
+  content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
+  border-radius:inherit;
+  background:linear-gradient(115deg,transparent 34%,rgba(232,238,255,.075) 49%,transparent 63%);
+  background-size:240% 100%;background-position:120% 0;
+  transition:background-position .85s ease;
+}
+.explorer-card:hover::after,.project-card:hover::after,.tool-card:hover::after,
+.capability-card:hover::after,.stack-card:hover::after {background-position:-120% 0}
+.projects,.under-hood,#tools,#about,.contact {background:transparent!important}
+.projects h2,.under-hood h2,#tools h2,#about h2,.contact h2 {color:#f8f5f7!important}
+.contact-panel {border-radius:28px!important;padding:clamp(24px,4vw,65px)!important}
+.contact-panel::before {
+  content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:radial-gradient(ellipse at 100% 0%,rgba(178,18,44,.16),transparent 55%);
+}
+input,textarea,select {accent-color:#ff3852}
+a:focus-visible,button:focus-visible {outline:2px solid #ff6a80;outline-offset:4px}
+@media(max-width:768px) {
+  .hero {min-height:0}
+  .site-nav {backdrop-filter:blur(12px)}
+  .browser-window,.explorer-card,.tool-card,.capability-card {backdrop-filter:blur(8px)}
+}
+@media(prefers-reduced-motion:reduce) {
+  html {scroll-behavior:auto}
+  .explorer-card::after,.project-card::after,.tool-card::after {transition:none}
+}

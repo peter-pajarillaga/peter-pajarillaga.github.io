@@ -1,15 +1,14 @@
-# FunnelFlow Assist — Crystal Edition (Prototype V23)
+# FunnelFlow Assist — Crystal Edition V24
 
-This is a **separate** redesign in `projects/funnelflow-crystal-portfolio/`. The original repository root homepage remains unchanged.
+Site-wide V19-inspired black/ruby crystal treatment. The standalone console demo
+has been removed from the homepage; the original portfolio hero, screenshots,
+projects, systems, tools, About and contact content remain.
 
-- Face-on locked camera after a 5.2s cinematic entrance; V19-inspired reactive ruby button lighting.
-- Silver background reflection moves continuously.
-- Three console buttons navigate to Work, Systems and Tools.
-- Original portfolio content, project cards, and assets reused from repository root.
-- Three.js loaded from CDN; online connection required.
+Upload these files to `projects/funnelflow-crystal-portfolio/`:
+- `index.html` (replace)
+- `crystal-theme.css` (new)
 
-Deploy by replacing only this `projects/funnelflow-crystal-portfolio` folder in your existing repository. Keep root `assets/`, CSS, JS, and `inquiry.html` in place.
+Keep existing `console/` folder as a separate preserved experiment. Do not
+modify the repository root `index.html`, `style.css`, assets, or inquiry page.
 
-Preview: https://peter-pajarillaga.github.io/projects/funnelflow-crystal-portfolio/
-
-This is a first integration prototype, not yet visually browser-tested.
+The site uses existing shared root assets and styles via relative paths.
