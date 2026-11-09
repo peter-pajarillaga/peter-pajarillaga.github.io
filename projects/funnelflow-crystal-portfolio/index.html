@@ -279,7 +279,92 @@
 .gallery-project.slot-far-right{transform:translate(-50%,-50%) translateX(140%) translateZ(-180px) rotateY(-60deg) scale(.58)!important}
 }
 @media(prefers-reduced-motion:reduce){.gallery-project{transition:none!important}}
-</style></head><body><div id="scene"></div><div id="hud"><header><strong>FUNNELFLOW ASSIST</strong><span>THE CRYSTAL ATRIUM</span></header><div id="controls"><button id="workWithMe" type="button"><span class="cta-label">WORK WITH ME</span></button></div></div><div id="deploymentUI" aria-hidden="true"><div id="deployWindow"><button id="returnAtrium">← BACK TO ATRIUM</button><div id="portfolioGallery" class="portfolio-gallery" hidden><div class="gallery-head"><div class="ruby-gem" aria-hidden="true"><svg viewBox="0 0 100 130" width="30" height="44" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M50 5 17 65 50 65Z" fill="#c90932"/><path d="M50 5 83 65 50 65Z" fill="#f12a53"/><path d="M17 65 50 125 50 65Z" fill="#85031e"/><path d="M83 65 50 125 50 65Z" fill="#30000e"/><path d="M50 5 83 65 50 125 17 65Z" fill="none" stroke="#dc1c45" stroke-width="1.3"/><path d="M17 65H83M50 5V125" fill="none" stroke="#b91036" stroke-width="1"/></svg></div><h1>THE PORTFOLIO</h1><p>SELECT A PROJECT TO EXPLORE</p></div><div class="gallery-stage"><button class="gallery-arrow" id="galleryPrev" aria-label="Previous project">‹</button><div id="galleryCards" class="gallery-cards"></div><button class="gallery-arrow" id="galleryNext" aria-label="Next project">›</button></div><div id="galleryDots" class="gallery-dots"></div></div><div id="projectDetail" class="project-detail" hidden><button id="backToProjects" class="back-projects">← BACK TO PROJECTS</button><div class="detail-preview"><img id="detailImage" alt="Selected project preview"></div><div class="detail-copy"><div id="detailNumber" class="detail-number"></div><h1 id="detailTitle"></h1><p id="detailDescription"></p><div id="detailTags" class="detail-tags"></div><button id="technicalToggle" class="technical-toggle" aria-expanded="false">VIEW TECHNICAL DETAILS <span>+</span></button><div id="technicalBody" class="technical-body" hidden></div></div></div><div id="otherModule" class="other-module"><h1>FUNNEL ARCHITECTURE</h1><p>Portfolio section preview. Full content coming soon.</p></div></div></div><div id="fallback">The 3D engine could not load. This prototype needs internet access to load Three.js from its CDN.<br>Try opening the GitHub Pages version in Chrome or Edge.</div>
+
+/* V59 — unified crystalline CTA buttons, aligned controls, fluid carousel */
+#returnAtrium,.back-projects,.technical-toggle,.gallery-arrow{
+  position:relative;isolation:isolate;color:#f6f2f4!important;
+  background:linear-gradient(180deg,#35070e 0%,#180207 34%,#270308 78%,#130105 100%)!important;
+  border:1px solid rgba(177,23,48,.65)!important;
+  box-shadow:inset 0 2px 2px rgba(255,100,120,.35),inset 2px 0 2px rgba(205,28,52,.14),inset -2px 0 2px rgba(165,8,33,.25),inset 0 -2px 2px rgba(165,9,37,.22),0 8px 23px rgba(0,0,0,.75)!important;
+  transition:transform .25s cubic-bezier(.22,1,.36,1),filter .25s,box-shadow .25s!important;
+}
+#returnAtrium:hover,.back-projects:hover,.technical-toggle:hover,.gallery-arrow:hover{transform:translateY(-3px);filter:brightness(1.3)!important}
+#returnAtrium:active,.back-projects:active,.technical-toggle:active,.gallery-arrow:active{transform:translateY(0)}
+#returnAtrium::before,.back-projects::before,.technical-toggle::before,.gallery-arrow::before{
+  content:'';position:absolute;inset:5px;border-radius:inherit;background:#030305;z-index:-1;pointer-events:none;
+  box-shadow:inset 0 1px 1px rgba(255,255,255,.06);
+}
+#returnAtrium::after,.back-projects::after,.technical-toggle::after,.gallery-arrow::after{
+  content:'';position:absolute;top:0;left:15%;width:70%;height:5px;pointer-events:none;
+  background:radial-gradient(ellipse at top,rgba(255,154,166,.7),transparent 75%);
+}
+.gallery-stage{position:relative;display:block!important;min-height:300px!important}
+.gallery-cards{width:calc(100% - 116px);margin:auto;height:300px!important}
+.gallery-arrow{position:absolute!important;top:50%;margin:0!important;width:52px!important;height:52px!important;display:grid;place-items:center;padding:0!important;z-index:10;line-height:1;font-size:32px!important;transform:translateY(-50%)!important}
+.gallery-arrow:hover{transform:translateY(calc(-50% - 3px))!important}
+#galleryPrev{left:0}#galleryNext{right:0}
+.gallery-project{transition:transform .46s cubic-bezier(.2,.75,.25,1),opacity .46s ease!important;}
+.gallery-project.slot-far-left,.gallery-project.slot-far-right{visibility:visible!important;transition:transform .46s cubic-bezier(.2,.75,.25,1),opacity .46s ease!important}
+.gallery-project.slot-left,.gallery-project.slot-right,.gallery-project.slot-center{transition:transform .46s cubic-bezier(.2,.75,.25,1),opacity .46s ease!important}
+.gallery-head .ruby-gem svg{transform-style:preserve-3d;animation:rubyDiamondSpin 5.5s linear infinite;backface-visibility:visible}
+@keyframes rubyDiamondSpin{0%{transform:rotateY(0deg)}100%{transform:rotateY(360deg)}}
+@media(max-width:750px){.gallery-stage{min-height:240px!important}.gallery-cards{width:calc(100% - 72px);height:240px!important}.gallery-arrow{width:36px!important;height:36px!important;font-size:26px!important}}
+@media(prefers-reduced-motion:reduce){.gallery-head .ruby-gem svg{animation:none}.gallery-project{transition:none!important}}
+
+/* V59.2 — restore compact top-right navigation and responsive gesture controls */
+#returnAtrium{
+ position:absolute!important;top:20px!important;right:22px!important;left:auto!important;
+ width:max-content!important;max-width:calc(100% - 44px)!important;
+ min-width:0!important;height:42px!important;min-height:0!important;
+ padding:0 19px!important;display:inline-flex!important;align-items:center;justify-content:center;
+ border-radius:24px!important;white-space:nowrap!important;
+ font-size:11px!important;line-height:1!important;z-index:30!important;
+ transform:none!important;
+}
+#returnAtrium:hover{transform:translateY(-3px)!important}
+.gallery-stage{position:relative!important}
+.gallery-arrow{
+ top:50%!important;bottom:auto!important;flex:none!important;
+ display:flex!important;align-items:center!important;justify-content:center!important;
+ width:48px!important;height:48px!important;min-width:48px!important;
+ border-radius:50%!important;line-height:1!important;
+ transform:translateY(-50%)!important;
+}
+.gallery-arrow:hover{transform:translateY(calc(-50% - 3px))!important}
+#galleryPrev{left:4px!important;right:auto!important}
+#galleryNext{right:4px!important;left:auto!important}
+.gallery-cards{touch-action:pan-y}
+.gallery-project{
+ transition:transform .36s cubic-bezier(.22,.78,.26,1),opacity .36s ease!important;
+}
+.gallery-project.slot-left,.gallery-project.slot-right,.gallery-project.slot-center,
+.gallery-project.slot-far-left,.gallery-project.slot-far-right{
+ transition:transform .36s cubic-bezier(.22,.78,.26,1),opacity .36s ease!important;
+}
+@media(max-width:750px){
+ #returnAtrium{top:12px!important;right:12px!important;height:36px!important;padding:0 12px!important;font-size:10px!important}
+ .gallery-arrow{width:36px!important;height:36px!important;min-width:36px!important}
+ #galleryPrev{left:0!important}#galleryNext{right:0!important}
+}
+
+/* V59.3 — gallery gem and arrows */
+.gallery-head .ruby-gem{display:flex!important;align-items:center!important;justify-content:center!important;perspective:500px}
+.gallery-head .ruby-gem svg{animation:none!important;transform:none!important;filter:drop-shadow(0 0 6px rgba(235,20,63,.35))}
+.gallery-stage{width:100%!important}
+#galleryPrev{left:5.4%!important}
+#galleryNext{right:5.4%!important}
+.gallery-arrow{
+ width:46px!important;height:46px!important;min-width:46px!important;
+ font-size:29px!important;
+ border-radius:50%!important;
+ box-shadow:inset 0 2px 2px rgba(255,130,145,.25),0 5px 14px rgba(0,0,0,.55)!important;
+}
+.gallery-arrow::after{height:3px!important;left:26%!important;width:48%!important}
+@media(max-width:750px){
+ #galleryPrev{left:0!important}#galleryNext{right:0!important}
+ .gallery-arrow{width:34px!important;height:34px!important;min-width:34px!important;font-size:24px!important}
+}
+</style></head><body><div id="scene"></div><div id="hud"><header><strong>FUNNELFLOW ASSIST</strong><span>THE CRYSTAL ATRIUM</span></header><div id="controls"><button id="workWithMe" type="button"><span class="cta-label">WORK WITH ME</span></button></div></div><div id="deploymentUI" aria-hidden="true"><div id="deployWindow"><button id="returnAtrium">← BACK TO ATRIUM</button><div id="portfolioGallery" class="portfolio-gallery" hidden><div class="gallery-head"><div class="ruby-gem" aria-hidden="true"><svg id="portfolioGem3d" viewBox="0 0 100 132" width="38" height="52" role="presentation"></svg></div><h1>THE PORTFOLIO</h1><p>SELECT A PROJECT TO EXPLORE</p></div><div class="gallery-stage"><button class="gallery-arrow" id="galleryPrev" aria-label="Previous project">‹</button><div id="galleryCards" class="gallery-cards"></div><button class="gallery-arrow" id="galleryNext" aria-label="Next project">›</button></div><div id="galleryDots" class="gallery-dots"></div></div><div id="projectDetail" class="project-detail" hidden><button id="backToProjects" class="back-projects">← BACK TO PROJECTS</button><div class="detail-preview"><img id="detailImage" alt="Selected project preview"></div><div class="detail-copy"><div id="detailNumber" class="detail-number"></div><h1 id="detailTitle"></h1><p id="detailDescription"></p><div id="detailTags" class="detail-tags"></div><button id="technicalToggle" class="technical-toggle" aria-expanded="false">VIEW TECHNICAL DETAILS <span>+</span></button><div id="technicalBody" class="technical-body" hidden></div></div></div><div id="otherModule" class="other-module"><h1>FUNNEL ARCHITECTURE</h1><p>Portfolio section preview. Full content coming soon.</p></div></div></div><div id="fallback">The 3D engine could not load. This prototype needs internet access to load Three.js from its CDN.<br>Try opening the GitHub Pages version in Chrome or Edge.</div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.1/three.min.js"></script><script>
 (()=>{if(!window.THREE){document.querySelector('#fallback').style.display='grid';return}const T=THREE,root=document.querySelector('#scene'),scene=new T.Scene();scene.background=new T.Color(0x020204);scene.fog=new T.FogExp2(0x030207,.017);const camera=new T.PerspectiveCamera(40,innerWidth/innerHeight,.1,400);const renderer=new T.WebGLRenderer({antialias:true,alpha:false,powerPreference:'high-performance'});renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,2.5));renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.3;root.appendChild(renderer.domElement);
 const ruby=0xff244b,bright=0xff5476,steel=0x9da1b3;const black=new T.MeshPhysicalMaterial({color:0x080910,metalness:.78,roughness:.15,clearcoat:1,clearcoatRoughness:.06});const glass=new T.MeshPhysicalMaterial({color:0x14121c,metalness:.45,roughness:.09,transparent:true,opacity:.86,clearcoat:1,clearcoatRoughness:.03,side:T.DoubleSide});const red=new T.MeshBasicMaterial({color:ruby});const white=new T.MeshBasicMaterial({color:0xdedce7});const gridGroup=new T.Group();scene.add(gridGroup);const ambient=new T.AmbientLight(0x8a7180,1.25);scene.add(ambient);const redLight=new T.PointLight(ruby,95,23,1.5);redLight.position.set(0,0.8,1);scene.add(redLight);const key=new T.PointLight(0xd4e5ff,105,38);key.position.set(-7,10,12);scene.add(key);const rim=new T.PointLight(0xff335c,65,30);rim.position.set(9,3,-5);scene.add(rim);
@@ -394,17 +479,7 @@ function labelTexture(title,number){
  const ctx=c.getContext('2d');ctx.clearRect(0,0,1024,640);ctx.textAlign='center';
  // Miniature front projection of the centerpiece's double-pyramid octahedron.
  // Dark optical ruby facets, not a pink cut-gem or jewelry silhouette.
- const cx=512,cy=205;
- function facet(points,fill){ctx.beginPath();points.forEach(([x,y],i)=>{i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.closePath();ctx.fillStyle=fill;ctx.fill();}
- const top=[512,146],left=[474,205],right=[550,205],bottom=[512,265],mid=[512,205];
- // Shared tall ruby octahedron identity: saturated red upper facets,
- // deep garnet lower facets, crisp central seam; no external glow.
- facet([top,left,mid],'#c90932');
- facet([top,mid,right],'#f12a53');
- facet([left,bottom,mid],'#85031e');
- facet([mid,bottom,right],'#30000e');
- ctx.strokeStyle='rgba(242,60,91,.55)';ctx.lineWidth=1.5;ctx.lineJoin='round';
- ctx.beginPath();ctx.moveTo(...top);ctx.lineTo(...right);ctx.lineTo(...bottom);ctx.lineTo(...left);ctx.closePath();ctx.moveTo(...top);ctx.lineTo(...bottom);ctx.moveTo(...left);ctx.lineTo(...right);ctx.stroke();
+  // V59: logo is a separate rotating 3D object, not printed on this label.
  // Warm, restrained enamel ink, printed flat on the glossy black face.
  ctx.fillStyle='#f4f4f5';
  ctx.shadowBlur=0;
@@ -416,9 +491,47 @@ function labelTexture(title,number){
  else{ctx.font='bold 59px Arial';ctx.fillText(lines[0],512,334,910);ctx.fillText(lines[1],512,401,910);}
  ctx.shadowBlur=0;const tex=new T.CanvasTexture(c);tex.colorSpace=T.SRGBColorSpace;tex.anisotropy=8;return tex;
 }
+// V59: shared faceted double-pyramid emblem for all five atrium panels.
+const spinningPanelGems=[];
+function addSpinningPanelGem(panel){
+ const logo=new T.Group();
+ // In front of the black enamel panel and its transparent label.
+ logo.position.set(0,.48,.43);
+ const geom=new T.OctahedronGeometry(.24,0).toNonIndexed();
+ const pos=geom.getAttribute('position');
+ const palette=[new T.Color('#c90932'),new T.Color('#f12a53'),new T.Color('#85031e'),new T.Color('#570018')];
+ const colors=[];
+ for(let i=0;i<pos.count;i++){
+   const face=Math.floor(i/3);
+   const c=palette[face%palette.length];
+   colors.push(c.r,c.g,c.b);
+ }
+ geom.setAttribute('color',new T.Float32BufferAttribute(colors,3));
+ const material=new T.MeshPhysicalMaterial({
+   vertexColors:true,metalness:.42,roughness:.13,clearcoat:1,
+   clearcoatRoughness:.055,emissive:0x32000c,emissiveIntensity:.22,
+   side:T.DoubleSide,depthTest:false,depthWrite:false
+ });
+ const jewelLogo=new T.Mesh(geom,material);
+ jewelLogo.scale.set(.82,1.3,.82);
+ jewelLogo.renderOrder=30;
+ logo.add(jewelLogo);
+ const edge=new T.LineSegments(
+   new T.EdgesGeometry(new T.OctahedronGeometry(.24,0)),
+   new T.LineBasicMaterial({color:0xd92550,transparent:true,opacity:.48,depthTest:false,depthWrite:false})
+ );
+ edge.scale.copy(jewelLogo.scale);
+ edge.renderOrder=31;
+ logo.add(edge);
+ const gemLight=new T.PointLight(0xff6382,2.2,1.5);
+ gemLight.position.set(.45,.55,.8);
+ logo.add(gemLight);
+ panel.add(logo);
+ spinningPanelGems.push(logo);
+}
 // Panels occupy the viewer-facing foreground, ahead of the central core (z=0).
 // The side panels turn toward the visitor at the center of the atrium, not away.
-const panelSpecs=[['THE PORTFOLIO','01',0,3.25,2.3],['FUNNEL ARCHITECTURE','02',-5.0,1.15,4.15],['INTELLIGENT SYSTEMS','03',5.0,1.15,4.15],['WEB DESIGN & SEO','04',-4.65,-2.05,4.8],['BEHIND THE BUILDER','05',4.65,-2.05,4.8]];const panels=[];panelSpecs.forEach(([title,num,x,y,z],i)=>{const g=new T.Group();g.position.set(x,y,z);g.rotation.y=x===0?0:x<0?.38:-.38;g.rotation.x=i===0?-.055:i>2?-.035:.035;g.scale.setScalar(1.25);scene.add(g);makeCrystalCard(g,3.65,2.12,true);const label=new T.Mesh(new T.PlaneGeometry(3.4,2.04),new T.MeshBasicMaterial({map:labelTexture(title,num),transparent:true,depthWrite:false}));label.position.z=.235;label.renderOrder=9;g.add(label);const led=sphere(.082,new T.MeshBasicMaterial({color:bright}));led.position.set(0,1.14,-.17);g.add(led);const mount=new T.Mesh(new T.CylinderGeometry(.105,.105,.18,16),new T.MeshPhysicalMaterial({color:0x260810,metalness:.7,roughness:.13,clearcoat:1}));mount.rotation.x=Math.PI/2;mount.position.set(0,1.14,-.18);g.add(mount);const glow=new T.PointLight(ruby,2.5,3);glow.position.set(0,1.17,-.22);g.add(glow);panels.push({g,led,glow,title,glassBody:g.children.find(o=>o.isMesh&&o.geometry?.type==='ExtrudeGeometry').material,glassFace:g.children.find(o=>o.isMesh&&o.geometry?.type==='ShapeGeometry').material})});
+const panelSpecs=[['THE PORTFOLIO','01',0,3.25,2.3],['FUNNEL ARCHITECTURE','02',-5.0,1.15,4.15],['INTELLIGENT SYSTEMS','03',5.0,1.15,4.15],['WEB DESIGN & SEO','04',-4.65,-2.05,4.8],['BEHIND THE BUILDER','05',4.65,-2.05,4.8]];const panels=[];panelSpecs.forEach(([title,num,x,y,z],i)=>{const g=new T.Group();g.position.set(x,y,z);g.rotation.y=x===0?0:x<0?.38:-.38;g.rotation.x=i===0?-.055:i>2?-.035:.035;g.scale.setScalar(1.25);scene.add(g);makeCrystalCard(g,3.65,2.12,true);const label=new T.Mesh(new T.PlaneGeometry(3.4,2.04),new T.MeshBasicMaterial({map:labelTexture(title,num),transparent:true,depthWrite:false}));label.position.z=.235;label.renderOrder=9;g.add(label);addSpinningPanelGem(g);const led=sphere(.082,new T.MeshBasicMaterial({color:bright}));led.position.set(0,1.14,-.17);g.add(led);const mount=new T.Mesh(new T.CylinderGeometry(.105,.105,.18,16),new T.MeshPhysicalMaterial({color:0x260810,metalness:.7,roughness:.13,clearcoat:1}));mount.rotation.x=Math.PI/2;mount.position.set(0,1.14,-.18);g.add(mount);const glow=new T.PointLight(ruby,2.5,3);glow.position.set(0,1.17,-.22);g.add(glow);panels.push({g,led,glow,title,glassBody:g.children.find(o=>o.isMesh&&o.geometry?.type==='ExtrudeGeometry').material,glassFace:g.children.find(o=>o.isMesh&&o.geometry?.type==='ShapeGeometry').material})});
 // V46 — Five-port ruby crystal-optic distribution hub.
 // The ring and all five conduits are stationary; the double-pyramid rotates independently.
 const connections=new T.Group();scene.add(connections);
@@ -562,13 +675,11 @@ function renderGallery(){
   b.setAttribute('aria-hidden',Math.abs(offset)>1?'true':'false');
   b.tabIndex=Math.abs(offset)>1?-1:0;
  });
- const dots=document.querySelector('#galleryDots');dots.replaceChildren();
- projectData.forEach((_,i)=>{
-  const d=document.createElement('button');d.className='gallery-dot'+(i===galleryIndex?' active':'');
-  d.setAttribute('aria-label','Select project '+(i+1));
-  d.onclick=()=>{const distance=carouselOffset(i);if(distance!==0)rotateGallery(distance<0?-1:1)};
-  dots.append(d);
- });
+ const dots=document.querySelector('#galleryDots');
+ if(dots.children.length!==projectData.length){
+  projectData.forEach((_,i)=>{const d=document.createElement('button');d.className='gallery-dot';d.setAttribute('aria-label','Select project '+(i+1));d.onclick=()=>{const distance=carouselOffset(i);if(distance!==0)rotateGallery(distance)};dots.append(d)});
+ }
+ Array.from(dots.children).forEach((d,i)=>d.classList.toggle('active',i===galleryIndex));
 }
 function carouselOffset(idx){
  let offset=(idx-galleryIndex+projectData.length)%projectData.length;
@@ -580,9 +691,31 @@ document.querySelector('#galleryNext').onclick=()=>rotateGallery(1);
 // Swipe/drag horizontally to rotate. Prevent accidental project opening after drag.
 const galleryRail=document.querySelector('#galleryCards');
 let galleryDrag=null;
-galleryRail.addEventListener('pointerdown',e=>{if(e.button!==0)return;galleryDrag={x:e.clientX,y:e.clientY,id:e.pointerId};});
-galleryRail.addEventListener('pointerup',e=>{if(!galleryDrag||galleryDrag.id!==e.pointerId)return;const dx=e.clientX-galleryDrag.x,dy=e.clientY-galleryDrag.y;galleryDrag=null;if(Math.abs(dx)>42&&Math.abs(dx)>Math.abs(dy)*1.15){suppressGalleryClick=true;rotateGallery(dx<0?1:-1);requestAnimationFrame(()=>setTimeout(()=>{suppressGalleryClick=false},80));}});
-galleryRail.addEventListener('pointercancel',()=>{galleryDrag=null});
+galleryRail.style.touchAction='pan-y';
+galleryRail.addEventListener('pointerdown',e=>{
+ if(e.button!==0)return;
+ galleryDrag={x:e.clientX,y:e.clientY,id:e.pointerId,committed:false};
+});
+galleryRail.addEventListener('pointermove',e=>{
+ const d=galleryDrag;
+ if(!d||d.id!==e.pointerId||d.committed)return;
+ const dx=e.clientX-d.x,dy=e.clientY-d.y;
+ // Rotate as soon as the deliberate horizontal gesture is recognized.
+ // Do not wait for pointerup: that delay made dragging feel unresponsive.
+ if(Math.abs(dx)>30&&Math.abs(dx)>Math.abs(dy)*1.12){
+   d.committed=true;
+   suppressGalleryClick=true;
+   rotateGallery(dx<0?1:-1);
+ }
+});
+function finishGalleryDrag(){
+ if(!galleryDrag)return;
+ const committed=galleryDrag.committed;
+ galleryDrag=null;
+ if(committed)setTimeout(()=>{suppressGalleryClick=false},180);
+}
+galleryRail.addEventListener('pointerup',finishGalleryDrag);
+galleryRail.addEventListener('pointercancel',finishGalleryDrag);
 function openProject(index){const p=projectData[index];gallery.hidden=true;detail.hidden=false;document.querySelector('#detailNumber').textContent='PROJECT '+String(index+1).padStart(2,'0');document.querySelector('#detailTitle').textContent=p.title;document.querySelector('#detailDescription').textContent=p.description;const im=document.querySelector('#detailImage');im.src=p.image;im.alt=p.title+' screenshot';const tags=document.querySelector('#detailTags');tags.replaceChildren();p.tags.forEach(t=>{const sp=document.createElement('span');sp.textContent=t;tags.append(sp)});document.querySelector('#technicalBody').textContent=p.technical;document.querySelector('#technicalBody').hidden=true;document.querySelector('#technicalToggle').setAttribute('aria-expanded','false');}
 document.querySelector('#backToProjects').onclick=()=>{detail.hidden=true;gallery.hidden=false;renderGallery()};
 document.querySelector('#technicalToggle').onclick=()=>{const el=document.querySelector('#technicalBody');el.hidden=!el.hidden;document.querySelector('#technicalToggle').setAttribute('aria-expanded',String(!el.hidden))};
@@ -874,7 +1007,41 @@ opticPulses.forEach(({pulse,curve,offset},i)=>{
   pulse.position.copy(curve.getPoint(phase));
   pulse.material.opacity=.35+.45*Math.sin(Math.PI*phase);
 });
-core.rotation.y+=.0035;jewel.rotation.y-=.0035;jewel.rotation.x+=.0012;outer.rotation.y-=.001;coreHalo.rotation.z+=.002;const seconds=now*.001;
+spinningPanelGems.forEach(g=>{g.rotation.y+=.012});core.rotation.y+=.0035;jewel.rotation.y-=.0035;jewel.rotation.x+=.0012;outer.rotation.y-=.001;coreHalo.rotation.z+=.002;const seconds=now*.001;
   redLight.intensity=95;coreLamp.intensity=15;updateDeployment(now);updateCardHover(now);renderer.render(scene,camera)}addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.fov=innerWidth<700?55:40;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight)});if(innerWidth<700){camera.fov=55;camera.updateProjectionMatrix()}requestAnimationFrame(animate);
 })();
-</script></body></html>
+</script>
+<script>
+/* V59.3: actual perspective-projected octahedron, rather than a flat SVG spun edge-on. */
+(()=>{
+ const svg=document.getElementById('portfolioGem3d');
+ if(!svg)return;
+ const NS='http://www.w3.org/2000/svg';
+ const vertices=[[0,1.23,0],[0,-1.23,0],[.72,0,0],[-.72,0,0],[0,0,.72],[0,0,-.72]];
+ const faces=[[0,2,4],[0,4,3],[0,3,5],[0,5,2],[1,4,2],[1,3,4],[1,5,3],[1,2,5]];
+ const shades=['#ff2e60','#e91548','#b50b36','#7b0929','#b60932','#65021e','#390013','#980b2c'];
+ let raf=0;
+ const render=t=>{
+  const a=t*.00055+.38,b=.20+Math.sin(t*.00031)*.13;
+  const ry=([x,y,z])=>[x*Math.cos(a)+z*Math.sin(a),y,-x*Math.sin(a)+z*Math.cos(a)];
+  const rx=([x,y,z])=>[x,y*Math.cos(b)-z*Math.sin(b),y*Math.sin(b)+z*Math.cos(b)];
+  const v=vertices.map(p=>rx(ry(p)));
+  const project=([x,y,z])=>[50+x*39*(3.8/(3.8-z)),66-y*41*(3.8/(3.8-z))];
+  const polys=faces.map((f,i)=>({f,i,z:f.reduce((n,j)=>n+v[j][2],0)/3})).sort((a,b)=>a.z-b.z);
+  svg.replaceChildren();
+  for(const {f,i,z} of polys){
+   const poly=document.createElementNS(NS,'polygon');
+   poly.setAttribute('points',f.map(j=>project(v[j]).map(n=>n.toFixed(2)).join(',')).join(' '));
+   poly.setAttribute('fill',shades[i]);
+   poly.setAttribute('stroke','#f32a59');
+   poly.setAttribute('stroke-width','.65');
+   poly.setAttribute('opacity',String(.72+Math.max(0,z)*.23));
+   svg.append(poly);
+  }
+  if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches)raf=requestAnimationFrame(render);
+ };
+ raf=requestAnimationFrame(render);
+ window.addEventListener('pagehide',()=>cancelAnimationFrame(raf),{once:true});
+})();
+</script>
+</body></html>
