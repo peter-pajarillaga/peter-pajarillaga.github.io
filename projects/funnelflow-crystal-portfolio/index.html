@@ -369,7 +369,53 @@
 #projectDetail .back-projects:hover{transform:translateY(-3px)!important}
 #projectDetail .detail-number{display:none!important}
 @media(max-width:750px){#projectDetail .back-projects{right:14px!important;bottom:14px!important;height:38px!important;padding:0 13px!important}}
-</style></head><body><div id="scene"></div><div id="hud"><header><strong>FUNNELFLOW ASSIST</strong><span>THE CRYSTAL ATRIUM</span></header><div id="controls"><button id="workWithMe" type="button"><span class="cta-label">WORK WITH ME</span></button></div></div><div id="deploymentUI" aria-hidden="true"><div id="deployWindow"><button id="returnAtrium">← BACK TO ATRIUM</button><div id="portfolioGallery" class="portfolio-gallery" hidden><div class="gallery-head"><div class="ruby-gem" aria-hidden="true"><svg id="portfolioGem3d" viewBox="0 0 100 132" width="38" height="52" role="presentation"></svg></div><h1>THE PORTFOLIO</h1><p>SELECT A PROJECT TO EXPLORE</p></div><div class="gallery-stage"><button class="gallery-arrow" id="galleryPrev" aria-label="Previous project">‹</button><div id="galleryCards" class="gallery-cards"></div><button class="gallery-arrow" id="galleryNext" aria-label="Next project">›</button></div><div id="galleryDots" class="gallery-dots"></div></div><div id="projectDetail" class="project-detail" hidden><button id="backToProjects" class="back-projects">← BACK TO PROJECTS</button><div class="detail-preview"><img id="detailImage" alt="Selected project preview"></div><div class="detail-copy"><h1 id="detailTitle"></h1><p id="detailDescription"></p><div id="detailTags" class="detail-tags"></div><button id="technicalToggle" class="technical-toggle" aria-expanded="false">VIEW TECHNICAL DETAILS <span>+</span></button><div id="technicalBody" class="technical-body" hidden></div></div></div><div id="otherModule" class="other-module"><h1>FUNNEL ARCHITECTURE</h1><p>Portfolio section preview. Full content coming soon.</p></div></div></div><div id="fallback">The 3D engine could not load. This prototype needs internet access to load Three.js from its CDN.<br>Try opening the GitHub Pages version in Chrome or Edge.</div>
+
+.gallery-cards,.gallery-project,.project-enamel-face,.project-enamel-face img{
+ -webkit-user-drag:none!important;
+ user-select:none!important;
+ -webkit-user-select:none!important;
+}
+.gallery-cards{touch-action:pan-y!important;cursor:grab}
+.gallery-cards:active{cursor:grabbing}
+.gallery-project{will-change:transform}
+</style>
+<style>
+/* V59.7 — independently scrollable full-length project screenshot */
+#projectDetail .detail-preview{
+  overflow-x:hidden!important;
+  overflow-y:auto!important;
+  overscroll-behavior:contain;
+  scrollbar-width:thin;
+  scrollbar-color:#a92347 #10060b;
+  touch-action:pan-y;
+}
+#projectDetail .detail-preview img{
+  display:block!important;
+  width:100%!important;
+  height:auto!important;
+  min-height:100%;
+  max-width:none!important;
+  object-fit:initial!important;
+  opacity:1!important;
+}
+#projectDetail .detail-preview::after{
+  pointer-events:none!important;
+  position:sticky!important;
+  display:block;
+  height:0;
+  inset:auto!important;
+  background:none!important;
+  content:""!important;
+}
+#projectDetail .detail-preview::-webkit-scrollbar{width:8px}
+#projectDetail .detail-preview::-webkit-scrollbar-thumb{background:#8d1936;border-radius:10px}
+#projectDetail .detail-preview::-webkit-scrollbar-track{background:#0a0509}
+@media(max-width:750px){
+ #projectDetail .detail-preview{inset:0!important;opacity:.55}
+ #projectDetail .detail-copy{pointer-events:auto}
+}
+</style>
+</head><body><div id="scene"></div><div id="hud"><header><strong>FUNNELFLOW ASSIST</strong><span>THE CRYSTAL ATRIUM</span></header><div id="controls"><button id="workWithMe" type="button"><span class="cta-label">WORK WITH ME</span></button></div></div><div id="deploymentUI" aria-hidden="true"><div id="deployWindow"><button id="returnAtrium">← BACK TO ATRIUM</button><div id="portfolioGallery" class="portfolio-gallery" hidden><div class="gallery-head"><div class="ruby-gem" aria-hidden="true"><svg id="portfolioGem3d" viewBox="0 0 100 132" width="38" height="52" role="presentation"></svg></div><h1>THE PORTFOLIO</h1><p>SELECT A PROJECT TO EXPLORE</p></div><div class="gallery-stage"><button class="gallery-arrow" id="galleryPrev" aria-label="Previous project">‹</button><div id="galleryCards" class="gallery-cards"></div><button class="gallery-arrow" id="galleryNext" aria-label="Next project">›</button></div><div id="galleryDots" class="gallery-dots"></div></div><div id="projectDetail" class="project-detail" hidden><button id="backToProjects" class="back-projects">← BACK TO PROJECTS</button><div class="detail-preview"><img id="detailImage" alt="Selected project preview"></div><div class="detail-copy"><h1 id="detailTitle"></h1><p id="detailDescription"></p><div id="detailTags" class="detail-tags"></div><button id="technicalToggle" class="technical-toggle" aria-expanded="false">VIEW TECHNICAL DETAILS <span>+</span></button><div id="technicalBody" class="technical-body" hidden></div></div></div><div id="otherModule" class="other-module"><h1>FUNNEL ARCHITECTURE</h1><p>Portfolio section preview. Full content coming soon.</p></div></div></div><div id="fallback">The 3D engine could not load. This prototype needs internet access to load Three.js from its CDN.<br>Try opening the GitHub Pages version in Chrome or Edge.</div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.1/three.min.js"></script><script>
 (()=>{if(!window.THREE){document.querySelector('#fallback').style.display='grid';return}const T=THREE,root=document.querySelector('#scene'),scene=new T.Scene();scene.background=new T.Color(0x020204);scene.fog=new T.FogExp2(0x030207,.017);const camera=new T.PerspectiveCamera(40,innerWidth/innerHeight,.1,400);const renderer=new T.WebGLRenderer({antialias:true,alpha:false,powerPreference:'high-performance'});renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,2.5));renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.3;root.appendChild(renderer.domElement);
 const ruby=0xff244b,bright=0xff5476,steel=0x9da1b3;const black=new T.MeshPhysicalMaterial({color:0x080910,metalness:.78,roughness:.15,clearcoat:1,clearcoatRoughness:.06});const glass=new T.MeshPhysicalMaterial({color:0x14121c,metalness:.45,roughness:.09,transparent:true,opacity:.86,clearcoat:1,clearcoatRoughness:.03,side:T.DoubleSide});const red=new T.MeshBasicMaterial({color:ruby});const white=new T.MeshBasicMaterial({color:0xdedce7});const gridGroup=new T.Group();scene.add(gridGroup);const ambient=new T.AmbientLight(0x8a7180,1.25);scene.add(ambient);const redLight=new T.PointLight(ruby,95,23,1.5);redLight.position.set(0,0.8,1);scene.add(redLight);const key=new T.PointLight(0xd4e5ff,105,38);key.position.set(-7,10,12);scene.add(key);const rim=new T.PointLight(0xff335c,65,30);rim.position.set(9,3,-5);scene.add(rim);
@@ -693,34 +739,104 @@ function carouselOffset(idx){
 }
 document.querySelector('#galleryPrev').onclick=()=>rotateGallery(-1);
 document.querySelector('#galleryNext').onclick=()=>rotateGallery(1);
-// Swipe/drag horizontally to rotate. Prevent accidental project opening after drag.
+// V59.5 — continuous direct-manipulation 3D carousel.
+// Cards follow the pointer in real time; release snaps to the nearest project.
 const galleryRail=document.querySelector('#galleryCards');
 let galleryDrag=null;
 galleryRail.style.touchAction='pan-y';
+galleryRail.style.userSelect='none';
+galleryRail.style.webkitUserSelect='none';
+galleryRail.addEventListener('dragstart',e=>e.preventDefault());
+const clamp=(n,min,max)=>Math.min(max,Math.max(min,n));
+const lerp=(a,b,t)=>a+(b-a)*t;
+// Match the EXACT resting positions defined by the original CSS slots.
+const smoothPosition=(position)=>{
+ const a=Math.abs(position),sign=Math.sign(position);
+ const mobile=window.innerWidth<=750;
+ const sideX=mobile?74:94,farX=mobile?140:170;
+ const centerZ=mobile?60:110,sideZ=mobile?-110:-45,farZ=mobile?-180:-220;
+ const centerScale=mobile?.95:1.04,sideScale=mobile?.75:.89,farScale=.58;
+ const sideRot=mobile?43:35;
+ const interpolate=(v0,v1,t)=>v0+(v1-v0)*t;
+ const t=Math.min(1,a<=1?a:a-1);
+ if(a<=1)return {x:sign*interpolate(0,sideX,t),z:interpolate(centerZ,sideZ,t),
+ rot:-sign*interpolate(0,sideRot,t),scale:interpolate(centerScale,sideScale,t),
+ opacity:interpolate(1,mobile?.48:.87,t)};
+ return {x:sign*interpolate(sideX,farX,t),z:interpolate(sideZ,farZ,t),
+ rot:-sign*interpolate(sideRot,mobile?60:58,t),scale:interpolate(sideScale,farScale,t),
+ opacity:interpolate(mobile?.48:.87,0,t)};
+};
+function paintDraggedGallery(steps){
+ const cards=[...galleryRail.children];
+ cards.forEach((card,i)=>{
+  let relative=carouselOffset(i)-steps;
+  const n=projectData.length;
+  while(relative>n/2)relative-=n;
+  while(relative< -n/2)relative+=n;
+  const pos=smoothPosition(relative);
+  card.style.setProperty('transition','none','important');
+  card.style.setProperty('transform',`translate(-50%,-50%) translateX(${pos.x}%) translateZ(${pos.z}px) rotateY(${pos.rot}deg) scale(${pos.scale})`,'important');
+  card.style.setProperty('opacity',String(pos.opacity),'important');
+  card.style.setProperty('visibility','visible','important');
+  card.style.setProperty('z-index',String(100-Math.round(Math.abs(relative)*10)),'important');
+  card.style.setProperty('pointer-events','auto','important');
+ });
+}
+function clearDragStyles(){
+ [...galleryRail.children].forEach(card=>{
+  ['transform','transition','opacity','visibility','z-index','pointer-events'].forEach(k=>card.style.removeProperty(k));
+ });
+}
 galleryRail.addEventListener('pointerdown',e=>{
- if(e.button!==0)return;
- galleryDrag={x:e.clientX,y:e.clientY,id:e.pointerId,committed:false};
+ if(e.button!==0||!galleryRail.contains(e.target))return;
+ galleryDrag={id:e.pointerId,x:e.clientX,y:e.clientY,lastX:e.clientX,lastTime:performance.now(),velocity:0,steps:0,active:false};
+ if(e.target.setPointerCapture)try{e.target.setPointerCapture(e.pointerId)}catch{}
 });
 galleryRail.addEventListener('pointermove',e=>{
  const d=galleryDrag;
- if(!d||d.id!==e.pointerId||d.committed)return;
+ if(!d||d.id!==e.pointerId)return;
  const dx=e.clientX-d.x,dy=e.clientY-d.y;
- // Rotate as soon as the deliberate horizontal gesture is recognized.
- // Do not wait for pointerup: that delay made dragging feel unresponsive.
- if(Math.abs(dx)>30&&Math.abs(dx)>Math.abs(dy)*1.12){
-   d.committed=true;
-   suppressGalleryClick=true;
-   rotateGallery(dx<0?1:-1);
+ if(!d.active){
+  if(Math.abs(dx)<7)return;
+  if(Math.abs(dy)>Math.abs(dx)*1.25){galleryDrag=null;return}
+  d.active=true;
+  suppressGalleryClick=true;
  }
+ e.preventDefault();
+ const now=performance.now(),dt=Math.max(1,now-d.lastTime);
+ d.velocity=lerp(d.velocity,(e.clientX-d.lastX)/dt,.28);
+ d.lastTime=now;d.lastX=e.clientX;
+ const stepWidth=Math.max(150,Math.min(330,galleryRail.clientWidth*.29));
+ d.steps=clamp(-dx/stepWidth,-projectData.length,projectData.length);
+ paintDraggedGallery(d.steps);
 });
-function finishGalleryDrag(){
- if(!galleryDrag)return;
- const committed=galleryDrag.committed;
+function endGalleryDrag(e){
+ const d=galleryDrag;
+ if(!d||e.pointerId!==d.id)return;
  galleryDrag=null;
- if(committed)setTimeout(()=>{suppressGalleryClick=false},180);
+ if(!d.active)return;
+ const stepWidth=Math.max(150,Math.min(330,galleryRail.clientWidth*.29));
+ const predicted=d.steps-clamp(d.velocity*115/stepWidth,-.35,.35);
+ const snapped=clamp(Math.round(predicted),-projectData.length,projectData.length);
+ // Preserve current positions while the cards animate toward their CSS slots.
+ galleryIndex=(galleryIndex+snapped+projectData.length)%projectData.length;
+ renderGallery();
+ const cards=[...galleryRail.children];
+ requestAnimationFrame(()=>{
+  cards.forEach(card=>{
+   const idx=Number(card.dataset.projectIndex);
+   const offset=carouselOffset(idx);
+   const pos=smoothPosition(offset);
+   card.style.setProperty('transition','transform .34s cubic-bezier(.22,.78,.26,1),opacity .34s ease','important');
+   card.style.setProperty('transform',`translate(-50%,-50%) translateX(${pos.x}%) translateZ(${pos.z}px) rotateY(${pos.rot}deg) scale(${pos.scale})`,'important');
+   card.style.setProperty('opacity',String(pos.opacity),'important');
+  });
+  setTimeout(()=>{clearDragStyles();suppressGalleryClick=false},370);
+ });
 }
-galleryRail.addEventListener('pointerup',finishGalleryDrag);
-galleryRail.addEventListener('pointercancel',finishGalleryDrag);
+galleryRail.addEventListener('pointerup',endGalleryDrag);
+galleryRail.addEventListener('pointercancel',endGalleryDrag);
+galleryRail.addEventListener('lostpointercapture',e=>{if(galleryDrag?.id===e.pointerId)endGalleryDrag(e)});
 function openProject(index){const p=projectData[index];gallery.hidden=true;detail.hidden=false;document.querySelector('#detailTitle').textContent=p.title;document.querySelector('#detailDescription').textContent=p.description;const im=document.querySelector('#detailImage');im.src=p.image;im.alt=p.title+' screenshot';const tags=document.querySelector('#detailTags');tags.replaceChildren();p.tags.forEach(t=>{const sp=document.createElement('span');sp.textContent=t;tags.append(sp)});document.querySelector('#technicalBody').textContent=p.technical;document.querySelector('#technicalBody').hidden=true;document.querySelector('#technicalToggle').setAttribute('aria-expanded','false');}
 document.querySelector('#backToProjects').onclick=()=>{detail.hidden=true;gallery.hidden=false;renderGallery()};
 document.querySelector('#technicalToggle').onclick=()=>{const el=document.querySelector('#technicalBody');el.hidden=!el.hidden;document.querySelector('#technicalToggle').setAttribute('aria-expanded',String(!el.hidden))};
