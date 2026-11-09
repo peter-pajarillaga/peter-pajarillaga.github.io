@@ -415,6 +415,38 @@
  #projectDetail .detail-copy{pointer-events:auto}
 }
 </style>
+
+<style>
+/* V59.8 — true fixed two-column project presentation */
+#projectDetail.project-detail{display:grid!important;grid-template-columns:36% minmax(0,64%)!important;grid-template-rows:minmax(0,1fr)!important;overflow:hidden!important;background:#040408!important}
+#projectDetail[hidden]{display:none!important}
+#projectDetail .detail-copy{
+  position:relative!important;grid-column:1!important;grid-row:1!important;
+  width:100%!important;max-width:none!important;min-width:0!important;
+  height:100%!important;box-sizing:border-box!important;z-index:3!important;
+  padding:clamp(75px,9vh,105px) clamp(18px,2.4vw,38px) 86px clamp(20px,3vw,48px)!important;
+  background:#040408!important;overflow-x:hidden!important;overflow-y:auto!important;
+}
+#projectDetail .detail-copy h1{font-size:clamp(29px,3.25vw,54px)!important;overflow-wrap:break-word!important}
+#projectDetail .detail-preview{
+  position:relative!important;inset:auto!important;grid-column:2!important;grid-row:1!important;
+  width:100%!important;height:100%!important;min-width:0!important;min-height:0!important;
+  overflow-y:auto!important;overflow-x:hidden!important;z-index:1!important;
+  background:#09080c!important;overscroll-behavior:contain!important;
+}
+#projectDetail .detail-preview img{
+  display:block!important;width:100%!important;height:auto!important;min-height:0!important;
+  max-width:none!important;object-fit:fill!important;opacity:1!important;
+}
+#projectDetail .detail-preview::after{display:none!important}
+#projectDetail .back-projects{z-index:10!important}
+@media(max-width:750px){
+ #projectDetail.project-detail{grid-template-columns:1fr!important;grid-template-rows:minmax(0,42%) minmax(0,58%)!important}
+ #projectDetail .detail-copy{grid-column:1!important;grid-row:1!important;padding:65px 20px 20px!important}
+ #projectDetail .detail-preview{grid-column:1!important;grid-row:2!important;opacity:1!important}
+ #projectDetail .detail-copy h1{font-size:clamp(25px,7vw,38px)!important}
+}
+</style>
 </head><body><div id="scene"></div><div id="hud"><header><strong>FUNNELFLOW ASSIST</strong><span>THE CRYSTAL ATRIUM</span></header><div id="controls"><button id="workWithMe" type="button"><span class="cta-label">WORK WITH ME</span></button></div></div><div id="deploymentUI" aria-hidden="true"><div id="deployWindow"><button id="returnAtrium">← BACK TO ATRIUM</button><div id="portfolioGallery" class="portfolio-gallery" hidden><div class="gallery-head"><div class="ruby-gem" aria-hidden="true"><svg id="portfolioGem3d" viewBox="0 0 100 132" width="38" height="52" role="presentation"></svg></div><h1>THE PORTFOLIO</h1><p>SELECT A PROJECT TO EXPLORE</p></div><div class="gallery-stage"><button class="gallery-arrow" id="galleryPrev" aria-label="Previous project">‹</button><div id="galleryCards" class="gallery-cards"></div><button class="gallery-arrow" id="galleryNext" aria-label="Next project">›</button></div><div id="galleryDots" class="gallery-dots"></div></div><div id="projectDetail" class="project-detail" hidden><button id="backToProjects" class="back-projects">← BACK TO PROJECTS</button><div class="detail-preview"><img id="detailImage" alt="Selected project preview"></div><div class="detail-copy"><h1 id="detailTitle"></h1><p id="detailDescription"></p><div id="detailTags" class="detail-tags"></div><button id="technicalToggle" class="technical-toggle" aria-expanded="false">VIEW TECHNICAL DETAILS <span>+</span></button><div id="technicalBody" class="technical-body" hidden></div></div></div><div id="otherModule" class="other-module"><h1>FUNNEL ARCHITECTURE</h1><p>Portfolio section preview. Full content coming soon.</p></div></div></div><div id="fallback">The 3D engine could not load. This prototype needs internet access to load Three.js from its CDN.<br>Try opening the GitHub Pages version in Chrome or Edge.</div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.1/three.min.js"></script><script>
 (()=>{if(!window.THREE){document.querySelector('#fallback').style.display='grid';return}const T=THREE,root=document.querySelector('#scene'),scene=new T.Scene();scene.background=new T.Color(0x020204);scene.fog=new T.FogExp2(0x030207,.017);const camera=new T.PerspectiveCamera(40,innerWidth/innerHeight,.1,400);const renderer=new T.WebGLRenderer({antialias:true,alpha:false,powerPreference:'high-performance'});renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,2.5));renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.3;root.appendChild(renderer.domElement);
