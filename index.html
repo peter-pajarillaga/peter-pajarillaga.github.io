@@ -51,6 +51,29 @@
   <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="grid-lights.css">
   <link rel="stylesheet" href="cursors.css">
+  <style>
+    /* Live project CTA: isolated from existing carousel and viewer styling */
+    .viewer-live-link {
+      display: inline-flex; align-items: center; justify-content: center; gap: 1.1rem;
+      width: fit-content; max-width: 100%; margin: 0 0 14px;
+      padding: 13px 22px; border: 1px solid #24d9d1; border-radius: 11px;
+      color: #5df5ee; background: rgba(2,17,22,.88);
+      font: 700 12px/1.35 inherit; font-family: inherit; font-size: 12px;
+      font-weight: 800; letter-spacing: .075em; text-decoration: none;
+      box-shadow: 0 0 0 1px rgba(36,217,209,.10), 0 6px 18px rgba(0,0,0,.2);
+      transition: transform .35s cubic-bezier(.22,1,.36,1), box-shadow .35s ease, background .35s ease;
+      position: relative; z-index: 5;
+    }
+    .viewer-live-link:hover, .viewer-live-link:focus-visible {
+      transform: translateY(-4px); background: rgba(5,35,40,.96);
+      box-shadow: 0 9px 12px rgba(0,0,0,.24), 0 0 16px rgba(36,217,209,.2);
+    }
+    .viewer-live-link span {transition: transform .35s ease; font-size: 17px;}
+    .viewer-live-link:hover span {transform: translate(3px,-3px);}
+    @media (prefers-reduced-motion: reduce) {
+      .viewer-live-link, .viewer-live-link span {transition: none;}
+    }
+  </style>
 </head>
 
 <body>
@@ -279,6 +302,9 @@
           <span>CUSTOM CSS</span>
 
         </div>
+
+        <!-- LIVE PROJECT LINK -->
+        <a id="viewerLiveLink" class="viewer-live-link" href="https://donnazerger.com/first-circle-opt-in" target="_blank" rel="noopener noreferrer" aria-label="View First Circle live project">VIEW LIVE PROJECT <span aria-hidden="true">↗</span></a>
 
         <!-- TECHNICAL DETAILS -->
 <div class="viewer-technical">
@@ -809,6 +835,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const viewerTitle = document.getElementById("viewerTitle");
   const viewerDescription = document.getElementById("viewerDescription");
   const viewerTags = document.getElementById("viewerTags");
+  const viewerLiveLink = document.getElementById("viewerLiveLink");
   const projectButtons = [...document.querySelectorAll(".explorer-card")];
   const pageButtons = [...document.querySelectorAll(".page-button")];
 
@@ -816,6 +843,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const projects = {
     "first-circle": {
+      liveUrl: "https://donnazerger.com/first-circle-opt-in",
       number: "PROJECT 01",
       title: "First Circle",
       description: "A GoHighLevel program funnel for Donna Zerger's First Circle, featuring a sales page, checkout and post-purchase experience.",
@@ -827,6 +855,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     },
     "cba-live": {
+      liveUrl: "https://www.caninebusinessacademy.com/cbalive2027",
       number: "PROJECT 02",
       title: "CBA Live 2027",
       description: "An event ticket funnel built in GoHighLevel, featuring ticket options, checkout, a BBQ add-on and tailored post-purchase pages.",
@@ -838,6 +867,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     },
     "cba-book": {
+      liveUrl: "https://www.caninebusinessacademy.com/buy-the-book",
       number: "PROJECT 03",
       title: "CBA Book Funnel",
       description: "A ClickFunnels book sales experience designed to present the offer and guide visitors through the next step.",
@@ -849,6 +879,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     },
     "rise-maui": {
+      liveUrl: "https://retreats.lotusrootsfunctionalhealing.com/opt-in",
       number: "PROJECT 04",
       title: "RISE Maui 2027",
       description: "A live ClickFunnels retreat registration funnel for Lotus Roots Functional Healing, featuring responsive layouts, venue gallery, retreat agenda and registration options built with custom HTML, CSS and JavaScript. Registration contact details flow into Keap, triggering automated email follow-up.",
@@ -858,6 +889,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     },
     "lotus-roots": {
+      liveUrl: "https://www.lotusrootsfunctionalhealing.com/",
       number: "PROJECT 05",
       title: "Lotus Roots Functional Healing",
       description: "A responsive ClickFunnels 2.0 homepage for a functional wellness brand, featuring editorial layouts, custom image sections, branded typography, and interactive elements implemented with HTML, CSS and JavaScript.",
@@ -878,6 +910,10 @@ document.addEventListener("DOMContentLoaded", () => {
     viewerNumber.textContent = project.number;
     viewerTitle.textContent = project.title;
     viewerDescription.textContent = project.description;
+    if (viewerLiveLink) {
+      viewerLiveLink.href = project.liveUrl;
+      viewerLiveLink.setAttribute("aria-label", `View ${project.title} live project (opens in new tab)`);
+    }
     viewerTags.replaceChildren();
     project.tags.forEach(tag => {
       const span = document.createElement("span");
