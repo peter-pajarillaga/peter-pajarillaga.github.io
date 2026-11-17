@@ -481,7 +481,7 @@
             <div class="explorer-card-overlay">
               <small>PROJECT 05</small>
               <strong>Lotus Roots Homepage</strong>
-              <p class="project-seo-description">Responsive ClickFunnels 2.0 website with custom styling, interactions and editorial page design.</p>
+              <p class="project-seo-description">Responsive wellness website and custom Discovery Form with Keap CRM integration and Cloudflare automation.</p>
             </div>
           </button>
 
@@ -928,8 +928,8 @@ document.addEventListener("DOMContentLoaded", () => {
       liveUrl: "https://www.lotusrootsfunctionalhealing.com/",
       number: "PROJECT 05",
       title: "Lotus Roots Functional Healing",
-      description: "A responsive ClickFunnels 2.0 homepage for a functional wellness brand, featuring editorial layouts, custom image sections, branded typography, and interactive elements implemented with HTML, CSS and JavaScript.",
-      tags: ["CLICKFUNNELS 2.0", "WEBSITE / LANDING PAGE", "RESPONSIVE DESIGN", "HTML / CSS / JS"],
+      description: "A multi-page wellness website and client-intake system built with ClickFunnels 2.0, custom HTML, CSS and JavaScript. Includes a four-page Discovery Form, Keap CRM integration and a Cloudflare Workers/D1 backend.",
+      tags: ["CLICKFUNNELS 2.0", "KEAP CRM", "CLOUDFLARE WORKERS", "D1 DATABASE", "HTML / CSS / JS"],
       pages: {
         sales: "assets/lotus-roots-homepage.png"
       }
@@ -1203,9 +1203,14 @@ const details = {
     automation: "Live ClickFunnels-to-Keap integration sends registration contact details into Keap and triggers automated email follow-up sequences."
   },
   "lotus-roots": {
-    platform: "ClickFunnels 2.0",
-    features: "Multi-page functional wellness website featuring the homepage, Meet Suzanne, Our Approach, functional testing and labs, programs, newsletter signup, custom navigation and interactive popups. Built with responsive editorial layouts and custom HTML, CSS and JavaScript.",
-    automation: "CRM integrations, lead nurturing, and follow-up workflows are currently being developed to support the website and its conversion goals."
+    platform: "ClickFunnels 2.0, Keap Max Classic, Cloudflare Workers, Cloudflare D1",
+    features: "Multi-page responsive wellness website featuring the homepage, Meet Suzanne, Our Approach, functional testing and labs, programs, newsletter signup, custom navigation and interactive popups. Built with HTML, CSS and JavaScript.",
+    discovery: "Custom four-page Discovery Form with required-field validation, conditional questions, multiple-choice selections, returning-customer routing and optional newsletter consent.",
+    crm: "ClickFunnels-to-Keap contact synchronization through Cloudflare Workers, including phone numbers and mapping for 22 custom fields. New and returning contacts are handled through dedicated routing logic.",
+    backend: "Serverless webhook processing, submission records, and workflow routing using Cloudflare Workers and D1. Integration testing and verification are part of the implementation.",
+    reporting: "Internal email notifications and Google Sheets submission-tracking integration, with end-to-end synchronization subject to final verification.",
+    automation: "Custom contact-intake and CRM workflows; verification and reporting integrations are being finalized.",
+    technologies: "HTML5, CSS3, JavaScript, REST APIs, Webhooks, ClickFunnels 2.0, Keap CRM, Cloudflare Workers, D1, Google Sheets"
   }
 };
 
@@ -1216,11 +1221,22 @@ function updateDetails(projectId) {
   if (project) {
     content.replaceChildren();
 
-    [
+    const sections = projectId === "lotus-roots" ? [
       ["PLATFORM", project.platform],
-      [projectId === "lotus-roots" ? "WEBSITE FEATURES" : "FUNNEL FEATURES", project.features],
-      [projectId === "lotus-roots" ? "AUTOMATION — IN PROGRESS" : "AUTOMATIONS", project.automation]
-    ].forEach(function ([heading, description]) {
+      ["WEBSITE FEATURES", project.features],
+      ["DISCOVERY FORM DEVELOPMENT", project.discovery],
+      ["CRM INTEGRATION", project.crm],
+      ["BACKEND AUTOMATION", project.backend],
+      ["NOTIFICATIONS & REPORTING", project.reporting],
+      ["AUTOMATION STATUS", project.automation],
+      ["TECHNOLOGIES USED", project.technologies]
+    ] : [
+      ["PLATFORM", project.platform],
+      ["FUNNEL FEATURES", project.features],
+      ["AUTOMATIONS", project.automation]
+    ];
+
+    sections.forEach(function ([heading, description]) {
       const item = document.createElement("div");
       item.className = "technical-detail-item";
 
