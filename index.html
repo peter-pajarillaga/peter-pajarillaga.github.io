@@ -317,10 +317,6 @@
       <!-- STATIC PROJECT INFORMATION -->
       <div class="viewer-info">
 
-        <div class="viewer-project-number" id="viewerNumber">
-          PROJECT 01
-        </div>
-
         <h3 id="viewerTitle">
           First Circle
         </h3>
@@ -619,6 +615,18 @@
             <strong>APIs + Webhooks</strong>
           </button>
           
+<!-- GOOGLE ECOSYSTEM -->
+<button class="tool-card" type="button" data-tool="google" aria-pressed="false" aria-controls="toolDetails">
+  <small>WORKSPACE, ANALYTICS &amp; INTEGRATIONS</small>
+  <strong>Google Workspace &amp; Services</strong>
+</button>
+
+<!-- CLOUDFLARE -->
+<button class="tool-card" type="button" data-tool="cloudflare" aria-pressed="false" aria-controls="toolDetails">
+  <small>SERVERLESS BACKEND &amp; DATABASE</small>
+  <strong>Cloudflare Platform</strong>
+</button>
+
 <!-- ON-PAGE SEO -->
 <button class="tool-card" type="button"
   data-tool="onpage-seo"
@@ -867,7 +875,6 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener("DOMContentLoaded", () => {
   const viewerImage = document.getElementById("viewerImage");
   const viewerScroll = document.getElementById("viewerScroll");
-  const viewerNumber = document.getElementById("viewerNumber");
   const viewerTitle = document.getElementById("viewerTitle");
   const viewerDescription = document.getElementById("viewerDescription");
   const viewerTags = document.getElementById("viewerTags");
@@ -929,7 +936,7 @@ document.addEventListener("DOMContentLoaded", () => {
       number: "PROJECT 05",
       title: "Lotus Roots Functional Healing",
       description: "A multi-page wellness website and client-intake system built with ClickFunnels 2.0, custom HTML, CSS and JavaScript. Includes a four-page Discovery Form, Keap CRM integration and a Cloudflare Workers/D1 backend.",
-      tags: ["CLICKFUNNELS 2.0", "KEAP CRM", "CLOUDFLARE WORKERS", "D1 DATABASE", "HTML / CSS / JS"],
+      tags: ["CLICKFUNNELS 2.0", "KEAP CRM", "CLOUDFLARE WORKERS", "D1 DATABASE", "GOOGLE SHEETS", "HTML / CSS / JS"],
       pages: {
         sales: "assets/lotus-roots-homepage.png"
       }
@@ -943,7 +950,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const project = projects[currentProject];
     if (!project) return;
 
-    viewerNumber.textContent = project.number;
     viewerTitle.textContent = project.title;
     viewerDescription.textContent = project.description;
     if (viewerLiveLink) {
@@ -1126,6 +1132,18 @@ integrations: [
   "INTEGRATIONS",
   "APIs + Webhooks",
   "I connect funnels, CRMs and supporting platforms using available integrations, APIs and webhooks to pass information between systems."
+],
+
+google: [
+  "WORKSPACE, ANALYTICS & INTEGRATIONS",
+  "Google Workspace & Services",
+  "I work with Google tools including Sheets, Calendar, Gmail and Drive for data organization, scheduling and workflow integrations, as well as Google Analytics 4 and Search Console for website measurement and search performance."
+],
+
+cloudflare: [
+  "SERVERLESS BACKEND & DATABASE",
+  "Cloudflare Platform",
+  "I develop serverless integrations using Cloudflare Workers and D1, processing webhooks, storing submission records, and connecting ClickFunnels with Keap CRM through APIs."
 ],
 
 "onpage-seo": [
