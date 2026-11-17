@@ -2677,12 +2677,4 @@ button:focus-visible {
   .hero-system .browser-window { transition: none; }
 }
 
-/* CENTER LIVE PROJECT BUTTON */
-.viewer-info a.viewer-live-link {
-  display: flex !important;
-  width: fit-content !important;
-  max-width: 100%;
-  margin: 0 auto 14px !important;
-  justify-content: center;
-  align-items: center;
-}
+
