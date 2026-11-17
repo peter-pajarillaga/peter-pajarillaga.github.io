@@ -73,6 +73,20 @@
     @media (prefers-reduced-motion: reduce) {
       .viewer-live-link, .viewer-live-link span {transition: none;}
     }
+    /* Make the live link clickable above decorative viewer layers */
+    .portfolio-viewer .viewer-shade { pointer-events: none !important; }
+    .portfolio-viewer .viewer-info { position: relative; z-index: 30 !important; pointer-events: none; }
+    .portfolio-viewer .viewer-info .viewer-live-link,
+    .portfolio-viewer .viewer-info .technical-toggle,
+    .portfolio-viewer .viewer-info .technical-panel { pointer-events: auto !important; }
+    .portfolio-viewer .viewer-info .viewer-live-link {
+      display: flex !important;
+      width: fit-content !important;
+      margin: 0 auto 14px !important;
+      position: relative !important;
+      z-index: 40 !important;
+      cursor: pointer !important;
+    }
   </style>
 </head>
 
