@@ -87,6 +87,27 @@
       z-index: 40 !important;
       cursor: pointer !important;
     }
+
+    /* TOP LEFT LIVE CTA: separate stacking layer, outside viewer-info */
+    .portfolio-viewer { position: relative; }
+    .portfolio-viewer > #viewerLiveLink {
+      position: absolute !important;
+      top: 24px !important;
+      left: 30px !important;
+      right: auto !important;
+      bottom: auto !important;
+      margin: 0 !important;
+      z-index: 2147483000 !important;
+      display: inline-flex !important;
+      width: max-content !important;
+      pointer-events: auto !important;
+      cursor: pointer !important;
+      touch-action: manipulation;
+    }
+    .portfolio-viewer > #viewerLiveLink, .portfolio-viewer > #viewerLiveLink * { cursor: pointer !important; }
+    @media (max-width: 640px) {
+      .portfolio-viewer > #viewerLiveLink { top: 14px !important; left: 14px !important; padding: 10px 14px; font-size: 11px; }
+    }
   </style>
 </head>
 
@@ -290,6 +311,9 @@
       <div class="viewer-shade"></div>
 
 
+      <!-- TOP LEFT LIVE PROJECT LINK -->
+        <a id="viewerLiveLink" class="viewer-live-link" href="https://donnazerger.com/first-circle-opt-in" target="_blank" rel="noopener noreferrer" aria-label="View First Circle live project">VIEW LIVE PROJECT <span aria-hidden="true">↗</span></a>
+
       <!-- STATIC PROJECT INFORMATION -->
       <div class="viewer-info">
 
@@ -317,8 +341,6 @@
 
         </div>
 
-        <!-- LIVE PROJECT LINK -->
-        <a id="viewerLiveLink" class="viewer-live-link" href="https://donnazerger.com/first-circle-opt-in" target="_blank" rel="noopener noreferrer" aria-label="View First Circle live project">VIEW LIVE PROJECT <span aria-hidden="true">↗</span></a>
 
         <!-- TECHNICAL DETAILS -->
 <div class="viewer-technical">
