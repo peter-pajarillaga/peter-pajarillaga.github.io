@@ -104,7 +104,13 @@
       cursor: pointer !important;
       touch-action: manipulation;
     }
-    .portfolio-viewer > #viewerLiveLink, .portfolio-viewer > #viewerLiveLink * { cursor: pointer !important; }
+    /* Live project button: use the custom turquoise hand cursor */
+@media (hover: hover) and (pointer: fine) {
+  .portfolio-viewer > #viewerLiveLink,
+  .portfolio-viewer > #viewerLiveLink * {
+    cursor: url("cursor-hand.png") 12 4, pointer !important;
+  }
+}
     @media (max-width: 640px) {
       .portfolio-viewer > #viewerLiveLink { top: 14px !important; left: 14px !important; padding: 10px 14px; font-size: 11px; }
     }
