@@ -2676,3 +2676,12 @@ button:focus-visible {
 @media (prefers-reduced-motion: reduce) {
   .hero-system .browser-window { transition: none; }
 }
+
+/* CENTER VIEW LIVE PROJECT BUTTON */
+.viewer-info .viewer-live-link,
+.viewer-info .viewer-live-button {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: fit-content;
+  max-width: 100%;
+}
