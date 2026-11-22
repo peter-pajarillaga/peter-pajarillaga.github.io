@@ -2676,5 +2676,42 @@ button:focus-visible {
 @media (prefers-reduced-motion: reduce) {
   .hero-system .browser-window { transition: none; }
 }
-
-
+/* PROJECT VIEWER: restore interactive technical-details hover */
+.portfolio-viewer .viewer-info {
+  position: absolute;
+  z-index: 8;
+  pointer-events: none;
+}
+.portfolio-viewer .viewer-technical,
+.portfolio-viewer .technical-toggle,
+.portfolio-viewer .technical-panel {
+  pointer-events: auto;
+}
+.portfolio-viewer .technical-toggle {
+  position: relative;
+  cursor: pointer;
+  transition: transform .32s cubic-bezier(.22,1,.36,1),
+              background .32s ease, border-color .32s ease,
+              box-shadow .32s ease, color .32s ease;
+}
+@media (hover:hover) {
+  .portfolio-viewer .technical-toggle:hover {
+    transform: translateY(-4px);
+    background: rgba(12,54,59,.96);
+    border-color: #8bfff6;
+    color: #e1fffc;
+    box-shadow: 0 9px 12px rgba(0,0,0,.24), 0 0 20px rgba(64,224,208,.23);
+  }
+}
+.portfolio-viewer .technical-toggle span {
+  transition: transform .3s ease;
+}
+.portfolio-viewer .technical-toggle:hover span { transform: rotate(90deg); }
+.portfolio-viewer .technical-toggle:focus-visible {
+  outline: 2px solid #a5fff4;
+  outline-offset: 4px;
+}
+@media (prefers-reduced-motion:reduce) {
+  .portfolio-viewer .technical-toggle,
+  .portfolio-viewer .technical-toggle span { transition:none; }
+}
